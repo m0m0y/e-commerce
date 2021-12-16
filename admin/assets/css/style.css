@@ -1,0 +1,44 @@
+body {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/*==========index.php===========*/
+.container {
+	top: 20%;
+	transform: translate(0%, 20%);
+}
+img.bg-img {
+	width: 100%;
+}
+.form-container {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 20px;
+	background-color: white;
+	margin: 0;
+	top: 35%;
+	right: -25%;
+	transform: translate(-25%, 35%);
+	width: auto;
+}
+.login-text {
+	margin-bottom: 20px;
+}
+.login-button {
+	margin: 15px 0%;
+}
+.text-link {
+	text-decoration: none;
+	margin-top: 5px;
+}
+
+/*==========registration.php===========*/
+.registrationForm-container {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 20px;
+	background-color: white;
+	position: absolute;
+    top: 28%;
+    left: 50%;
+    transform: translate(-50%, 28%);
+	width: 40%;
+}
