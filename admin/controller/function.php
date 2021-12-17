@@ -1,7 +1,6 @@
 <?php
 require("config.php");
 
-
 class Main extends database_connection{
 
 	function register() {
@@ -68,16 +67,98 @@ class Main extends database_connection{
 	}
 
 	function select_user_groups() {
+		$table="";
 		$conn = $this->db_conn();
-		$sql = "SELECT * FROM admin_user_group";
+		$sql = "SELECT * FROM admin_user_group WHERE user_group_status = 1";
 		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_group()"><i class="fas fa-user-plus"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>User Group Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
 
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				echo $row["name"];
+				$user_group_name = $row["user_group_name"];
+				$user_group_id  = $row['user_group_id'];
+		
+				$table .= '
+					<tr>
+						<td>'.$user_group_name.'</td>
+						<td>
+							<button type="button" name="update" class="btn btn-sm btn-info" id="update_user_button" onclick="update_user_group('.$user_group_id.',\''.$user_group_name.'\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_user_group('.$user_group_id.')"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
 			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="6" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	} 
+
+	function add_user_groups() {
+		$name = $_POST["name"];
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO admin_user_group (user_group_name) VALUES ('".$name."')";
+		if ($conn->query($sql) === TRUE) {
+			echo "New record created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 	}
+
+	function update_user_groups() {
+		$user_group_id = $_POST["user_group_id"];
+		$name = $_POST["name"];
+
+		echo $name;
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE admin_user_group SET user_group_name='$name' WHERE user_group_id ='$user_group_id'";
+		if ($conn->query($sql) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_user_groups() {
+		$user_group_id = $_POST["user_group_id"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE admin_user_group SET user_group_status=0 WHERE user_group_id='$user_group_id'";
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
 }
 
 $class = new Main();
@@ -93,4 +174,17 @@ if(isset($_GET["register"])){
 if(isset($_GET["update_profile"])){
 	$class->update_profile();
 }
+
+if(isset($_GET["delete_user_groups"])){
+	$class->delete_user_groups();
+}
+
+if(isset($_GET["add_user_groups"])){
+	$class->add_user_groups();
+}
+
+if(isset($_GET["update_user_groups"])){
+	$class->update_user_groups();
+}
+
 ?>

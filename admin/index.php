@@ -61,38 +61,7 @@ session_start();
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <script>
-        $(document).ready(function(){
-            $('#submit').on('click',function(){
-                var error_msg = $('#usercheck').val();
-
-                var email = $('#email').val();
-                var pass = $('#password').val();
-
-                if (email == "" || pass == ""){
-                    error_msg = 'Error message!';
-                    $('#usercheck').text(error_msg).addClass("alert alert-danger");
-                } else {
-                    $.ajax({
-                        url:'controller/function.php?login',
-                        type:'post',
-                        data:{
-                            email:email,
-                            pass:pass
-                        },
-                        success: function(response){
-                            if(response=="success") {
-                                window.location.href="home";
-                            } else {
-                                error_msg = 'Your email and password not match!';
-                                $('#usercheck').text(error_msg).addClass("alert alert-danger");
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="script/login.js"></script>
 
 </body>
 

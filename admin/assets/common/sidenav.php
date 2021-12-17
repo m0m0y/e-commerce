@@ -71,7 +71,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Admin Control:</h6>
-                        <a class="collapse-item" href="#">Users</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/user" ? "active" : "") ?>" href="user">Users</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/user_group" ? "active" : "") ?>" href="user_group">User Groups</a>
                     </div>
                 </div>

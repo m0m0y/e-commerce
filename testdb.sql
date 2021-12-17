@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `admin_user` (
   KEY `Index 1` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.admin_user: ~2 rows (approximately)
+-- Dumping data for table testdb.admin_user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `admin_user` DISABLE KEYS */;
 INSERT INTO `admin_user` (`id`, `firstname`, `lastname`, `email`, `password`, `user_group`, `status`, `date_added`) VALUES
 	(1, 'Christian', 'Pascual', 'cpascual107@gmail.com', 'admin', 1, 1, '2021-12-14 08:59:02');
@@ -39,14 +39,16 @@ INSERT INTO `admin_user` (`id`, `firstname`, `lastname`, `email`, `password`, `u
 -- Dumping structure for table testdb.admin_user_group
 CREATE TABLE IF NOT EXISTS `admin_user_group` (
   `user_group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `user_group_name` varchar(50) NOT NULL,
+  `user_group_status` tinyint(1) DEFAULT 1,
   KEY `PRIMARY KEY` (`user_group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.admin_user_group: ~1 rows (approximately)
+-- Dumping data for table testdb.admin_user_group: ~2 rows (approximately)
 /*!40000 ALTER TABLE `admin_user_group` DISABLE KEYS */;
-INSERT INTO `admin_user_group` (`user_group_id`, `name`) VALUES
-	(1, 'Administrator');
+INSERT INTO `admin_user_group` (`user_group_id`, `user_group_name`, `user_group_status`) VALUES
+	(1, 'Administrator', 1),
+	(2, 'Test', 1);
 /*!40000 ALTER TABLE `admin_user_group` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.information
