@@ -32,7 +32,7 @@ $class->islogin($email);
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data tables</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list"></i> User Group</h6>
                         </div>
 
                         <div class="card-body">
@@ -47,7 +47,7 @@ $class->islogin($email);
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <div class="title-container">
-                                                <i class="fas fa-user-plus"></i><h5 class="modal-title">sdsd</h5>
+                                                <h5 class="modal-title"></h5>
                                             </div>
                                         </div> 
                                         <div class="modal-body">
@@ -59,7 +59,7 @@ $class->islogin($email);
                                         </div>   
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>      
-                                            <button type="button" class="btn btn-primary save" name="save">Save</button>           
+                                            <button type="button" class="btn btn-primary save-btn" name="save">Save</button>           
                                         </div>
                                     </div>                                                                       
                                 </div>                                          

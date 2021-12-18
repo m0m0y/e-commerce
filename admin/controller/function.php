@@ -3,27 +3,12 @@ require("config.php");
 
 class Main extends database_connection{
 
-	function register() {
-		$fname = $_POST["fname"];
-		$lname = $_POST["lname"];
-		$email = $_POST["mail"];
-		$pass = $_POST["pass"];
-
-		$conn = $this->db_conn();
-		$sql = "INSERT INTO admin_user (firstname, lastname, email, password) VALUES ('".$fname."', '".$lname."', '".$email."', '".$pass."')";
-		if ($conn->query($sql) === TRUE) {
-			echo "New record created successfully";
-		} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-		}
-	}
-
 	function login() {
 		$email = $_POST["email"];
 		$pass = $_POST["pass"];
 
 		$conn = $this->db_conn();
-		$sql = "SELECT * FROM admin_user WHERE email='$email' AND password='$pass'";
+		$sql = "SELECT * FROM admin_user WHERE email='$email' AND password='$pass' AND admin_status=1";
 		$result = mysqli_query($conn, $sql);
 
 		if (mysqli_num_rows($result) > 0) {
@@ -159,6 +144,116 @@ class Main extends database_connection{
 		}
 	}
 
+	function get_admin_user() {
+		$table="";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM admin_user";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_admin()"><i class="fas fa-user-plus"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Status</th>
+						<th>Date Added</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$admin_user_id = $row["id"];
+				$firstname = $row["firstname"];
+				$lastname  = $row['lastname'];
+				$date_added = $row["date_added"];
+
+				if($row["admin_status"] == 1) {
+					$status = "Enabled";
+				} else {
+					$status = "Disabled";
+				}
+		
+				$table .= '
+					<tr>
+						<td>'.$firstname.'</td>
+						<td>'.$lastname.'</td>
+						<td>'.$status.'</td>
+						<td>'.$date_added.'</td>
+						<td>
+							<button type="button" name="update" class="btn btn-sm btn-info" id="update_user_button" onclick="update_admin_user('.$admin_user_id.',\''.$firstname.'\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_admin_user('.$admin_user_id.')"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="6" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+
+	function delete_admin_users() {
+		$admin_user_id = $_POST["admin_user_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM admin_user WHERE id='$admin_user_id'";
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function get_user_group_id() {
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM admin_user_group";
+		$result = mysqli_query($conn, $sql);
+
+		foreach ($result as $key => $value) {
+			echo '
+				<option value="'.$value["user_group_id"].'">'.$value["user_group_name"].'</option>
+			';
+		}
+	}
+
+	function add_user_admin() {
+		$firstname = $_POST["fname"];
+		$lastname = $_POST["lname"];
+		$email = $_POST["mail"];
+		$password = $_POST["pass"];
+		$user_group = $_POST["user_group"];
+		$admin_status = $_POST["admin_status"];
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO admin_user (firstname, lastname, email, password, user_group, admin_status) VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$password."', '".$user_group."', '".$admin_status."')";
+		if ($conn->query($sql) === TRUE) {
+			echo "New record created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
+
 }
 
 $class = new Main();
@@ -185,6 +280,14 @@ if(isset($_GET["add_user_groups"])){
 
 if(isset($_GET["update_user_groups"])){
 	$class->update_user_groups();
+}
+
+if(isset($_GET["delete_admin_users"])){
+	$class->delete_admin_users();
+}
+
+if(isset($_GET["add_user_admin"])){
+	$class->add_user_admin();
 }
 
 ?>

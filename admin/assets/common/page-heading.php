@@ -18,8 +18,8 @@ switch ($host) {
             <h1 class="h3 mb-0 text-gray-800">User Groups</h1>
         ';
         break;
-    case "test/admin/user";
+    case "/test/admin/user";
         echo'
-            <h1 class="h3 mb-0 text-gray-800">User</h1>
+            <h1 class="h3 mb-0 text-gray-800">Users</h1>
         ';
 }

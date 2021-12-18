@@ -40,9 +40,9 @@ $class->islogin($email);
 
                         <!-- Form -->
                         <div class="p-4">
+                            <div id="alertMessage"></div>
+                            
                             <div class="row mb-3">
-                                <div id="alertMessage"></div>
-
                                 <label for="firstname" class="col-sm-2 col-form-label">* Firstname</label>
                                 <div class="col-sm-10">
                                     <input type="hidden" id="user_id" class="form-control" name="user_id" value="<?php echo $user_id ?>" readonly/>

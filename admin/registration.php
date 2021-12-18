@@ -75,9 +75,7 @@ include "assets/common/header.php";
 				if(pass != confirm_pass) {
 					error_msg = "Password did not match!</div>";
 					$('#usercheck').text(error_msg).addClass("alert alert-danger");
-				}
-
-				else if (fname == "" || lname == "" || mail == "" || pass == "" || confirm_pass == ""){
+				} else if (fname == "" || lname == "" || mail == "" || pass == "" || confirm_pass == ""){
 					error_msg = "Please fill up the form correctly!";
 					$('#usercheck').text(error_msg).addClass("alert alert-danger");
 				} else {

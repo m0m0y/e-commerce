@@ -7,7 +7,7 @@ $(document).ready(function(){
 function add_user_group() {
     $('#Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-user-plus"></i> Add User Group');
-    $('.save').attr("id", "save");
+    $('.save-btn').attr("id", "save");
 
     $('#save').on('click', function(){
         var alert_message = $('#alertMessage').val();
@@ -20,7 +20,9 @@ function add_user_group() {
             $.ajax({
                 url:'controller/function.php?add_user_groups',
                 method:'POST',
-                data:{name:name},
+                data:{
+                    name:name
+                },
                 success:function() {
                     window.location.href="user_group";
                     alert("Success!");
@@ -33,7 +35,7 @@ function add_user_group() {
 function update_user_group(user_group_id, name){
     $('#Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update User Group');
-    $('.save').attr("id", "update");
+    $('.save-btn').attr("id", "update");
     $('#user_group_name').val(name);
 
     $('#update').on('click', function(){
