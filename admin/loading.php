@@ -6,64 +6,55 @@
         content="width=device-width,
                  initial-scale=1.0">
   <title>Dots loading animation</title>
-</head>
+</head>''
 <style>
- .loader{
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   display: flex;
-   align-items: center;
- }
- /* Creating the dots */
- span{
-   height: 25px;
-   width: 25px;
-   margin-right: 10px;
-   border-radius: 50%;
-   background-color: green;
-   animation: loading 1s linear infinite;
- }
- /* Creating the loading animation*/
- @keyframes loading {
-   0%{
-    transform: translateX(0);
-   }
-   25%{
-    transform: translateX(15px);
-   }
-   50%{
-    transform: translateX(-15px);
-   }
-   100%{
-    transform: translateX(0);
-   }
-     
- }
-span:nth-child(1){
-  animation-delay: 0.1s;
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #fff;
 }
-span:nth-child(2){
-  animation-delay: 0.2s;
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #1acc8d;
+  border-top-color: #d2f9eb;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
 }
-span:nth-child(3){
-  animation-delay: 0.3s;
+
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-span:nth-child(4){
-  animation-delay: 0.4s;
-}
-span:nth-child(5){
-  animation-delay: 0.5s;
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style> 
 <body>
-    <h1> asdsd </h1>
-  <div class="loader">
-    <span></span>
-    <span ></span>
-    <span ></span>
-    <span ></span>
-  </div>
+<div id="preloader"></div>
 </body>
 </html>

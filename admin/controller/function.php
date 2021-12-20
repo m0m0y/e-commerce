@@ -260,7 +260,7 @@ class Main extends database_connection{
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO admin_user (firstname, lastname, email, password, user_group, admin_status) VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$password."', '".$user_group."', '".$admin_status."')";
 		if ($conn->query($sql) === TRUE) {
-			echo $user_group;
+			echo "New record created successfully";
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
@@ -278,20 +278,10 @@ class Main extends database_connection{
 			$conn = $this->db_conn();
 			$sql = "UPDATE admin_user SET firstname='".$firstname."' , lastname='".$lastname."', email='".$email."', admin_status='".$status."' WHERE id='$id'";
 			$result = mysqli_query($conn, $sql);
-			if ($conn->query($sql) === TRUE) {
-				echo "Record updated successfully";
-			} else {
-				echo "Error updating record: " . $conn->error;
-			}
 		} else {
 			$conn = $this->db_conn();
 			$sql = "UPDATE admin_user SET firstname='".$firstname."' , lastname='".$lastname."', email='".$email."', pass='".$pass."', admin_status='".$status."' WHERE id='$id'";
 			$result = mysqli_query($conn, $sql);
-			if ($conn->query($sql) === TRUE) {
-				echo "Record updated successfully";
-			} else {
-				echo "Error updating record: " . $conn->error;
-			}
 		}
 	}
 

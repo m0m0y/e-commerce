@@ -357,6 +357,7 @@ $class->islogin($email);
             <!-- End of Main Content -->
 
             <!-- Footer -->
+            <!-- <div id="preloader"></div> -->
             <?php include "assets/common/footer.php"; ?>
 
         </div>
@@ -378,7 +379,7 @@ $class->islogin($email);
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="assetsjs/sb-admin-2.min.js"></script>
+    <script src="assets/js/admin.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
@@ -386,5 +387,4 @@ $class->islogin($email);
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
-
 </body>

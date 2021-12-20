@@ -59,7 +59,7 @@ include "assets/common/header.php";
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+	<script src="assets/js/admin.min.js"></script>
 
 	<script>
 		$(document).ready(function(){

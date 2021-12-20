@@ -13,7 +13,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
    <!-- Custom styles for this template-->
-	<link rel="stylesheet" href="assets/css/sb-admin-2.css">
+	<link rel="stylesheet" href="assets/css/admin.css">
 
 	<link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
