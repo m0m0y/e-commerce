@@ -26,7 +26,7 @@ $class->islogin($email);
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid"> 
-                     <!-- Page Heading -->
+                    <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <?php include "assets/common/page-heading.php"; ?>
                     </div>

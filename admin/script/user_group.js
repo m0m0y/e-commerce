@@ -24,7 +24,7 @@ function add_user_group() {
                     name:name
                 },
                 success:function() {
-                    window.location.href="user_group";
+                    window.location.reload();
                     alert("Success!");
                 }
             });
@@ -54,7 +54,7 @@ function update_user_group(user_group_id, name){
                     user_group_id:user_group_id
                 },
                 success:function() {
-                    window.location.href="user_group";
+                    window.location.reload();
                     alert("Successfully Modified!");     
                 }
             }); 
@@ -68,7 +68,7 @@ function delete_user_group(user_group_id){
         method:'POST', 
         data: {user_group_id},
         success:function() {
-            window.location.href="user_group";
+            window.location.reload();
             alert("Delete Successfully!");        
         }
     });

@@ -57,7 +57,7 @@ class Main extends database_connection{
 		$sql = "SELECT * FROM admin_user_group WHERE user_group_status = 1";
 		$result = mysqli_query($conn, $sql);
 
-		// Admin user group modal
+		// Admin user group table
 		$table .= '
 			<div align="right" style="margin-bottom:5px;">
 				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_group()"><i class="fas fa-user-plus"></i> Add New</button>
@@ -139,16 +139,12 @@ class Main extends database_connection{
 		$conn = $this->db_conn();
 		// Update status
 		$sql = "UPDATE admin_user_group SET user_group_status=0 WHERE user_group_id='$user_group_id'";
-		if ($conn->query($sql) === TRUE) {
-			echo "Record delete successfully";
-		} else {
-			echo "Error updating record: " . $conn->error;
-		}
 
 		// Auto update the table of admin_user
 		$sql1 = "UPDATE admin_user SET admin_status=0 WHERE user_group='$user_group_id'";
-		if ($conn->query($sql1) === TRUE) {
-			echo "";
+
+		if ($conn->query($sql) === TRUE && $conn->query($sql1)) {
+			echo "Record delete successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
 		}
@@ -160,7 +156,7 @@ class Main extends database_connection{
 		$sql = "SELECT * FROM admin_user";
 		$result = mysqli_query($conn, $sql);
 
-		// Admin user modal
+		// Admin user table
 		$table .= '
 			<div align="right" style="margin-bottom:5px;">
 				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_admin()"><i class="fas fa-user-plus"></i> Add New</button>
@@ -274,18 +270,162 @@ class Main extends database_connection{
 		$pass = $_POST["pass"];
 		$status = $_POST["admin_status"];
 
-		if ($pass == NULL || $pass == "") {
+		if ($pass == NULL) {
 			$conn = $this->db_conn();
-			$sql = "UPDATE admin_user SET firstname='".$firstname."' , lastname='".$lastname."', email='".$email."', admin_status='".$status."' WHERE id='$id'";
+			$sql = "UPDATE admin_user SET firstname='$firstname' , lastname='$lastname', email='$email', admin_status='$status' WHERE id='$id'";
 			$result = mysqli_query($conn, $sql);
 		} else {
 			$conn = $this->db_conn();
-			$sql = "UPDATE admin_user SET firstname='".$firstname."' , lastname='".$lastname."', email='".$email."', pass='".$pass."', admin_status='".$status."' WHERE id='$id'";
+			$sql = "UPDATE admin_user SET firstname='$firstname' , lastname='$lastname', email='$email', password='$pass', admin_status='$status' WHERE id='$id'";
 			$result = mysqli_query($conn, $sql);
+		}
+
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE ) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
 		}
 	}
 
+	function select_product() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = $sql = "SELECT product.product_id, product.product_name, product.quantity, product.stock_status_id, product.price, product.product_weight, product.weight_id, product.product_status, product_description.product_desc, product_description.meta_title, product_description.meta_description, product_description.meta_keywords FROM product INNER JOIN product_description ON product.product_id = product_description.product_id";
+		$result = mysqli_query($conn, $sql);
 
+		// Product table
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_product()"><i class="fas fa-plus-square"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Product name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$product_id = $row["product_id"];
+				$name = $row["product_name"];
+				$quantity = $row["quantity"];
+				$price = $row["price"];
+				$product_desc = $row["product_desc"];
+				$meta_title = $row["meta_title"];
+				$meta_description = $row["meta_description"];
+				$meta_keywords = $row["meta_keywords"];
+				$stock_status_id = $row["stock_status_id"];
+				$product_weight = $row["product_weight"];
+				$weight_id = $row["weight_id"];
+				
+				if ($row["product_status"] == 1) {
+					$product_status = "Enable";
+				} else {
+					$product_status = "Disabled";
+				}
+
+				$table .= '
+					<tr>
+						<td>'.$name.'</td>
+						<td>Php '.number_format($price, '2').'</td>
+						<td>'.$quantity.'</td>
+						<td>'.$product_status.'</td>
+						<td>
+							<button type="button" name="update" class="btn btn-sm btn-info" onclick="update_product(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_products(\'' . $product_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="6" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function get_stock_status_id() {
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM stock_status";
+		$result = mysqli_query($conn, $sql);
+
+		foreach ($result as $key => $value) {
+			echo '
+				<option value="'.$value["stock_status_id"].'">'.$value["name"].'</option>
+			';
+		}
+	}
+
+	function get_weight_description() {
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM weight_class_description";
+		$result = mysqli_query($conn, $sql);
+
+		foreach ($result as $key => $value) {
+			echo '
+				<option value="'.$value["id"].'">'.$value["title"].'</option>
+			';
+		}
+	}
+
+	function update_product() {
+		$product_id = $_POST["product_id"];
+		$product_name = $_POST["product_name"];
+		$product_desc = $_POST["product_desc"];
+		$meta_tag_title = $_POST["meta_tag_title"];
+		$meta_tag_description = $_POST["meta_tag_description"];
+		$meta_tag_keywords = $_POST["meta_tag_keywords"];
+		$price = $_POST["price"];
+		$quantity = $_POST["quantity"];
+		$stock_status = $_POST["stock_status"];
+		$product_weight = $_POST["product_weight"];
+		$weight_class = $_POST["weight_class"];
+		$product_status = $_POST["product_status"];
+
+		$conn = $this->db_conn();
+		// Update for Product table
+		$sql = "UPDATE product SET product_name='$product_name', quantity='$quantity', stock_status_id='$stock_status', price='$price', product_weight='$product_weight', weight_id='$weight_class', product_status='$product_status'  WHERE product_id='$product_id'";
+
+		// Update for Product Description table
+		$sql1 = "UPDATE product_description SET product_name='$product_name', product_desc='$product_desc', meta_title='$meta_tag_title', meta_description='$meta_tag_description', meta_keywords='$meta_tag_keywords' WHERE product_id='$product_id'";
+
+		
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE ) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_product() {
+		$product_id = $_POST["product_id"];
+		
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM product WHERE product_id='$product_id'";
+		$sql1 = "DELETE FROM product_description WHERE product_id='$product_id'";
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
 }
 
 $class = new Main();
@@ -326,4 +466,11 @@ if(isset($_GET["update_user_admins"])){
 	$class->update_user_admins();
 }
 
+if(isset($_GET["update_product"])){
+	$class->update_product();
+}
+
+if(isset($_GET["delete_product"])){
+	$class->delete_product();
+}
 ?>

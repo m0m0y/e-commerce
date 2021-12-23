@@ -19,10 +19,14 @@ $(document).ready(function(){
                 url:'controller/function.php?update_profile',
                 method:'POST',
                 data:{
-                    userId:userId, fname:fname, lname:lname, mail:mail, pass:pass
+                    userId:userId, 
+                    fname:fname, 
+                    lname:lname, 
+                    mail:mail, 
+                    pass:pass
                 },
                 success: function(){
-                    window.location.href="profile";
+                    wwindow.location.reload();
                     alert("Successfully modified your profile!");                          
                 }
             });

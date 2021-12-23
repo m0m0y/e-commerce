@@ -33,6 +33,7 @@
                 <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="">Orders</a>
+                        <a class="collapse-item" href="">Cancel Orders</a>
                     </div>
                 </div>
             </li>
@@ -46,7 +47,7 @@
                 <div id="collapseCatalog" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="">Categories</a>
-                        <a class="collapse-item" href="">Products</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/product" ? "active" : "") ?>" href="product">Products</a>
                         <a class="collapse-item" href="">Information</a>
                     </div>
                 </div>
@@ -127,13 +128,5 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
-
         </ul>
     <!-- End of Sidebar -->

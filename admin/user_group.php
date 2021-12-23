@@ -37,8 +37,8 @@ $class->islogin($email);
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                    <!-- Data Tales -->
-                                    <?php $class->select_user_groups(); ?>
+                                <!-- Data Tales -->
+                                <?php $class->select_user_groups(); ?>
                             </div>
 
                             <!-- Modal -->

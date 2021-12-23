@@ -53,21 +53,21 @@ $class->islogin($email);
                                             <div id="alertMessage"></div>
 
                                             <div class="row mb-4">
-                                                <label for="firstname" class="col-sm-3 col-form-label">* Firstname</label>
+                                                <label for="firstname" class="col-sm-3 col-form-label">* Firstname:</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" id="firstname" class="form-control" name="fname" placeholder="First Name">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="lastname" class="col-sm-3 col-form-label">* Lastname</label>
+                                                <label for="lastname" class="col-sm-3 col-form-label">* Lastname:</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" id="lastname" class="form-control" name="lname" placeholder="Last Name">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="user_group" class="col-sm-3 col-form-label"> User Group</label>
+                                                <label for="user_group" class="col-sm-3 col-form-label"> User Group:</label>
                                                 <div class="col-sm-9">
                                                     <select id="user_group" class="form-control" name="user_group">
                                                         <?php $class->get_user_group_id(); ?>
@@ -76,28 +76,28 @@ $class->islogin($email);
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="email" class="col-sm-3 col-form-label">* Email Address</label>
+                                                <label for="email" class="col-sm-3 col-form-label">* Email Address:</label>
                                                 <div class="col-sm-9">
                                                     <input type="email" id="email" class="form-control" name="mail" placeholder="Email Address">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="password" class="col-sm-3 col-form-label">* Password</label>
+                                                <label for="password" class="col-sm-3 col-form-label">* Password:</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" id="password" class="form-control" name="pass" placeholder="Password">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="confirm_password" class="col-sm-3 col-form-label">* Confirm Password</label>
+                                                <label for="confirm_password" class="col-sm-3 col-form-label">* Confirm Password:</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" id="confirm_password" class="form-control" name="confirm_pass" placeholder="Confirm Password">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="firstname" class="col-sm-3 col-form-label">Status</label>
+                                                <label for="admin_status" class="col-sm-3 col-form-label">Status:</label>
                                                 <div class="col-sm-9">
                                                     <select name="admin_status" class="form-control" id="admin_status">
                                                         <option id="admin_status_val" value="1">Enable</option>
@@ -116,6 +116,9 @@ $class->islogin($email);
                         </div>
                     </div>
                 </div>
+
+                <!-- Footer -->
+                <?php include "assets/common/footer.php"; ?>
             </div>
         
         </div>
@@ -253,10 +256,11 @@ $class->islogin($email);
                             lname:lname,
                             mail:mail,
                             pass:pass,
-                            admin_status:admin_status
+                            admin_status:admin_status,
+                            user_group:user_group
                         },
                         success:function(){
-                            window.location.href="user";
+                            window.location.reload();
                             alert("Success");
                         }
                     });
