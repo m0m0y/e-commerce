@@ -296,7 +296,7 @@ class Main extends database_connection{
 		// Product table
 		$table .= '
 			<div align="right" style="margin-bottom:5px;">
-				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_product()"><i class="fas fa-plus-square"></i> Add New</button>
+				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_product()"><i class="fas fa-plus-square"></i> Add New</button>
 			</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
@@ -420,11 +420,19 @@ class Main extends database_connection{
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM product WHERE product_id='$product_id'";
 		$sql1 = "DELETE FROM product_description WHERE product_id='$product_id'";
-		if ($conn->query($sql) === TRUE) {
+		if ($conn->query($sql) === TRUE && $conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
 		}
+	}
+
+	function test() {
+		echo "sdsds";
+	}
+
+	function add_product() {
+		test();
 	}
 }
 
@@ -472,5 +480,9 @@ if(isset($_GET["update_product"])){
 
 if(isset($_GET["delete_product"])){
 	$class->delete_product();
+}
+
+if(isset($_GET["add_product"])){
+	$class->add_product();
 }
 ?>

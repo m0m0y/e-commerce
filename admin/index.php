@@ -24,7 +24,7 @@ session_start();
                                     <div id="usercheck"></div>
                                     
                                     <div class="form-group">
-                                        <input type="email" id="email" class="form-control form-control-user" name="email" placeholder="Enter Email Address"/>
+                                        <input type="email" id="email" class="form-control form-control-user" name="email" placeholder="Email Address"/>
                                     </div>
                                     <div class="form-group">
                                         <input  type="password" id="password" class="form-control form-control-user" name="pass" placeholder ="Password"/>
