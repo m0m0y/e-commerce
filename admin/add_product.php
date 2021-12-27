@@ -211,15 +211,31 @@ $class->islogin($email);
           var weight_class = $('#weight_class').val();
           var product_status = $('#product_status').val();
 
-          // if (product_name == "" || meta_tag_title == "" || price == ""|| quantity == "") {
-          //   alert_message = "Please fill up the form correctly!";
-          //   $('#alertMessage').text(alert_message).addClass("alert alert-danger");
-          // } else {
+          if (product_name == "" || meta_tag_title == "" || price == ""|| quantity == "") {
+            alert_message = "Please fill up the required field!";
+            $('#alertMessage').text(alert_message).addClass("alert alert-danger");
+          } else {
             $.ajax({
                 url: 'controller/function.php?add_product',
                 method: 'POST',
+                data:{
+                  product_name:product_name,
+                  description:description,
+                  meta_tag_title:meta_tag_title,
+                  meta_tag_description:meta_tag_description,
+                  meta_tag_keywords:meta_tag_keywords,
+                  price:price,
+                  quantity:quantity,
+                  stock_status:stock_status,
+                  product_weight:product_weight,
+                  weight_class:weight_class,
+                  product_status:product_status
+                },
+                success: function(){
+                  window.location.reload();                      
+                }
             });
-          // }
+          }
         });
       });
     </script>

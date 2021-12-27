@@ -1,3 +1,2 @@
-<?php
-echo "view shop only";
-?>
+<?php 
+include "shop/home.php";

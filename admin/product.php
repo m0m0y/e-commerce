@@ -199,7 +199,7 @@ $class->islogin($email);
             $('#price').val(number_format(price, '2'));
             $('#quantity').val(quantity);
             $('#stock_status').val(stock_status_id);
-            $('#weight').val(weight);
+            $('#weight').val(product_weight);
             $('#weight_class').val(weight_id);
 
             if (product_status == "Enable") {

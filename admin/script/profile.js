@@ -26,7 +26,7 @@ $(document).ready(function(){
                     pass:pass
                 },
                 success: function(){
-                    wwindow.location.reload();
+                    window.location.reload();
                     alert("Successfully modified your profile!");                          
                 }
             });

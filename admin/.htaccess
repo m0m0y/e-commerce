@@ -1,6 +1,3 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
-
-RewriteRule ^cleanspace_halo_\w*.php product.php [L]
-RewriteRule ^cleanspace2_\w*.php product.php [L]

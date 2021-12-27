@@ -1,0 +1,17 @@
+a.btn-link, a.btn-link:hover {
+    color: white;
+    text-decoration: none;
+}
+
+section.footer-section{
+    background-color:#2e759d;
+    color:white;
+}
+
+nav.sticky-top{
+    background-color:#2e759d;
+}
+
+a.nav-link, a.nav-link:hover {
+    color:white;
+}

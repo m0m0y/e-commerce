@@ -407,7 +407,7 @@ class Main extends database_connection{
 		$sql1 = "UPDATE product_description SET product_name='$product_name', product_desc='$product_desc', meta_title='$meta_tag_title', meta_description='$meta_tag_description', meta_keywords='$meta_tag_keywords' WHERE product_id='$product_id'";
 
 		
-		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE ) {
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) ) {
 			echo "Record updated successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
@@ -427,12 +427,27 @@ class Main extends database_connection{
 		}
 	}
 
-	function test() {
-		echo "sdsds";
-	}
-
 	function add_product() {
-		test();
+		$product_name = $_POST["product_name"];
+		$description = $_POST["description"];
+		$meta_tag_title = $_POST["meta_tag_title"];
+		$meta_tag_description = $_POST["meta_tag_description"];
+		$meta_tag_keywords = $_POST["meta_tag_keywords"];
+		$price = $_POST["price"];
+		$quantity = $_POST["quantity"];
+		$stock_status = $_POST["stock_status"];
+		$product_weight = $_POST["product_weight"];
+		$weight_class = $_POST["weight_class"];
+		$product_status = $_POST["product_status"];
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO product (product_name, quantity, stock_status_id, price, product_weight, weight_id, product_status) VALUES ('$product_name', '$quantity', '$stock_status', '$price', '$product_weight', '$weight_class', '$product_status');";
+		$sql .="INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_description', '$meta_tag_title', '$meta_tag_keywords');";
+		if ($conn->multi_query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
 	}
 }
 
