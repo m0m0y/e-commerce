@@ -1,6 +1,6 @@
 <?php 
-include "assets/common/header.php";
-include "controller/function.php";
+require "assets/common/header.php";
+require "controller/function.php";
 session_start();
 
 $firstname = $_SESSION["firstname"];
@@ -11,17 +11,17 @@ $class->islogin($email);
 
 <body id="page-top">
     <div id="wrapper">
-      <?php include "assets/common/sidenav.php"; ?>
+      <?php require "assets/common/sidenav.php"; ?>
 
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
-        <?php include "assets/common/top-navbar.php"; ?>
+        <?php require "assets/common/top-navbar.php"; ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <?php include "assets/common/page-heading.php"; ?>
+            <?php require "assets/common/page-heading.php"; ?>
           </div>
 
           <div class="card shadow mb-4">
@@ -145,7 +145,7 @@ $class->islogin($email);
           </div>
             
             <!-- Footer -->
-            <?php include "assets/common/footer.php"; ?>
+            <?php require "assets/common/footer.php"; ?>
         </div>
       </div>
     </div>

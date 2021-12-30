@@ -1,8 +1,8 @@
-<?php include "assets/common/header.php" ?>
+<?php require "assets/common/header.php"; ?>
 
 <body>
     <!-- Navbar -->
-    <?php include "assets/common/navbar.php" ?>
+    <?php require "assets/common/navbar.php"; ?>
 
     <!-- Slides -->
     <section class="mt-5 container">
@@ -67,7 +67,7 @@
     </section>
 
     <!-- Footer -->
-    <?php include "assets/common/footer.php" ?>
+    <?php require "assets/common/footer.php"; ?>
 
     <script>
         $(document).ready(function() {
@@ -80,6 +80,7 @@
             });
         })
     </script>
+    
 </body>
 </html>
 

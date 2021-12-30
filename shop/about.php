@@ -1,4 +1,6 @@
-<?php require_once "assets/common/header.php"; 
-page_title();
-?>
+<?php require "assets/common/header.php"; ?>
 
+<h1> About </h1>
+
+<a href="<?= $BASE_URL ?>">Home</a>
+<a href="contact">Contact Us</a>

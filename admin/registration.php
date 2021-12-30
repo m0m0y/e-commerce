@@ -1,5 +1,5 @@
 <?php
-include "assets/common/header.php"; 
+require "assets/common/header.php"; 
 ?>
 <body class="bg-gradient-primary">
 

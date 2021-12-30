@@ -52,6 +52,34 @@ INSERT INTO `admin_user_group` (`user_group_id`, `user_group_name`, `user_group_
 	(2, 'User', 1);
 /*!40000 ALTER TABLE `admin_user_group` ENABLE KEYS */;
 
+-- Dumping structure for table testdb.categories
+CREATE TABLE IF NOT EXISTS `categories` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL,
+  `date_added` date NOT NULL,
+  `date_modified` date NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`category_id`) USING BTREE,
+  KEY `Index` (`parent_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.categories: ~0 rows (approximately)
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.category_description
+CREATE TABLE IF NOT EXISTS `category_description` (
+  `category_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `meta_title` varchar(50) NOT NULL,
+  PRIMARY KEY (`category_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.category_description: ~0 rows (approximately)
+/*!40000 ALTER TABLE `category_description` DISABLE KEYS */;
+/*!40000 ALTER TABLE `category_description` ENABLE KEYS */;
+
 -- Dumping structure for table testdb.information
 CREATE TABLE IF NOT EXISTS `information` (
   `information_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -69,6 +97,17 @@ CREATE TABLE IF NOT EXISTS `information` (
 /*!40000 ALTER TABLE `information` DISABLE KEYS */;
 /*!40000 ALTER TABLE `information` ENABLE KEYS */;
 
+-- Dumping structure for table testdb.manufacturer
+CREATE TABLE IF NOT EXISTS `manufacturer` (
+  `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`manufacturer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.manufacturer: ~0 rows (approximately)
+/*!40000 ALTER TABLE `manufacturer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `manufacturer` ENABLE KEYS */;
+
 -- Dumping structure for table testdb.product
 CREATE TABLE IF NOT EXISTS `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -85,13 +124,12 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`product_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.product: ~4 rows (approximately)
+-- Dumping data for table testdb.product: ~3 rows (approximately)
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`product_id`, `product_name`, `quantity`, `stock_status_id`, `image`, `price`, `product_weight`, `weight_id`, `product_status`, `date_added`, `date_modified`) VALUES
-	(1, 'Banana', 0, 4, '', 23.0000, 1.00000000, 2, 0, '2021-12-21 08:00:00', '2021-12-23 15:48:25'),
-	(2, 'Manggo', 20, 6, '', 150.0000, 1.00000000, 1, 1, '2021-12-21 08:00:00', '2021-12-23 15:49:49'),
-	(3, 'Water Melon', 0, 7, '', 100.0000, 1.00000000, 1, 1, '2021-12-21 08:20:00', '2021-12-23 15:50:23'),
-	(4, 'Apple', 20, 4, '', 150.0000, 1.00000000, 1, 1, '2021-12-21 08:00:00', '2021-12-23 15:50:02');
+	(2, 'Manggo', 20, 6, '', 150.0000, 1.00000000, 1, 0, '2021-12-21 08:00:00', '2021-12-23 15:57:36'),
+	(3, 'Banana', 12, 4, '', 100.0000, 1.00000000, 1, 1, '2021-12-21 08:20:00', '2021-12-23 16:25:04'),
+	(4, 'Apple', 20, 4, '', 150.0000, 1.00000000, 1, 1, '2021-12-21 08:00:00', '2021-12-28 07:53:41');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_description
@@ -108,11 +146,23 @@ CREATE TABLE IF NOT EXISTS `product_description` (
 -- Dumping data for table testdb.product_description: ~4 rows (approximately)
 /*!40000 ALTER TABLE `product_description` DISABLE KEYS */;
 INSERT INTO `product_description` (`product_id`, `product_name`, `product_desc`, `meta_title`, `meta_description`, `meta_keywords`) VALUES
-	(1, 'Banana', 'Test', 'Banana', '', ''),
-	(2, 'Manggo', '', 'Manggo', '', ''),
-	(3, 'Water Melon', '', 'Water Melon', '', ''),
+	(1, 'Water Melon', '', 'Water Melon', '', ''),
+	(2, 'Manggo', 'Manggo is the best.', 'Manggo', '', ''),
+	(3, 'Banana', '', 'Banana', '', ''),
 	(4, 'Apple', '', 'Apple', '', '');
 /*!40000 ALTER TABLE `product_description` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.product_to_category
+CREATE TABLE IF NOT EXISTS `product_to_category` (
+  `product_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`) USING BTREE,
+  KEY `Index` (`category_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.product_to_category: ~0 rows (approximately)
+/*!40000 ALTER TABLE `product_to_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product_to_category` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.stock_status
 CREATE TABLE IF NOT EXISTS `stock_status` (

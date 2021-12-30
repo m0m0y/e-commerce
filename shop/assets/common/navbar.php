@@ -35,10 +35,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                <a class="nav-link" href="http://localhost/test/">Home</a>
+                    <a class="nav-link" href="<?= $BASE_URL ?>">Home</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="shop/about">About Us</a>
+                    <a class="nav-link" href="about">About Us</a>
                 </li>
 
                 <!-- Dropdown -->
@@ -54,7 +54,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="shop/contact">Contact Us</a>
+                    <a class="nav-link" href="contact">Contact Us</a>
                 </li>
             </ul>
         </div>
