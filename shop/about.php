@@ -1,6 +1,10 @@
 <?php require "assets/common/header.php"; ?>
 
-<h1> About </h1>
+<body> 
+    <!-- Navbar -->
+    <?php require "assets/common/navbar.php"; ?>
 
-<a href="<?= $BASE_URL ?>">Home</a>
-<a href="contact">Contact Us</a>
+    <section class="mt-5 container"> 
+        
+    </section>
+</body>

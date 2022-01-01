@@ -1,4 +1,7 @@
-<?php require "shop/controller/header.controller.php"; ?>
+<?php 
+require "shop/controller/header.controller.php"; 
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,4 +1,9 @@
-<?php require "assets/common/header.php"; ?>
+<?php 
+require "assets/common/header.php"; 
+if (isset($_SESSION["firstname"])) {
+    $firstname = $_SESSION["firstname"];
+}
+?>
 
 <body>
     <!-- Navbar -->
@@ -26,40 +31,40 @@
         <div class="row">
             <div class="col-sm-12 col-md-3">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-secondary">View Product</a>
+                        <a href="#" class="btn btn-primary">View Product</a>
                     </div>
                 </div>
             </div>
             
             <div class="col-sm-12 col-md-3">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-secondary">View Product</a>
+                        <a href="#" class="btn btn-primary">View Product</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-secondary">View Product</a>
+                        <a href="#" class="btn btn-primary">View Product</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
                     <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-secondary">View Product</a>
+                        <a href="#" class="btn btn-primary">View Product</a>
                     </div>
                 </div>
             </div>

@@ -2,5 +2,6 @@
 session_start();
 require "controller/function.php";
 session_destroy();
-header("location: http://localhost/test/admin/");
 ?>
+
+<script>window.location.replace("login");</script>

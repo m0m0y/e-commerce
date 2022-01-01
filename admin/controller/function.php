@@ -23,7 +23,7 @@ class Main extends database_connection{
 			}
 		} else {
 			echo "invalid";
-		}
+		} 
 	}
 
 	function islogin($email) {
@@ -442,7 +442,7 @@ class Main extends database_connection{
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO product (product_name, quantity, stock_status_id, price, product_weight, weight_id, product_status) VALUES ('$product_name', '$quantity', '$stock_status', '$price', '$product_weight', '$weight_class', '$product_status');";
 
-		$sql .="INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_description', '$meta_tag_title', '$meta_tag_keywords');";
+		$sql .= "INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_description', '$meta_tag_title', '$meta_tag_keywords');";
 
 		if ($conn->multi_query($sql) === TRUE) {
 			echo "New records created successfully";

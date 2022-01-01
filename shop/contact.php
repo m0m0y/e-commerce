@@ -10,7 +10,7 @@ require "assets/common/header.php";
     <section class="mt-5 container">
         <h1 class="title">Contact Us</h1>
         <div class="row mt-5"> 
-            <div class="col-sm-12 col-md-4" style="border: 1px solid #989898; padding: 1%; border-radius: 20px;">
+            <div class="col-sm-12 col-md-4 location-info">
                 <div class="info container"> 
                     <h4 class="title mb-5">Our Location</h4>
 
@@ -63,13 +63,6 @@ require "assets/common/header.php";
                         <div id="captcha" class="form-text">Input your Inqury here.</div>
                     </div>
 
-                    <!-- <div class="mb-3">
-                        <label for="captcha" class="form-label">Captcha: *</label>
-                        <input type="hidden" class="form-control" id="validate_captcha" value="<?= $random_num; ?>" readonly>
-                        <input type="text" class="form-control" id="captcha" placeholder="Captcha">
-                        <div id="captcha" class="form-text">Please type <b><?= $random_num; ?></b> in the field:</div>
-                    </div> -->
-
                     <button type="submit" class="btn btn-md btn-primary" id="submit">Submit</button>
                 </div>
             </div>
@@ -99,6 +92,7 @@ require "assets/common/header.php";
                     alert_message = "Please double check your input field";
                     $('.alert').text(alert_message);
                 } else {
+                    $('.alert').hide();
                     $.ajax({
                         url: 'shop/controller/contact.controller.php',
                         method: 'POST',

@@ -45,6 +45,21 @@ class Router {
                 $page_title = "Thank you";
                 require "shop/thankyou.php";
                 break;
+            case "login";
+                $page_title = "Account Login";
+                require "shop/login.php";
+                break;
+            case "register";
+                $page_title = "Account Register";
+                require "shop/register.php";
+                break;
+            case "logout";
+                require "shop/logout.php";
+                break;
+            case "myaccount";
+                $page_title = "My Account";
+                require "shop/myaccount.php";
+                break;
         }
     }
 
