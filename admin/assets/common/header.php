@@ -1,3 +1,13 @@
+<?php 
+require "controller/function.php";
+session_start();
+
+$firstname = $_SESSION["firstname"];
+$lastname = $_SESSION["lastname"];
+$email = $_SESSION["email"];
+$user_id = $_SESSION["id"];
+$class->islogin($email);
+?>
 <!doctype html>
 <html lang="en">
 <head>

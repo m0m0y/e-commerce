@@ -1,12 +1,5 @@
 <?php 
 require "assets/common/header.php";
-require "controller/function.php";
-session_start();
-
-$firstname = $_SESSION["firstname"];
-$lastname = $_SESSION["lastname"];
-$email = $_SESSION["email"];
-$class->islogin($email);
 ?>
 
 <body id="page-top">

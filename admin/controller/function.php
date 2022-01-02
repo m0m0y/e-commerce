@@ -220,7 +220,6 @@ class Main extends database_connection{
 		echo $table;
 	}
 
-
 	function delete_admin_users() {
 		$admin_user_id = $_POST["admin_user_id"];
 
@@ -449,6 +448,77 @@ class Main extends database_connection{
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
+	}
+
+	function get_categories() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT categories.category_id, categories.parent_id, categories.status, categories.date_added, category_description.category_id, category_description.name, category_description.description, category_description.meta_title FROM categories INNER JOIN category_description ON categories.category_id = category_description.category_id";
+		$result = mysqli_query($conn, $sql);
+
+		// Product table
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_category()"><i class="fas fa-plus-square"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Category</th>
+						<th>Description</th>
+						<th>Meta Title</th>
+						<th>Status</th>
+						<th>Date Added</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$category_id = $row["category_id"];
+				$parent_id = $row["parent_id"];
+				$date_added = $row["date_added"];
+				$name = $row["name"];
+				$description = $row["description"];
+				$meta_title = $row["meta_title"];
+				
+				if ($row["status"] == 1) {
+					$status = "Enable";
+				} else {
+					$status = "Disabled";
+				}
+
+				$table .= '
+					<tr>
+						<td>'.$name.'</td>
+						<td>'.$description.'</td>
+						<td>'.$meta_title.'</td>
+						<td>'.$status.'</td>
+						<td>'.$date_added.'</td>
+						<td>
+							<button type="button" name="update" class="btn btn-sm btn-info" onclick="update_product(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_products(\'' . $product_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="6" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
 	}
 }
 

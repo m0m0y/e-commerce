@@ -46,7 +46,7 @@
                 </a>
                 <div id="collapseCatalog" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Categories</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/categories" ? "active" : "") ?>" href="categories">Categories</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/product" ? "active" : "") ?>" href="product">Products</a>
                         <a class="collapse-item" href="">Information</a>
                     </div>
