@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.20-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.19-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             11.3.0.6295
 -- --------------------------------------------------------
@@ -80,6 +80,45 @@ CREATE TABLE IF NOT EXISTS `category_description` (
 /*!40000 ALTER TABLE `category_description` DISABLE KEYS */;
 /*!40000 ALTER TABLE `category_description` ENABLE KEYS */;
 
+-- Dumping structure for table testdb.customer
+CREATE TABLE IF NOT EXISTS `customer` (
+  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(32) NOT NULL,
+  `lastname` varchar(32) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `telephone` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.customer: ~2 rows (approximately)
+/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` (`customer_id`, `firstname`, `lastname`, `email`, `telephone`, `password`, `ip`, `status`, `date_added`) VALUES
+	(1, 'Christian', 'Pascual', 'cpascual107@gmail.com', '09123456789', 'test123', '::1', 1, '2022-01-01 00:00:00'),
+	(2, 'Itchan', 'Pascual', 'itchaaanp@gmail.com', '09123456789', '123', '::1', 1, '2022-01-01 00:00:00');
+/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.customer_ip
+CREATE TABLE IF NOT EXISTS `customer_ip` (
+  `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_ip_id`) USING BTREE,
+  KEY `Index 2` (`ip`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.customer_ip: ~2 rows (approximately)
+/*!40000 ALTER TABLE `customer_ip` DISABLE KEYS */;
+INSERT INTO `customer_ip` (`customer_ip_id`, `customer_id`, `email`, `ip`, `date_added`) VALUES
+	(1, 1, 'cpascual107@gmail.com', '::1', '2022-01-01 00:00:00'),
+	(2, 2, 'itchaaanp@gmail.com', '::1', '2022-01-01 00:00:00');
+/*!40000 ALTER TABLE `customer_ip` ENABLE KEYS */;
+
 -- Dumping structure for table testdb.information
 CREATE TABLE IF NOT EXISTS `information` (
   `information_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -122,14 +161,15 @@ CREATE TABLE IF NOT EXISTS `product` (
   `date_added` datetime NOT NULL,
   `date_modified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table testdb.product: ~3 rows (approximately)
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`product_id`, `product_name`, `quantity`, `stock_status_id`, `image`, `price`, `product_weight`, `weight_id`, `product_status`, `date_added`, `date_modified`) VALUES
 	(2, 'Manggo', 20, 6, '', 150.0000, 1.00000000, 1, 0, '2021-12-21 08:00:00', '2021-12-23 15:57:36'),
 	(3, 'Banana', 12, 4, '', 100.0000, 1.00000000, 1, 1, '2021-12-21 08:20:00', '2021-12-23 16:25:04'),
-	(4, 'Apple', 20, 4, '', 150.0000, 1.00000000, 1, 1, '2021-12-21 08:00:00', '2021-12-28 07:53:41');
+	(4, 'Apple', 20, 4, '', 150.0000, 1.00000000, 1, 1, '2021-12-21 08:00:00', '2021-12-28 07:53:41'),
+	(5, 'Melon', 25, 4, '', 150.0000, 1.00000000, 1, 1, '0000-00-00 00:00:00', '2022-01-01 16:16:51');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_description
@@ -141,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `product_description` (
   `meta_description` varchar(255) NOT NULL,
   `meta_keywords` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table testdb.product_description: ~4 rows (approximately)
 /*!40000 ALTER TABLE `product_description` DISABLE KEYS */;
@@ -149,7 +189,8 @@ INSERT INTO `product_description` (`product_id`, `product_name`, `product_desc`,
 	(1, 'Water Melon', '', 'Water Melon', '', ''),
 	(2, 'Manggo', 'Manggo is the best.', 'Manggo', '', ''),
 	(3, 'Banana', '', 'Banana', '', ''),
-	(4, 'Apple', '', 'Apple', '', '');
+	(4, 'Apple', '', 'Apple', '', ''),
+	(5, 'Melon', 'Melon is delicious', 'Order per kilo', 'Melon', '');
 /*!40000 ALTER TABLE `product_description` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_to_category
