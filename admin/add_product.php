@@ -47,7 +47,7 @@ require "assets/common/header.php";
               <div id="General" class="tabcontent" style="display: flex; flex-direction: column;">
 
                 <div class="row mb-4">
-                  <label for="product_name" class="col-sm-3 col-form-label text-right">* Product Name:</label>
+                  <label for="product_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Product Name:</label>
                   <div class="col-sm-9">
                     <input type="text" id="product_name" class="form-control" name="product_name" placeholder="Product Name">
                   </div>
@@ -61,7 +61,7 @@ require "assets/common/header.php";
                 </div>
 
                 <div class="row mb-4">
-                  <label for="meta_tag_title" class="col-sm-3 col-form-label text-right">* Meta Tag Title:</label>
+                  <label for="meta_tag_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
                   <div class="col-sm-9">
                     <input type="text" id="meta_tag_title" class="form-control" name="meta_tag_title" placeholder="Meta Tag Title">
                   </div>
@@ -85,14 +85,32 @@ require "assets/common/header.php";
               <div id="Data" class="tabcontent">
 
                 <div class="row mb-4">
-                  <label for="price" class="col-sm-3 col-form-label text-right">* Price:</label>
+                    <label for="stock_status" class="col-sm-3 col-form-label text-right">Manufacturer:</label>
+                    <div class="col-sm-9">
+                      <select class="form-control" id="">
+                      <?php // $class->get_category_description(); ?>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <label for="product_category" class="col-sm-3 col-form-label text-right">Categories:</label>
+                    <div class="col-sm-9">
+                      <select class="form-control" id="product_category">
+                        <?php $class->get_category_description(); ?>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                  <label for="price" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Price:</label>
                   <div class="col-sm-9">
                     <input type="number" id="price" class="form-control" name="price" placeholder="Price">
                   </div>
                 </div>
 
                 <div class="row mb-4">
-                  <label for="quantity" class="col-sm-3 col-form-label text-right">* Quantity:</label>
+                  <label for="quantity" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Quantity:</label>
                   <div class="col-sm-9">
                     <input type="number" id="quantity" class="form-control" name="quantity" placeholder="Quantity">
                   </div>
@@ -127,8 +145,8 @@ require "assets/common/header.php";
                   <label for="product_status" class="col-sm-3 col-form-label text-right">Status:</label>
                   <div class="col-sm-9">
                     <select name="product_status" class="form-control" id="product_status">
-                      <option id="product_status_val" value="1">Enable</option>
-                      <option id="product_status_val" value="0">Disabled</option>
+                      <option value="1">Enable</option>
+                      <option value="0">Disabled</option>
                     </select>
                   </div>
                 </div>
@@ -197,6 +215,7 @@ require "assets/common/header.php";
           var meta_tag_description = $('#meta_tag_description').val();
           var meta_tag_keywords = $('#meta_tag_keywords').val();
 
+          var product_category = $('#product_category').val();
           var price = $('#price').val();
           var quantity = $('#quantity').val();
           var stock_status = $('#stock_status').val();
@@ -217,6 +236,7 @@ require "assets/common/header.php";
                   meta_tag_title:meta_tag_title,
                   meta_tag_description:meta_tag_description,
                   meta_tag_keywords:meta_tag_keywords,
+                  product_category:product_category,
                   price:price,
                   quantity:quantity,
                   stock_status:stock_status,
@@ -225,7 +245,7 @@ require "assets/common/header.php";
                   product_status:product_status
                 },
                 success: function(){
-                  window.location.reload();                      
+                  window.location.reload();         
                 }
             });
           }

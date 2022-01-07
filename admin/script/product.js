@@ -2,7 +2,7 @@ function add_product() {
     window.location.href="add_product";
 }
 
-function update_product(product_id, name, quantity, price, product_status, description, meta_title, meta_description, meta_keywords, stock_status_id, product_weight, weight_id) {
+function update_products(product_id, name, quantity, price, product_status, description, meta_title, meta_description, meta_keywords, stock_status_id, product_weight, weight_id, product_category) {
     $('#close').click(function(){
         window.location.reload();
     });
@@ -28,9 +28,9 @@ function update_product(product_id, name, quantity, price, product_status, descr
         $('#product_status').val(0);
     }
 
-    $('#update').on('click', function(){
-        var alert_message = $('#alertMessage').val();
+    $('#product_category').val(product_category);
 
+    $('#update').on('click', function(){
         var product_name = $('#product_name').val();
         var product_desc = $('#description').val();
         var meta_tag_title = $('#meta_tag_title').val();
@@ -43,9 +43,10 @@ function update_product(product_id, name, quantity, price, product_status, descr
         var weight_class = $('#weight_class').val();
         var product_status = $('#product_status').val();
 
+        var product_category = $('#product_category').val();
+
         if (product_name == "" || price == "" || quantity == "" || meta_tag_title == "" || weight == "") {
-            alert_message = "Please fill up the form correctly!";
-            $('#alertMessage').text(alert_message).addClass("alert alert-danger");
+            alert("Please fill up the form correctly!");
         } else {
             $.ajax({
                 url: 'controller/function.php?update_product',
@@ -62,7 +63,8 @@ function update_product(product_id, name, quantity, price, product_status, descr
                     stock_status:stock_status,
                     product_weight:product_weight,
                     weight_class:weight_class,
-                    product_status:product_status
+                    product_status:product_status,
+                    product_category:product_category
                 },
                 success:function(){
                     window.location.reload();

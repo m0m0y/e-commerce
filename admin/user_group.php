@@ -45,7 +45,7 @@ require "assets/common/header.php";
                                         </div> 
                                         <div class="modal-body">
                                             <div id="alertMessage"></div>
-                                            <label for="user_group_name" class="col-form-label">* User Group Name:</label>
+                                            <label for="user_group_name" class="col-form-label"><span class="required">*</span> User Group Name:</label>
                                             <div class="col-sm-12">
                                                 <input type="text" id="user_group_name" class="form-control" name="user_group_name" placeholder="Type Here..."/>
                                             </div>

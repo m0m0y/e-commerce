@@ -35,14 +35,51 @@ require "shop/controller/register.controller.php";
                     <div class="row mb-4">
                         <label for="customer_email" class="col-sm-3 col-form-label text-right">* Email:</label>
                         <div class="col-sm-9">
-                            <input type="text" id="customer_email" class="form-control" placeholder="Email">
+                            <input type="email" id="customer_email" class="form-control" placeholder="Email">
                         </div>
                     </div>
 
                     <div class="row mb-4">
                         <label for="customer_telophone" class="col-sm-3 col-form-label text-right">* Telephone:</label>
                         <div class="col-sm-9">
-                            <input type="text" id="customer_telophone" class="form-control" placeholder="Telephone">
+                            <input type="number" id="customer_telophone" class="form-control" placeholder="Telephone">
+                        </div>
+                    </div>
+
+                    <h5>Your Address</h5>
+                    <hr>
+                    <div class="row mb-4">
+                        <label for="address_1" class="col-sm-3 col-form-label text-right">* Primary Address:</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="address_1" class="form-control" placeholder="Primary Address">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <label for="address_2" class="col-sm-3 col-form-label text-right">Secondary Address: <small>(Optional)</small></label>
+                        <div class="col-sm-9">
+                            <input type="text" id="address_2" class="form-control" placeholder="Secondary Address">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <label for="city" class="col-sm-3 col-form-label text-right">* City:</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="city" class="form-control" placeholder="City">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <label for="postcode" class="col-sm-3 col-form-label text-right">* Postal Code:</label>
+                        <div class="col-sm-9">
+                            <input type="number" id="postcode" class="form-control" placeholder="Postal Code">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <label for="region" class="col-sm-3 col-form-label text-right">* Region:</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="region" class="form-control" placeholder="Region">
                         </div>
                     </div>
 
@@ -88,11 +125,17 @@ require "shop/controller/register.controller.php";
                 var customer_password = $('#customer_password').val();
                 var confirm_password = $('#confirm_password').val();
 
+                var address_1 = $('#address_1').val();
+                var address_2 = $('#address_2').val();
+                var city = $('#city').val();
+                var postcode = $('#postcode').val();
+                var region = $('#region').val();
+
                 if (customer_password != confirm_password){
                     $('.alert').show();
                     alert_message = "Your Password did not match!";
                     $('.alert').text(alert_message);
-                } else if(customer_firstname == "" || customer_lastname == "" || customer_email == "" || customer_telophone == "" || customer_password == "" || confirm_password == "") {
+                } else if(customer_firstname == "" || customer_lastname == "" || customer_email == "" || customer_telophone == "" || customer_password == "" || confirm_password == "" || address_1 == "" || city == "" || postcode == "" || region == "") {
                     $('.alert').show();
                     alert_message = "Please double check the fields";
                     $('.alert').text(alert_message);
@@ -106,7 +149,12 @@ require "shop/controller/register.controller.php";
                             customer_lastname:customer_lastname,
                             customer_email:customer_email,
                             customer_telophone:customer_telophone,
-                            customer_password:customer_password
+                            customer_password:customer_password,
+                            address_1:address_1,
+                            address_2:address_2,
+                            city:city,
+                            postcode:postcode,
+                            region:region
                         },
                         success: function() {
                             alert("You are now registered, you may login now!");

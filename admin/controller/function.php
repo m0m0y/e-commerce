@@ -1,5 +1,6 @@
 <?php
 require "config.php";
+date_default_timezone_set("Singapore");
 
 class Main extends database_connection{
 
@@ -82,9 +83,9 @@ class Main extends database_connection{
 					<tr>
 						<td>'.$user_group_name.'</td>
 						<td>
-							<button type="button" name="update" class="btn btn-sm btn-info" id="update_user_button" onclick="update_user_group('.$user_group_id.',\''.$user_group_name.'\')"><i class="fas fa-pencil-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-info" id="update_user_button" onclick="update_user_group('.$user_group_id.',\''.$user_group_name.'\')"><i class="fas fa-pencil-alt"></i></button>
 
-							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_user_group('.$user_group_id.')"><i class="fas fa-trash-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_user_group('.$user_group_id.')"><i class="fas fa-trash-alt"></i></button>
 						</td>
 					</tr>
 				';
@@ -110,7 +111,7 @@ class Main extends database_connection{
 		$name = $_POST["name"];
 
 		$conn = $this->db_conn();
-		$sql = "INSERT INTO admin_user_group (user_group_name) VALUES ('".$name."')";
+		$sql = "INSERT INTO admin_user_group (user_group_name) VALUES ('.$name.')";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {
@@ -197,9 +198,9 @@ class Main extends database_connection{
 						<td>'.$admin_status.'</td>
 						<td>'.$date_added.'</td>
 						<td>
-							<button type="button" name="update" class="btn btn-sm btn-info" id="update_user_button" onclick="update_admin_user(\'' . $admin_user_id . '\',\'' . $firstname . '\',\'' . $lastname . '\',\'' . $email . '\',\'' . $admin_status . '\',\'' . $user_group . '\')"><i class="fas fa-pencil-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-info" id="update_user_button" onclick="update_admin_user(\'' . $admin_user_id . '\',\'' . $firstname . '\',\'' . $lastname . '\',\'' . $email . '\',\'' . $admin_status . '\',\'' . $user_group . '\')"><i class="fas fa-pencil-alt"></i></button>
 
-							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_admin_user('.$admin_user_id.')"><i class="fas fa-trash-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_admin_user('.$admin_user_id.')"><i class="fas fa-trash-alt"></i></button>
 						</td>
 					</tr>
 				';
@@ -252,8 +253,10 @@ class Main extends database_connection{
 		$user_group = $_POST["user_group"];
 		$admin_status = $_POST["admin_status"];
 
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
-		$sql = "INSERT INTO admin_user (firstname, lastname, email, password, user_group, admin_status) VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$password."', '".$user_group."', '".$admin_status."')";
+		$sql = "INSERT INTO admin_user (firstname, lastname, email, password, user_group, admin_status, date_added) VALUES ('$firstname', '$lastname', '$email', '$password', '$user_group', '$admin_status', '$date_added')";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {
@@ -286,10 +289,10 @@ class Main extends database_connection{
 		}
 	}
 
-	function select_product() {
+	function get_product() {
 		$table = "";
 		$conn = $this->db_conn();
-		$sql = $sql = "SELECT product.product_id, product.product_name, product.quantity, product.stock_status_id, product.price, product.product_weight, product.weight_id, product.product_status, product_description.product_desc, product_description.meta_title, product_description.meta_description, product_description.meta_keywords FROM product INNER JOIN product_description ON product.product_id = product_description.product_id";
+		$sql = "SELECT product.product_id, product.product_name, product.quantity, product.stock_status_id, product.price, product.product_weight, product.weight_id, product.product_status, product_description.product_desc, product_description.meta_title, product_description.meta_description, product_description.meta_keywords FROM product INNER JOIN product_description ON product.product_id = product_description.product_id";
 		$result = mysqli_query($conn, $sql);
 
 		// Product table
@@ -330,6 +333,8 @@ class Main extends database_connection{
 					$product_status = "Disabled";
 				}
 
+				$product_category = $this->get_product_to_category($product_id);
+
 				$table .= '
 					<tr>
 						<td>'.$name.'</td>
@@ -337,9 +342,9 @@ class Main extends database_connection{
 						<td>'.$quantity.'</td>
 						<td>'.$product_status.'</td>
 						<td>
-							<button type="button" name="update" class="btn btn-sm btn-info" onclick="update_product(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\')"><i class="fas fa-pencil-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_products(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\',\'' . $product_category . '\')"><i class="fas fa-pencil-alt"></i></button>
 
-							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_products(\'' . $product_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_products(\'' . $product_id . '\',)"><i class="fas fa-trash-alt"></i></button>
 						</td>
 					</tr>
 				';
@@ -347,7 +352,7 @@ class Main extends database_connection{
 		} else {
 			$table .= '
 			<tr>
-				<td colspan="6" align="center">No data found</td>
+				<td colspan="5" align="center">No data found</td>
 			</tr>
 			';
 		}
@@ -384,6 +389,18 @@ class Main extends database_connection{
 		}
 	}
 
+	function get_category_description() {
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM category_description";
+		$result = mysqli_query($conn, $sql);
+
+		foreach ($result as $key => $value) {
+			echo '
+				<option value="'.$value["category_id"].'">'.$value["category_name"].'</option>
+			';
+		}
+	}
+
 	function update_product() {
 		$product_id = $_POST["product_id"];
 		$product_name = $_POST["product_name"];
@@ -397,15 +414,19 @@ class Main extends database_connection{
 		$product_weight = $_POST["product_weight"];
 		$weight_class = $_POST["weight_class"];
 		$product_status = $_POST["product_status"];
+		$product_category = $_POST["product_category"];
 
 		$conn = $this->db_conn();
 		// Update for Product table
-		$sql = "UPDATE product SET product_name='$product_name', quantity='$quantity', stock_status_id='$stock_status', price='$price', product_weight='$product_weight', weight_id='$weight_class', product_status='$product_status'  WHERE product_id='$product_id'";
+		$sql = "UPDATE product SET product_name='$product_name', quantity='$quantity', stock_status_id='$stock_status', price='$price', product_weight='$product_weight', weight_id='$weight_class', product_status='$product_status' WHERE product_id='$product_id'";
 
 		// Update for Product Description table
 		$sql1 = "UPDATE product_description SET product_name='$product_name', product_desc='$product_desc', meta_title='$meta_tag_title', meta_description='$meta_tag_description', meta_keywords='$meta_tag_keywords' WHERE product_id='$product_id'";
 
-		if ($conn->query($sql) === TRUE && $conn->query($sql1) ) {
+		// Update for product_to_category table
+		$sql2 = "UPDATE product_to_category SET category_id='$product_category' WHERE product_id='$product_id'";
+
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE) {
 			echo "Record updated successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
@@ -418,7 +439,9 @@ class Main extends database_connection{
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM product WHERE product_id='$product_id'";
 		$sql1 = "DELETE FROM product_description WHERE product_id='$product_id'";
-		if ($conn->query($sql) === TRUE && $conn->query($sql) === TRUE) {
+		$sql2 = "DELETE FROM product_to_category WHERE product_id='$product_id'";
+		
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2)) {
 			echo "Record delete successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
@@ -431,6 +454,7 @@ class Main extends database_connection{
 		$meta_tag_title = $_POST["meta_tag_title"];
 		$meta_tag_description = $_POST["meta_tag_description"];
 		$meta_tag_keywords = $_POST["meta_tag_keywords"];
+		$product_category = $_POST["product_category"];
 		$price = $_POST["price"];
 		$quantity = $_POST["quantity"];
 		$stock_status = $_POST["stock_status"];
@@ -438,13 +462,17 @@ class Main extends database_connection{
 		$weight_class = $_POST["weight_class"];
 		$product_status = $_POST["product_status"];
 
-		$conn = $this->db_conn();
-		$sql = "INSERT INTO product (product_name, quantity, stock_status_id, price, product_weight, weight_id, product_status) VALUES ('$product_name', '$quantity', '$stock_status', '$price', '$product_weight', '$weight_class', '$product_status');";
+		$date_added = date("Y-m-d h:i:sa");
 
-		$sql .= "INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_description', '$meta_tag_title', '$meta_tag_keywords');";
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO product (product_name, quantity, stock_status_id, price, product_weight, weight_id, product_status, date_added) VALUES ('$product_name', '$quantity', '$stock_status', '$price', '$product_weight', '$weight_class', '$product_status', '$date_added');";
+
+		$sql .= "INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_title', '$meta_tag_description', '$meta_tag_keywords');";
+
+		$sql .= "INSERT INTO product_to_category (product_id, category_id) VALUES ((SELECT product_id FROM product WHERE product_name='$product_name'), '$product_category');";
 
 		if ($conn->multi_query($sql) === TRUE) {
-			echo "New records created successfully";
+			echo $product_category;
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
@@ -453,10 +481,9 @@ class Main extends database_connection{
 	function get_categories() {
 		$table = "";
 		$conn = $this->db_conn();
-		$sql = "SELECT categories.category_id, categories.parent_id, categories.status, categories.date_added, category_description.category_id, category_description.name, category_description.description, category_description.meta_title FROM categories INNER JOIN category_description ON categories.category_id = category_description.category_id";
+		$sql = "SELECT categories.category_id, categories.category_status, categories.date_added, category_description.category_id, category_description.category_name, category_description.description, category_description.meta_title FROM categories INNER JOIN category_description ON categories.category_id = category_description.category_id";
 		$result = mysqli_query($conn, $sql);
 
-		// Product table
 		$table .= '
 			<div align="right" style="margin-bottom:5px;">
 				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_category()"><i class="fas fa-plus-square"></i> Add New</button>
@@ -465,8 +492,6 @@ class Main extends database_connection{
 				<thead>
 					<tr>
 						<th>Category</th>
-						<th>Description</th>
-						<th>Meta Title</th>
 						<th>Status</th>
 						<th>Date Added</th>
 						<th>Action</th>
@@ -478,29 +503,285 @@ class Main extends database_connection{
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$category_id = $row["category_id"];
-				$parent_id = $row["parent_id"];
 				$date_added = $row["date_added"];
-				$name = $row["name"];
+				$category_name = $row["category_name"];
 				$description = $row["description"];
 				$meta_title = $row["meta_title"];
 				
+				if ($row["category_status"] == 1) {
+					$category_status = "Enable";
+				} else {
+					$category_status = "Disabled";
+				}
+
+				$table .= '
+					<tr>
+						<td>'.$category_name.'</td>
+						<td>'.$category_status.'</td>
+						<td>'.$date_added.'</td>
+						<td>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_category(\'' . $category_id . '\',\'' . $category_name . '\',\'' . $description . '\',\'' . $meta_title . '\',\'' . $category_status . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_category(\'' . $category_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="4" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function add_categories() {
+		$category_name = $_POST["category_name"];
+		$description = $_POST["description"];
+		$meta_tag_title = $_POST["meta_tag_title"];
+		$category_status = $_POST["category_status"];
+
+		$date_added = date("Y-m-d h:i:sa");
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO categories (category_status, date_added) VALUES ('$category_status', '$date_added');";
+
+		$sql .= "INSERT INTO category_description (category_name, description, meta_title) VALUES ('$category_name', '$description', '$meta_tag_title');";
+
+		if ($conn->multi_query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
+	function update_categories() {
+		$category_id = $_POST["category_id"];
+		$category_name = $_POST["category_name"];
+		$description = $_POST["description"];
+		$meta_tag_title = $_POST["meta_tag_title"];
+		$category_status = $_POST["category_status"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE categories SET category_status='$category_status' WHERE category_id='$category_id'";
+
+		$sql1 = "UPDATE category_description SET category_name='$category_name', description='$description', meta_title='$meta_tag_title' WHERE category_id='$category_id'";
+
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) ) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_categories() {
+		$category_id = $_POST["category_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM categories WHERE category_id='$category_id'";
+		$sql1 = "DELETE FROM category_description WHERE category_id='$category_id'";
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function get_product_to_category($product_id) {
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM product_to_category WHERE product_id='$product_id'";
+		$result = mysqli_query($conn, $sql);
+
+		foreach ($result as $key => $value) {
+			return $value["category_id"];
+		}
+	}
+
+	function get_information() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM information_description";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_info()"><i class="fas fa-plus-square"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Information Title</th>
+						<th>Status</th>
+						<th>Date Added</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$information_id = $row["information_id"];
+				$info_title = $row["info_title"];
+				$info_description = $row["info_description"];
+				$meta_title = $row["meta_title"];
+				$meta_description = $row["meta_description"];
+				$meta_keyword = $row["meta_keyword"];
+				$date_added = $row["date_added"];
+				
+				if ($row["info_status"] == 1) {
+					$info_status = "Enable";
+				} else {
+					$info_status = "Disabled";
+				}
+
+				$table .= '
+					<tr>
+						<td>'.$info_title.'</td>
+						<td>'.$info_status.'</td>
+						<td>'.$date_added.'</td>
+						<td>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\',\'' . $info_title . '\',\'' . $info_description . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keyword . '\',\'' . $info_status . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_info(\'' . $information_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="4" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function add_information() {
+		$info_title = $_POST["info_title"];
+		$info_description = $_POST["info_description"];
+		$meta_title = $_POST["meta_title"];
+		$meta_description = $_POST["meta_description"];
+		$meta_keyword = $_POST["meta_keyword"];
+		$info_status = $_POST["info_status"];
+
+		$date_added = date("Y-m-d h:i:sa");
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO information_description (info_title, info_description, meta_title, meta_description, meta_keyword, info_status, date_added) VALUES ('$info_title', '$info_description', '$meta_title', '$meta_description', '$meta_keyword', '$info_status', '$date_added')";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
+	function update_products() {
+		$information_id = $_POST["information_id"];
+		$info_title = $_POST["info_title"];
+		$info_description = $_POST["info_description"];
+		$meta_title = $_POST["meta_title"];
+		$meta_description = $_POST["meta_description"];
+		$meta_keyword = $_POST["meta_keyword"];
+		$info_status = $_POST["info_status"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE information_description SET info_title='$info_title', info_description='$info_description', meta_title='$meta_title', meta_description='$meta_description', meta_keyword='$meta_keyword', info_status='$info_status' WHERE information_id='$information_id'";
+		
+		if ($conn->query($sql) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_informations() {
+		$information_id = $_POST["information_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM information_description WHERE information_id='$information_id'";
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function get_customers() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT customer.customer_id, customer.firstname, customer.lastname, customer.email, customer.telephone, customer.password, customer.ip, customer.date_added, customer.status, customer_address.address_id, customer_address.customer_id, customer_address.address_1, customer_address.address_2, customer_address.city, customer_address.postcode, customer_address.region FROM customer INNER JOIN customer_address ON customer.customer_id = customer_address.customer_id";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_info()"><i class="fas fa-plus-square"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Customer Name</th>
+						<th>Email</th>
+						<th>Status</th>
+						<th>IP</th>
+						<th>Date Added</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$customer_id = $row["customer_id"];
+				$firstname = $row["firstname"];
+				$lastname = $row["lastname"];
+				$email = $row["email"];
+				$telephone = $row["telephone"];
+				$password = $row["password"];
+				$ip = $row["ip"];
+				$date_added = $row["date_added"];
+
 				if ($row["status"] == 1) {
 					$status = "Enable";
 				} else {
 					$status = "Disabled";
 				}
 
+				$address_id = $row["address_id"];
+				$address_1 = $row["address_1"];
+				$address_2 = $row["address_2"];
+				$city = $row["city"];
+				$postcode = $row["postcode"];
+				$region = $row["region"];
+				
 				$table .= '
 					<tr>
-						<td>'.$name.'</td>
-						<td>'.$description.'</td>
-						<td>'.$meta_title.'</td>
+						<td>'.$firstname.' '.$lastname.'</td>
+						<td>'.$email.'</td>
 						<td>'.$status.'</td>
+						<td>'.$ip.'</td>
 						<td>'.$date_added.'</td>
 						<td>
-							<button type="button" name="update" class="btn btn-sm btn-info" onclick="update_product(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\')"><i class="fas fa-pencil-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_cunstomer_info(\'' . $customer_id . '\',\'' . $firstname . '\',\'' . $lastname . '\',\'' . $email . '\',\'' . $telephone . '\',\'' . $status . '\',\'' . $address_1 . '\',\'' . $address_2 . '\',\'' . $city . '\',\'' . $postcode . '\',\'' . $region . '\',)"><i class="fas fa-pencil-alt"></i></button>
 
-							<button type="button" name="deletes" class="btn btn-sm btn-danger" onclick="delete_products(\'' . $product_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_customer(\'' . $customer_id . '\',)"><i class="fas fa-trash-alt"></i></button>
 						</td>
 					</tr>
 				';
@@ -519,6 +800,45 @@ class Main extends database_connection{
 		';
 
 		echo $table;
+	}
+
+	function update_customer_info() {
+		$customer_id = $_POST["customer_id"];
+		$firstname = $_POST["firstname"];
+		$lastname = $_POST["lastname"];
+		$email = $_POST["email"];
+		$telephone = $_POST["telephone"];
+		$password = $_POST["password"];
+		$status = $_POST["status"];
+		$address_1 = $_POST["address_1"];
+		$address_2 = $_POST["address_2"];
+		$city = $_POST["city"];
+		$postcode = $_POST["postcode"];
+		$region = $_POST["region"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE customer SET firstname='$firstname', lastname='$lastname', email='$email', telephone='$telephone', password='$password', status='$status' WHERE customer_id='$customer_id'";
+
+		$sql1 = "UPDATE customer_address SET firstname='$firstname', lastname='$lastname', address_1='$address_1', address_2='$address_2', city='$city', postcode='$postcode', region='$region' WHERE customer_id='$customer_id'";
+
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_customer_accnt() {
+		$customer_id = $_POST["customer_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM customer WHERE customer_id='$customer_id'";
+		$sql1 = "DELETE FROM customer_address WHERE customer_id='$customer_id'";
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
 	}
 }
 
@@ -570,5 +890,37 @@ if(isset($_GET["delete_product"])){
 
 if(isset($_GET["add_product"])){
 	$class->add_product();
+}
+
+if(isset($_GET["add_categories"])){
+	$class->add_categories();
+}
+
+if(isset($_GET["update_categories"])){
+	$class->update_categories();
+}
+
+if(isset($_GET["delete_categories"])){
+	$class->delete_categories();
+}
+
+if(isset($_GET["add_information"])){
+	$class->add_information();
+}
+
+if(isset($_GET["update_products"])){
+	$class->update_products();
+}
+
+if(isset($_GET["delete_informations"])){
+	$class->delete_informations();
+}
+
+if(isset($_GET["update_customer_info"])){
+	$class->update_customer_info();
+}
+
+if(isset($_GET["delete_customer_accnt"])){
+	$class->delete_customer_accnt();
 }
 ?>

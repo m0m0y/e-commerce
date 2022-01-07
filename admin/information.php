@@ -3,17 +3,15 @@ require "assets/common/header.php";
 ?>
 
 <body id="page-top">
-
+    <!-- Page Wrapper -->
     <div id="wrapper">
 
         <?php require "assets/common/sidenav.php"; ?>
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column"> 
-
+        <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-
                 <?php require "assets/common/top-navbar.php"; ?>
 
                 <!-- Begin Page Content -->
@@ -23,14 +21,14 @@ require "assets/common/header.php";
                         <?php require "assets/common/page-heading.php"; ?>
                     </div>
 
-                    <div class="card shadow mb-5">
+                    <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list"></i> User List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list"></i> Information List</h6>
                         </div>
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <?php $class->get_admin_user(); ?>
+                                <?php $class->get_information(); ?>
                             </div>
 
                             <!-- Modal -->
@@ -46,59 +44,51 @@ require "assets/common/header.php";
                                             <div id="alertMessage"></div>
 
                                             <div class="row mb-4">
-                                                <label for="firstname" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Firstname:</label>
+                                                <label for="info_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Title:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" id="firstname" class="form-control" name="fname" placeholder="First Name">
+                                                    <input type="text" id="info_title" class="form-control" placeholder="Title">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="lastname" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Lastname:</label>
+                                                <label for="info_description" class="col-sm-3 col-form-label text-right">Description:</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" id="lastname" class="form-control" name="lname" placeholder="Last Name">
+                                                    <textarea id="info_description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="user_group" class="col-sm-3 col-form-label text-right"> User Group:</label>
+                                                <label for="meta_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
                                                 <div class="col-sm-9">
-                                                    <select id="user_group" class="form-control" name="user_group">
-                                                        <?php $class->get_user_group_id(); ?>
+                                                    <input type="text" id="meta_title" class="form-control" placeholder="Meta Tag Title">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <label for="meta_description" class="col-sm-3 col-form-label text-right">Meta Tag Description:</label>
+                                                <div class="col-sm-9">
+                                                    <textarea id="meta_description" rows="4" cols="50" class="form-control" placeholder="Meta Tag Description"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <label for="meta_keyword" class="col-sm-3 col-form-label text-right">Meta Tag Keywords:</label>
+                                                <div class="col-sm-9">
+                                                    <textarea id="meta_keyword" rows="3" cols="50" class="form-control" placeholder="Meta Tag Keywords"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <label for="info_status" class="col-sm-3 col-form-label text-right">Status:</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="info_status">
+                                                        <option value="1">Enable</option>
+                                                        <option value="0">Disabled</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div>    
+                                        </div>
 
-                                            <div class="row mb-4">
-                                                <label for="email" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Email Address:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="email" id="email" class="form-control" name="mail" placeholder="Email Address">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="password" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Password:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" id="password" class="form-control" name="pass" placeholder="Password">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="confirm_password" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Confirm Password:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" id="confirm_password" class="form-control" name="confirm_pass" placeholder="Confirm Password">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="admin_status" class="col-sm-3 col-form-label text-right">Status:</label>
-                                                <div class="col-sm-9">
-                                                    <select name="admin_status" class="form-control" id="admin_status">
-                                                        <option id="admin_status_val" value="1">Enable</option>
-                                                        <option id="admin_status_val" value="0">Disabled</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>   
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>      
                                             <button type="button" class="btn btn-primary save-btn">Save</button>           
@@ -110,12 +100,14 @@ require "assets/common/header.php";
                     </div>
                 </div>
 
-                <!-- Footer -->
-                <?php require "assets/common/footer.php"; ?>
             </div>
-        
+
+            <!-- Footer -->
+            <?php require "assets/common/footer.php"; ?>
         </div>
+
     </div>
+
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -130,7 +122,7 @@ require "assets/common/header.php";
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="assets/js/admin.min.js"></script>
+    <script src="assets/js/admin.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
@@ -139,5 +131,5 @@ require "assets/common/header.php";
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    <script src="script/user.js"></script>
+    <script src="script/information.js"></script>
 </body>

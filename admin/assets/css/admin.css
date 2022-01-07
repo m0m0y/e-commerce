@@ -11327,3 +11327,9 @@ body.sidebar-toggled footer.sticky-footer {
 .text-right {
   text-align: right;
 }
+/*--------------------------------------------------------------
+# Required fields
+--------------------------------------------------------------*/
+span.required{
+  color: red;
+}

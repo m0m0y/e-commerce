@@ -34,32 +34,32 @@ require "assets/common/header.php";
                             <div id="alertMessage"></div>
                             
                             <div class="row mb-3">
-                                <label for="firstname" class="col-sm-2 col-form-label">* Firstname</label>
+                                <label for="firstname" class="col-sm-2 col-form-label"><span class="required">*</span> Firstname</label>
                                 <div class="col-sm-10">
                                     <input type="hidden" id="user_id" class="form-control" name="user_id" value="<?php echo $user_id ?>" readonly/>
                                     <input type="text" id="firstname" class="form-control" name="fname" placeholder="First Name" value="<?php echo $firstname ?>"/>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="lastname" class="col-sm-2 col-form-label">* Lastname</label>
+                                <label for="lastname" class="col-sm-2 col-form-label"><span class="required">*</span> Lastname</label>
                                 <div class="col-sm-10">
                                     <input type="text" id="lastname" class="form-control" name="lname" placeholder ="Last Name" value="<?php echo $lastname ?>"/>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="emailadd" class="col-sm-2 col-form-label">* Email</label>
+                                <label for="emailadd" class="col-sm-2 col-form-label"><span class="required">*</span> Email</label>
                                 <div class="col-sm-10">
                                     <input type="email" id="emailadd" class="form-control form-control-user" name="email" placeholder="Email Address" value="<?php echo $email ?>"/>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="password" class="col-sm-2 col-form-label">* Password</label>
+                                <label for="password" class="col-sm-2 col-form-label"><span class="required">*</span> Password</label>
                                 <div class="col-sm-10">
                                     <input type="password" id="password" class="form-control" name="pass" placeholder="Password"/>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="confirm_password" class="col-sm-2 col-form-label">* Confirm</label>
+                                <label for="confirm_password" class="col-sm-2 col-form-label"><span class="required">*</span> Confirm</label>
                                 <div class="col-sm-10">
                                 <input type="password" id="confirm_password" class="form-control" name="confirm_pass" placeholder="Repeat Password"/>
                                 </div>

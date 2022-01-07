@@ -1,5 +1,6 @@
 <?php
 require "config.php";
+date_default_timezone_set("Singapore");
 
 class Register extends database_connection {
     function registration() {
@@ -10,12 +11,20 @@ class Register extends database_connection {
         $password = $_POST["customer_password"];
 
         $ip = $_SERVER['REMOTE_ADDR'];
-        $date_added = date("Y-m-d");
+        $date_added = date("Y-m-d h:i:sa");
+
+        $address_1 = $_POST["address_1"];
+        $address_2 = $_POST["address_2"];
+        $city = $_POST["city"];
+        $postcode = $_POST["postcode"];
+        $region = $_POST["region"];
 
         $conn = $this->db_conn();
         $sql = "INSERT INTO customer (firstname, lastname, email, telephone, password, ip, date_added) VALUES ('$firstname', '$lastname', '$email', '$telephone', '$password', '$ip', '$date_added');";
 
         $sql .= "INSERT INTO customer_ip (customer_id, email, ip, date_added) VALUES ((SELECT customer_id FROM customer WHERE email='$email'), '$email', '$ip', '$date_added');";
+
+        $sql .= "INSERT INTO customer_address (customer_id, firstname, lastname, address_1, address_2, city, postcode, region) VALUES ((SELECT customer_id FROM customer WHERE email='$email'), '$firstname', '$lastname', '$address_1', '$address_2', '$city', '$postcode', '$region');";
         
         if ($conn->multi_query($sql) === TRUE) {
 			echo "New records created successfully";

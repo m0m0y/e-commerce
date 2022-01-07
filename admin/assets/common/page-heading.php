@@ -44,4 +44,19 @@ switch ($host) {
             <h1 class="h3 mb-0 text-gray-800">Add Category</h1>
         ';
         break;
+    case "/test/admin/information";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Information</h1>
+        ';
+        break;
+    case "/test/admin/add_information";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Add Information</h1>
+        ';
+        break;
+    case "/test/admin/customer";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Customers</h1>
+        ';
+        break;
 }

@@ -1,10 +1,11 @@
-<?php
+<?php 
 require "assets/common/header.php";
 ?>
 
 <body id="page-top">
     <!-- Page Wrapper -->
-    <div id="wrapper"> 
+    <div id="wrapper">
+
         <?php require "assets/common/sidenav.php"; ?>
 
         <!-- Content Wrapper -->
@@ -19,10 +20,10 @@ require "assets/common/header.php";
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <?php require "assets/common/page-heading.php"; ?>
                     </div>
-                    
+
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pencil-alt"></i> Add Category</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-pencil-alt"></i> Add Information</h6>
                         </div>
 
                         <div class="card-body">
@@ -30,7 +31,7 @@ require "assets/common/header.php";
 
                             <div align="right" style="margin-bottom:5px;">
                                 <button type="button" id="save" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Save</button>
-                                <a href="categories" class="btn btn-sm btn-secondary btn-user"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+                                <a href="information" class="btn btn-sm btn-secondary btn-user"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
                             </div>
 
                             <!-- Tabs -->
@@ -44,30 +45,44 @@ require "assets/common/header.php";
                             <div id="General" class="tabcontent" style="display: flex; flex-direction: column;">
 
                                 <div class="row mb-4">
-                                    <label for="category_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Category Name:</label>
+                                    <label for="info_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Title:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="category_name" class="form-control" placeholder="Category Name">
+                                        <input type="text" id="info_title" class="form-control" placeholder="Title">
                                     </div>
                                 </div>
 
                                 <div class="row mb-4">
-                                    <label for="description" class="col-sm-3 col-form-label text-right">Description:</label>
+                                    <label for="info_description" class="col-sm-3 col-form-label text-right">Description:</label>
                                     <div class="col-sm-9">
-                                        <textarea id="description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea>
+                                        <textarea id="info_description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row mb-4">
-                                    <label for="meta_tag_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
+                                    <label for="meta_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="meta_tag_title" class="form-control" name="meta_tag_title" placeholder="Meta Tag Title">
+                                        <input type="text" id="meta_title" class="form-control" placeholder="Meta Tag Title">
                                     </div>
                                 </div>
 
                                 <div class="row mb-4">
-                                    <label for="product_status" class="col-sm-3 col-form-label text-right">Status:</label>
+                                    <label for="meta_description" class="col-sm-3 col-form-label text-right">Meta Tag Description:</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="category_status">
+                                        <textarea id="meta_description" rows="4" cols="50" class="form-control" placeholder="Meta Tag Description"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <label for="meta_keyword" class="col-sm-3 col-form-label text-right">Meta Tag Keywords:</label>
+                                    <div class="col-sm-9">
+                                        <textarea id="meta_keyword" rows="3" cols="50" class="form-control" placeholder="Meta Tag Keywords"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <label for="info_status" class="col-sm-3 col-form-label text-right">Status:</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="info_status">
                                         <option value="1">Enable</option>
                                         <option value="0">Disabled</option>
                                         </select>
@@ -82,10 +97,12 @@ require "assets/common/header.php";
             <!-- Footer -->
             <?php require "assets/common/footer.php"; ?>
         </div>
+
     </div>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+
+     <!-- Scroll to Top Button-->
+     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
@@ -110,5 +127,5 @@ require "assets/common/header.php";
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
 
-    <script src="script/categories.js"></script>
+    <script src="script/information.js"></script>
 </body>

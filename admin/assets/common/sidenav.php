@@ -13,14 +13,14 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item <?php echo ($host == "/test/admin/home" ? "active" : "") ?>">
                 <a class="nav-link" href="home">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span>
+                </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Customers</span></a>
+            <li class="nav-item <?php echo ($host == "/test/admin/customer" ? "active" : "") ?>">
+                <a class="nav-link" href="customer">
+                    <i class="fas fa-fw fa-tachometer-alt"></i><span>Customers</span>
+                </a>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -48,7 +48,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item <?php echo ($host == "/test/admin/categories" ? "active" : "") ?>" href="categories">Categories</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/product" ? "active" : "") ?>" href="product">Products</a>
-                        <a class="collapse-item" href="">Information</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/information" ? "active" : "") ?>" href="information">Information</a>
                     </div>
                 </div>
             </li>
@@ -74,51 +74,11 @@
                         <h6 class="collapse-header">Admin Control:</h6>
                         <a class="collapse-item <?php echo ($host == "/test/admin/user" ? "active" : "") ?>" href="user">Users</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/user_group" ? "active" : "") ?>" href="user_group">User Groups</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/weight" ? "active" : "") ?>" href="">Stock Statuses</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/weight" ? "active" : "") ?>" href="">Order Statuses</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/weight" ? "active" : "") ?>" href="">Weight Classes</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
             </li>
 
             <!-- Divider -->

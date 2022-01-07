@@ -37,7 +37,7 @@
 
             <div class="pt-5"> 
                 <div class="col-md-12">
-                    <small>Your store <i class="fa fa-copyright-alt"></i> 2021</small>
+                    <small>Copyright &copy; Your Website 2021</small>
                 </div>
             </div>
         </div>
