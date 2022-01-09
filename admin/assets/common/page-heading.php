@@ -59,4 +59,14 @@ switch ($host) {
             <h1 class="h3 mb-0 text-gray-800">Customers</h1>
         ';
         break;
+    case "/test/admin/stock_status";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Stock Status</h1>
+        ';
+        break;
+    case "/test/admin/order_status";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Order Status</h1>
+        ';
+        break;
 }

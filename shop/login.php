@@ -1,4 +1,5 @@
-<?php 
+<?php
+require "controller/header.controller.php";
 require "assets/common/header.php";
 ?>
 
@@ -12,7 +13,7 @@ require "assets/common/header.php";
                 <div class="form container"> 
                     <h3 class="title mb-3">Login Form</h3>
 
-                    <div class="alert alert-danger mb-3" role="alert"></div>
+                    <div id="alert" role="alert"></div>
 
                     <div class="mb-3">
                         <label for="customer_email" class="form-label">E-mail Address: *</label>
@@ -40,20 +41,20 @@ require "assets/common/header.php";
 
     <script> 
     $(document).ready(function(){
-        $('.alert').hide();
+        $('#alert').hide();
 
         $('#submit').on("click", function(){
             var customer_email = $('#customer_email').val();
             var customer_password = $('#customer_password').val();
 
             if(customer_email == "" || customer_password == "") {
-                $('.alert').show();
+                $('#alert').show();
                 alert_message = "No match for Email Address and Password";
-                $('.alert').text(alert_message);
+                $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
             } else {
-                $('.alert').hide();
+                $('#alert').hide();
                 $.ajax({
-                    url: 'shop/controller/login.controller.php?get_customer',
+                    url: 'controller/login.controller.php?get_customer',
                     method: 'POST',
                     data: {
                         customer_email:customer_email,
@@ -61,7 +62,7 @@ require "assets/common/header.php";
                     },
                     success: function(response) {
                         if (response == "success") {
-                            window.location.replace("myaccount");
+                            // window.location.replace("myaccount");
                         } else {
                             $('.alert').show();
                             alert_message = "No match for Email Address and Password";

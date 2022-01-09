@@ -3,7 +3,7 @@ require "assets/common/header.php";
 ?>
 
 <body id="page-top">
-
+<!-- Page Wrapper -->
     <div id="wrapper">
 
         <?php require "assets/common/sidenav.php"; ?>

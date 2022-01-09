@@ -1,3 +1,20 @@
+function openTabs(event, tabName) {
+    var c, tabcontent, tab_button;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (c = 0; c < tabcontent.length; c++) {
+    tabcontent[c].style.display = "none";
+    }
+
+    tab_button = document.getElementsByClassName("tab_button");
+    for (c = 0; c < tab_button.length; c++) {
+    tab_button[c].className = tab_button[c].className.replace(" active", "");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    event.currentTarget.className += " active";
+}
+
 function add_product() {
     window.location.href="add_product";
 }
@@ -31,6 +48,8 @@ function update_products(product_id, name, quantity, price, product_status, desc
     $('#product_category').val(product_category);
 
     $('#update').on('click', function(){
+        var alert_message = $('#alertMessage').val();
+
         var product_name = $('#product_name').val();
         var product_desc = $('#description').val();
         var meta_tag_title = $('#meta_tag_title').val();
@@ -46,7 +65,8 @@ function update_products(product_id, name, quantity, price, product_status, desc
         var product_category = $('#product_category').val();
 
         if (product_name == "" || price == "" || quantity == "" || meta_tag_title == "" || weight == "") {
-            alert("Please fill up the form correctly!");
+            alert_message = "Please double check the required fields!";
+            $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
                 url: 'controller/function.php?update_product',

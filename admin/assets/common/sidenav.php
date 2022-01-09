@@ -74,8 +74,8 @@
                         <h6 class="collapse-header">Admin Control:</h6>
                         <a class="collapse-item <?php echo ($host == "/test/admin/user" ? "active" : "") ?>" href="user">Users</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/user_group" ? "active" : "") ?>" href="user_group">User Groups</a>
-                        <a class="collapse-item <?php echo ($host == "/test/admin/weight" ? "active" : "") ?>" href="">Stock Statuses</a>
-                        <a class="collapse-item <?php echo ($host == "/test/admin/weight" ? "active" : "") ?>" href="">Order Statuses</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/stock_status" ? "active" : "") ?>" href="stock_status">Stock Statuses</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/order_status" ? "active" : "") ?>" href="order_status">Order Statuses</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/weight" ? "active" : "") ?>" href="">Weight Classes</a>
                     </div>
                 </div>

@@ -53,6 +53,24 @@ INSERT INTO `admin_user_group` (`user_group_id`, `user_group_name`, `user_group_
 	(2, 'User', 1);
 /*!40000 ALTER TABLE `admin_user_group` ENABLE KEYS */;
 
+-- Dumping structure for table testdb.cart
+CREATE TABLE IF NOT EXISTS `cart` (
+  `cart_id` int(11) NOT NULL AUTO_INCREMENT,
+  `api_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(5) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`cart_id`),
+  KEY `Index` (`api_id`,`customer_id`,`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.cart: ~1 rows (approximately)
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` (`cart_id`, `api_id`, `customer_id`, `product_id`, `quantity`, `date_added`) VALUES
+	(1, 0, 0, 1, 1, '2022-01-09 02:05:22');
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+
 -- Dumping structure for table testdb.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -73,7 +91,7 @@ INSERT INTO `categories` (`category_id`, `parent_id`, `category_status`, `date_a
 	(7, 0, 1, '2022-01-05 03:49:27', '2022-01-05 15:49:27'),
 	(8, 0, 1, '2022-01-05 03:49:40', '2022-01-05 15:49:40'),
 	(10, 0, 1, '2022-01-05 03:51:08', '2022-01-05 16:01:39'),
-	(13, 0, 0, '2022-01-06 05:23:39', '2022-01-06 17:31:55');
+	(13, 0, 1, '2022-01-06 05:23:39', '2022-01-08 21:49:09');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.category_description
@@ -136,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `customer_address` (
 /*!40000 ALTER TABLE `customer_address` DISABLE KEYS */;
 INSERT INTO `customer_address` (`address_id`, `customer_id`, `firstname`, `lastname`, `address_1`, `address_2`, `city`, `postcode`, `region`) VALUES
 	(1, 1, 'Christian', 'Pascual', '044 Santol', '', 'Balagtas', '3016', 'Bulacan'),
-	(2, 2, 'John', 'Doe', '044 Sanrol', '', 'Blagtas', '3016', 'Bulacan');
+	(2, 2, 'John', 'Doe', '044 Sanrol', '', 'Balagtas', '3016', 'Bulacan');
 /*!40000 ALTER TABLE `customer_address` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.customer_ip
@@ -159,6 +177,21 @@ INSERT INTO `customer_ip` (`customer_ip_id`, `customer_id`, `email`, `ip`, `date
 	(4, 1, 'cpascual107@gmail.com', '::1', '2022-01-07 01:37:22'),
 	(5, 2, 'example@email.com', '::1', '2022-01-07 02:25:57');
 /*!40000 ALTER TABLE `customer_ip` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.customer_wishlist
+CREATE TABLE IF NOT EXISTS `customer_wishlist` (
+  `customer_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_id`,`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.customer_wishlist: ~2 rows (approximately)
+/*!40000 ALTER TABLE `customer_wishlist` DISABLE KEYS */;
+INSERT INTO `customer_wishlist` (`customer_id`, `product_id`, `date_added`) VALUES
+	(2, 1, '2022-01-09 01:27:43'),
+	(2, 2, '2022-01-09 01:33:36');
+/*!40000 ALTER TABLE `customer_wishlist` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.information_description
 CREATE TABLE IF NOT EXISTS `information_description` (
@@ -255,10 +288,16 @@ CREATE TABLE IF NOT EXISTS `order_status` (
   `order_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`order_status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.order_status: ~0 rows (approximately)
+-- Dumping data for table testdb.order_status: ~5 rows (approximately)
 /*!40000 ALTER TABLE `order_status` DISABLE KEYS */;
+INSERT INTO `order_status` (`order_status_id`, `name`) VALUES
+	(2, 'Pending'),
+	(3, 'Cancel'),
+	(5, 'Ready for Pick up'),
+	(6, 'Complete'),
+	(7, 'Test');
 /*!40000 ALTER TABLE `order_status` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.order_total
@@ -299,8 +338,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `quantity`, `stock_status_i
 	(1, 'Manggo', 123, 4, '', 0, 123.0000, 1.00000000, 1, 1, '2022-01-06 02:16:05', '2022-01-06 16:18:06'),
 	(2, 'Watermelon', 123, 5, '', 0, 123.0000, 2.00000000, 2, 1, '2022-01-06 02:16:44', '2022-01-06 17:14:37'),
 	(3, 'Orange', 123, 7, '', 0, 123.0000, 2.00000000, 1, 1, '2022-01-06 02:18:51', '2022-01-06 16:19:08'),
-	(4, 'Lemon', 111, 5, '', 0, 111.0000, 1.00000000, 3, 1, '2022-01-06 02:21:09', '2022-01-06 16:18:49'),
-	(5, 'Apple', 100, 4, '', 0, 140.0000, 1.00000000, 1, 1, '2022-01-06 02:53:55', '2022-01-06 18:27:27');
+	(4, 'Lemon', 111, 5, '', 0, 111.0000, 1.00000000, 3, 1, '2022-01-06 02:21:09', '2022-01-06 16:18:49');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_description
@@ -317,11 +355,10 @@ CREATE TABLE IF NOT EXISTS `product_description` (
 -- Dumping data for table testdb.product_description: ~5 rows (approximately)
 /*!40000 ALTER TABLE `product_description` DISABLE KEYS */;
 INSERT INTO `product_description` (`product_id`, `product_name`, `product_desc`, `meta_title`, `meta_description`, `meta_keywords`) VALUES
-	(1, 'Manggo', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor. Etiam in tempus sem, vel feugiat elit. Fusce sit amet dapibus nunc. Nam ultricies fringilla ante at facilisis. Donec nibh mauris, vestibulum a mi non, molestie sagittis leo. Phasellus aliquam laoreet dolor in ullamcorper. Vestibulum faucibus urna eu aliquet viverra. Quisque tempus risus et est porta auctor.', 'Manggo', '', ''),
+	(1, 'Manggo', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor.', 'Manggo', '', ''),
 	(2, 'Watermelon', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor. Etiam in tempus sem, vel feugiat elit. Fusce sit amet dapibus nunc. Nam ultricies fringilla ante at facilisis. Donec nibh mauris, vestibulum a mi non, molestie sagittis leo. Phasellus aliquam laoreet dolor in ullamcorper. Vestibulum faucibus urna eu aliquet viverra. Quisque tempus risus et est porta auctor.', 'Watermelon', '', ''),
 	(3, 'Orange', '', 'Product 3', '', ''),
-	(4, 'Lemon', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor. Etiam in tempus sem, vel feugiat elit. Fusce sit amet dapibus nunc. Nam ultricies fringilla ante at facilisis. Donec nibh mauris, vestibulum a mi non, molestie sagittis leo. Phasellus aliquam laoreet dolor in ullamcorper. Vestibulum faucibus urna eu aliquet viverra. Quisque tempus risus et est porta auctor.', 'Lemon', '', ''),
-	(5, 'Apple', '', 'Apple', '', '');
+	(4, 'Lemon', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor. Etiam in tempus sem, vel feugiat elit. Fusce sit amet dapibus nunc. Nam ultricies fringilla ante at facilisis. Donec nibh mauris, vestibulum a mi non, molestie sagittis leo. Phasellus aliquam laoreet dolor in ullamcorper. Vestibulum faucibus urna eu aliquet viverra. Quisque tempus risus et est porta auctor.', 'Lemon', '', '');
 /*!40000 ALTER TABLE `product_description` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_to_category
@@ -332,14 +369,13 @@ CREATE TABLE IF NOT EXISTS `product_to_category` (
   KEY `Index` (`category_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.product_to_category: ~5 rows (approximately)
+-- Dumping data for table testdb.product_to_category: ~4 rows (approximately)
 /*!40000 ALTER TABLE `product_to_category` DISABLE KEYS */;
 INSERT INTO `product_to_category` (`product_id`, `category_id`) VALUES
 	(1, 13),
 	(2, 13),
 	(3, 13),
-	(4, 13),
-	(5, 13);
+	(4, 13);
 /*!40000 ALTER TABLE `product_to_category` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.stock_status
@@ -347,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `stock_status` (
   `stock_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`stock_status_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table testdb.stock_status: ~4 rows (approximately)
 /*!40000 ALTER TABLE `stock_status` DISABLE KEYS */;

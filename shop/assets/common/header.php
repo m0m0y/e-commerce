@@ -1,20 +1,20 @@
-<?php 
-require "shop/controller/header.controller.php"; 
+<?php
+require_once "include/include.php";
+require_once "controller/base.controller.php"; 
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $page_title; ?></title>
+    <title><?= page_title(); ?></title>
     <meta name="description" content="E-commerce">
     <meta name="author" content="CAP">
 
     <!-- Custom -->
-    <link rel="stylesheet" href="<?= $BASE_URL ?>shop/assets/css/shop.css">
+    <link rel="stylesheet" href="<?= $BASE_URL ?>assets/css/shop.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -26,11 +26,11 @@ session_start();
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <!-- Owl Stylesheets -->
-    <link rel="stylesheet" href="<?= $BASE_URL ?>shop/assets/css/owlcarousel/owl.carousel.css">
-    <link rel="stylesheet" href="<?= $BASE_URL ?>shop/assets/css/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<?= $BASE_URL ?>assets/css/owlcarousel/owl.carousel.css">
+    <link rel="stylesheet" href="<?= $BASE_URL ?>assets/css/owlcarousel/owl.theme.default.min.css">
 
     <!-- javascript -->
-    <script src="<?= $BASE_URL ?>shop/assets/js/owlcarousel/jquery.min.js"></script>
-    <script src="<?= $BASE_URL ?>shop/assets/js/owlcarousel/owl.carousel.js"></script>
+    <script src="<?= $BASE_URL ?>assets/js/owlcarousel/jquery.min.js"></script>
+    <script src="<?= $BASE_URL ?>assets/js/owlcarousel/owl.carousel.js"></script>
 
 </head>

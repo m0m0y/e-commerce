@@ -1,2 +1,2 @@
 <?php
-$BASE_URL = "http://localhost/test/";
+$BASE_URL = "http://localhost/test/shop/";

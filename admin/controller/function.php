@@ -730,9 +730,6 @@ class Main extends database_connection{
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
-			<div align="right" style="margin-bottom:5px;">
-				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_info()"><i class="fas fa-plus-square"></i> Add New</button>
-			</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
@@ -840,6 +837,190 @@ class Main extends database_connection{
 			echo "Error updating record: " . $conn->error;
 		}
 	}
+
+	function get_stock_statuses() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM stock_status";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_stockStatus()"><i class="fas fa-plus-square"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$stock_status_id = $row["stock_status_id"];
+				$name = $row["name"];
+
+				$table .= '
+					<tr>
+						<td>'.$name.'</td>
+						<td>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_stockStatus(\'' . $stock_status_id . '\',\'' . $name . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_stockStatus(\'' . $stock_status_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="2" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function add_stockstatus() {
+		$name = $_POST["name"];
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO stock_status (name) VALUES ('$name')";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
+	function update_stockstatus() {
+		$stock_status_id = $_POST["stock_status_id"];
+		$name = $_POST["name"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE stock_status SET name='$name' WHERE stock_status_id='$stock_status_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_stockstatus() {
+		$stock_status_id = $_POST["stock_status_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM stock_status WHERE stock_status_id='$stock_status_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function get_order_statuses() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM order_status";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_orderStatus()"><i class="fas fa-plus-square"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$order_status_id = $row["order_status_id"];
+				$name = $row["name"];
+
+				$table .= '
+					<tr>
+						<td>'.$name.'</td>
+						<td>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_orderStatus(\'' . $order_status_id . '\',\'' . $name . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_orderStatus(\'' . $order_status_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="2" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function add_orderstatus() {
+		$name = $_POST["name"];
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO order_status (name) VALUES ('$name')";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
+	function update_orderstatus() {
+		$order_status_id = $_POST["order_status_id"];
+		$name = $_POST["name"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE order_status SET name='$name' WHERE order_status_id='$order_status_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_orderstatus() {
+		$order_status_id = $_POST["order_status_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM order_status WHERE order_status_id='$order_status_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
 }
 
 $class = new Main();
@@ -922,5 +1103,29 @@ if(isset($_GET["update_customer_info"])){
 
 if(isset($_GET["delete_customer_accnt"])){
 	$class->delete_customer_accnt();
+}
+
+if(isset($_GET["add_stockstatus"])){
+	$class->add_stockstatus();
+}
+
+if(isset($_GET["update_stockstatus"])){
+	$class->update_stockstatus();
+}
+
+if(isset($_GET["delete_stockstatus"])){
+	$class->delete_stockstatus();
+}
+
+if(isset($_GET["add_orderstatus"])){
+	$class->add_orderstatus();
+}
+
+if(isset($_GET["update_orderstatus"])){
+	$class->update_orderstatus();
+}
+
+if(isset($_GET["delete_orderstatus"])){
+	$class->delete_orderstatus();
 }
 ?>

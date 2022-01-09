@@ -1,4 +1,5 @@
 <?php
+require "controller/header.controller.php";
 require "assets/common/header.php";
 ?>
 
@@ -94,7 +95,7 @@ require "assets/common/header.php";
                 } else {
                     $('.alert').hide();
                     $.ajax({
-                        url: 'shop/controller/contact.controller.php',
+                        url: 'controller/contact.controller.php',
                         method: 'POST',
                         data: {
                             customer_name:customer_name,

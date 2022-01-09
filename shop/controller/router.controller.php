@@ -1,35 +1,35 @@
 <?php
 
 class Router {
-    private $request;
+    // private $request;
 
-    public function page() {
-        $page = '404';
+    // public function page() {
+    //     $page = '404';
 
-        if(isset($_SERVER["REQUEST_URI"])) {
-            $uri = explode("/", $_SERVER["REQUEST_URI"]);
-            $page = isset($uri[2]) && !empty($uri[2]) ? $uri[2] : 'home';
-        } else {
-            $page = 'home';
-        }
+    //     if(isset($_SERVER["REQUEST_URI"])) {
+    //         $uri = explode("/", $_SERVER["REQUEST_URI"]);
+    //         $page = isset($uri[2]) && !empty($uri[2]) ? $uri[2] : 'home';
+    //     } else {
+    //         $page = 'home';
+    //     }
 
-        if($page == "page") {
-            if(isset($_SERVER["REQUEST_URI"])) {
-                $uri = explode("/", $_SERVER["REQUEST_URI"]);
-                $page = isset($uri[1]) && !empty($uri[1]) ? $uri[1] : 'home';
-            }
-        }
+    //     if($page == "page") {
+    //         if(isset($_SERVER["REQUEST_URI"])) {
+    //             $uri = explode("/", $_SERVER["REQUEST_URI"]);
+    //             $page = isset($uri[1]) && !empty($uri[1]) ? $uri[1] : 'home';
+    //         }
+    //     }
 
-        $this->request = $page;
-        return $this;
-    }
+    //     $this->request = $page;
+    //     return $this;
+    // }
 
     public function renderPage() {
+        $page = $_SERVER['REQUEST_URI'];
         require "shop/include/include.php";
 
-        switch($this->request) {
+        switch($page) {
             case "":
-            case "home":
                 $page_title = "Your Shop - Home page";
                 require "shop/home.php";
                 break;
@@ -59,6 +59,10 @@ class Router {
             case "myaccount";
                 $page_title = "My Account";
                 require "shop/myaccount.php";
+                break;
+            case "category?id=6";
+                $page_title = "Your Shop - Category";
+                require "shop/category.php";
                 break;
         }
     }

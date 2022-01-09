@@ -1,4 +1,5 @@
 <?php 
+require "controller/header.controller.php";
 require "assets/common/header.php"; 
 if (isset($_SESSION["firstname"])) {
     $firstname = $_SESSION["firstname"];

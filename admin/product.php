@@ -40,105 +40,123 @@ require "assets/common/header.php";
                                             </div>
                                         </div> 
                                         <div class="modal-body">
-                                            <div class="row mb-4">
-                                                <label for="product_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Product Name:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="product_name" class="form-control" placeholder="Product Name">
+
+                                            <div class="mb-3" id="alertMessage"></div>
+
+                                            <!-- Tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item">
+                                                    <button class="nav-link tab_button active" onclick="openTabs(event, 'General')">General</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button class="nav-link tab_button" onclick="openTabs(event, 'Data')">Data</button>
+                                                </li>
+                                            </ul>
+
+                                            <!-- Contents -->
+                                            <div id="General" class="tabcontent" style="display: flex; flex-direction: column;">
+                                                <div class="row mb-4">
+                                                    <label for="product_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Product Name:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" id="product_name" class="form-control" placeholder="Product Name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <label for="description" class="col-sm-3 col-form-label text-right">Description:</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea id="description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <label for="meta_tag_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" id="meta_tag_title" class="form-control" placeholder="Meta Tag Title">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <label for="meta_tag_description" class="col-sm-3 col-form-label text-right">Meta Tag Description:</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea id="meta_tag_description" rows="4" cols="50" class="form-control" placeholder="Meta Tag Description"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-4">
+                                                    <label for="meta_tag_keywords" class="col-sm-3 col-form-label text-right">Meta Tag Keywords:</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea id="meta_tag_keywords" rows="3" cols="50" class="form-control" placeholder="Meta Tag Keywords"></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row mb-4">
-                                                <label for="description" class="col-sm-3 col-form-label text-right">Description:</label>
-                                                <div class="col-sm-9">
-                                                    <textarea id="description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea>
+                                            
+                                            <div id="Data" class="tabcontent">
+                                                <div class="row mb-4">
+                                                    <label for="price" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Price:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="number" id="price" class="form-control" placeholder="Price">
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-4">
-                                                <label for="meta_tag_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="meta_tag_title" class="form-control" placeholder="Meta Tag Title">
+                                                <div class="row mb-4">
+                                                    <label for="quantity" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Quantity:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="number" id="quantity" class="form-control" placeholder="Quantity">
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-4">
-                                                <label for="meta_tag_description" class="col-sm-3 col-form-label text-right">Meta Tag Description:</label>
-                                                <div class="col-sm-9">
-                                                    <textarea id="meta_tag_description" rows="4" cols="50" class="form-control" placeholder="Meta Tag Description"></textarea>
+                                                <div class="row mb-4">
+                                                    <label for="stock_status" class="col-sm-3 col-form-label text-right">Stock Status:</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-control" id="stock_status">
+                                                            <?php $class->get_stock_status_id(); ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-4">
-                                                <label for="meta_tag_keywords" class="col-sm-3 col-form-label text-right">Meta Tag Keywords:</label>
-                                                <div class="col-sm-9">
-                                                    <textarea id="meta_tag_keywords" rows="3" cols="50" class="form-control" placeholder="Meta Tag Keywords"></textarea>
+                                                <div class="row mb-4">
+                                                    <label for="weight" class="col-sm-3 col-form-label text-right">Weight:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="number" id="weight" class="form-control" placeholder="Weight">
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-4">
-                                                <label for="price" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Price:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" id="price" class="form-control" placeholder="Price">
+                                                <div class="row mb-4">
+                                                    <label for="weight_class" class="col-sm-3 col-form-label text-right">Weight Class:</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-control" id="weight_class">
+                                                            <?php $class->get_weight_description(); ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-4">
-                                                <label for="quantity" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Quantity:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" id="quantity" class="form-control" placeholder="Quantity">
+                                                <div class="row mb-4">
+                                                    <label for="product_status" class="col-sm-3 col-form-label text-right">Status:</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-control" id="product_status">
+                                                            <option value="1">Enable</option>
+                                                            <option value="0">Disabled</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row mb-4">
-                                                <label for="stock_status" class="col-sm-3 col-form-label text-right">Stock Status:</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" id="stock_status">
-                                                        <?php $class->get_stock_status_id(); ?>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                                <!-- <div class="row mb-4">
+                                                    <label for="stock_status" class="col-sm-3 col-form-label text-right">Manufacturer:</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-control" id="">
+                                                            <?php // $class->get_category_description(); ?>
+                                                        </select>
+                                                    </div>
+                                                </div> -->
 
-                                            <div class="row mb-4">
-                                                <label for="weight" class="col-sm-3 col-form-label text-right">Weight:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" id="weight" class="form-control" placeholder="Weight">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="weight_class" class="col-sm-3 col-form-label text-right">Weight Class:</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" id="weight_class">
-                                                        <?php $class->get_weight_description(); ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="product_status" class="col-sm-3 col-form-label text-right">Status:</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" id="product_status">
-                                                        <option value="1">Enable</option>
-                                                        <option value="0">Disabled</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <!-- <div class="row mb-4">
-                                                <label for="stock_status" class="col-sm-3 col-form-label text-right">Manufacturer:</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" id="">
-                                                        <?php // $class->get_category_description(); ?>
-                                                    </select>
-                                                </div>
-                                            </div> -->
-
-                                            <div class="row mb-4">
-                                                <label for="product_category" class="col-sm-3 col-form-label text-right">Categories:</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" id="product_category">
-                                                        <?php $class->get_category_description(); ?>
-                                                    </select>
+                                                <div class="row mb-4">
+                                                    <label for="product_category" class="col-sm-3 col-form-label text-right">Categories:</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="form-control" id="product_category">
+                                                            <?php $class->get_category_description(); ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>   

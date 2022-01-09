@@ -18,12 +18,26 @@ class Login extends database_connection {
 				$_SESSION["lastname"] = $row["lastname"];
 				$_SESSION["email"] = $row["email"];
 				$_SESSION["password"] = $row["password"];
-				echo "success";
+
+				if (isset($_POST)) {
+					$this->update_cart($row["customer_id"]);
+				}
 			}
 		} else {
 			echo "invalid";
 		} 
-    } 
+    }
+
+	function update_cart($customer_id) {
+		$conn = $this->db_conn();
+		$sql = "UPDATE cart SET customer_id='$customer_id' WHERE customer_id='$customer_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "success";
+		} else {
+			echo "mali";
+		}
+	}
 }
 
 $class = new Login();

@@ -1,6 +1,6 @@
 <?php 
+require "controller/header.controller.php";
 require "assets/common/header.php";
-require "shop/controller/register.controller.php";
 ?>
 
 <body> 
@@ -14,7 +14,7 @@ require "shop/controller/register.controller.php";
                     <h3 class="title mb-3">Register Account</h3>
                     <p>If you already have an account with us, please login at the login page.</p>
 
-                    <div class="alert alert-danger mb-3" role="alert"></div>
+                    <div id="alert" role="alert"></div>
 
                     <h5>Your Personal Details</h5>
                     <hr>
@@ -115,7 +115,7 @@ require "shop/controller/register.controller.php";
 
     <script>
         $(document).ready(function(){
-            $('.alert').hide();
+            $('#alert').hide();
 
             $('#submit').on("click", function(){
                 var customer_firstname = $('#customer_firstname').val();
@@ -132,17 +132,17 @@ require "shop/controller/register.controller.php";
                 var region = $('#region').val();
 
                 if (customer_password != confirm_password){
-                    $('.alert').show();
+                    $('#alert').show();
                     alert_message = "Your Password did not match!";
-                    $('.alert').text(alert_message);
+                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
                 } else if(customer_firstname == "" || customer_lastname == "" || customer_email == "" || customer_telophone == "" || customer_password == "" || confirm_password == "" || address_1 == "" || city == "" || postcode == "" || region == "") {
-                    $('.alert').show();
+                    $('#alert').show().addClass("alert-danger mb-3");
                     alert_message = "Please double check the fields";
-                    $('.alert').text(alert_message);
+                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
                 } else {
-                    $('.alert').hide();
+                    $('#alert').hide();
                     $.ajax({
-                        url: 'shop/controller/register.controller.php?registration',
+                        url: 'controller/register.controller.php?registration',
                         method: 'POST',
                         data: {
                             customer_firstname:customer_firstname,

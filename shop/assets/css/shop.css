@@ -69,3 +69,6 @@ a.my-account-button:hover {
     padding-bottom: 2%; 
     border-radius: 5px;
 }
+.category-menu{
+    text-decoration: none;
+}

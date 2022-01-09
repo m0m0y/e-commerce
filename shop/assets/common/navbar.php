@@ -4,15 +4,18 @@
         <div class="d-flex flex-row bd-highlight mb-3"></div>
 
         <div class="d-flex flex-row-reverse bd-highlight">
-            <?php if (isset($_SESSION["customer_id"])) { ?>
+            <?php 
+            if (isset($_SESSION["customer_id"])) { 
+                $customer_id = $_SESSION["customer_id"];
+            ?>
                 <div class="p-2 bd-highlight"><i class="fa fa-check-circle"></i><a class="top-header-link" href="#"> Checkout</a></div>
-                <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="#"> Wish list</a></div>
+                <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="#"> Wish list (<?php echo $class->get_wishlist_rows($customer_id); ?>)</a></div>
                 <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> 091234567789</div>
             <?php } 
 
             else { ?>
                 <div class="p-2 bd-highlight"><i class="fa fa-check-circle"></i><a class="top-header-link" href="#"> Checkout</a></div>
-                <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="<?= $BASE_URL ?>login"> Wish list</a></div>
+                <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="<?= $BASE_URL ?>login"> Wish list (0)</a></div>
                 <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> 091234567789</div>
             <?php } ?>
         </div>
@@ -44,7 +47,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $BASE_URL ?>">Home</a>
+                    <a class="nav-link" href="<?= $BASE_URL ?>home">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $BASE_URL ?>about">About Us</a>
@@ -56,9 +59,7 @@
                         Product Categories
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Sample 1</a>
-                        <a class="dropdown-item" href="#">Sample 2</a>
-                        <a class="dropdown-item" href="#">Sample 3</a>
+                        <?php $class->get_categories(); ?>
                     </div>
                 </li>
 
