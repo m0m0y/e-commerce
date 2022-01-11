@@ -72,3 +72,11 @@ a.my-account-button:hover {
 .category-menu{
     text-decoration: none;
 }
+
+img.product-icon {
+    opacity: 80%;
+}
+
+.product-name {
+    text-decoration: none;
+}

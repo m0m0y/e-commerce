@@ -25,6 +25,15 @@ function page_title() {
         case "/test/shop/myaccount":
             $page_title = "My Account";
             break;
+        case "/test/shop/404":
+            $page_title = "404 Page";
+            break;
+        case "/test/shop/wishlist":
+            $page_title = "My Wish List";
+            break;
+        case "/test/shop/product":
+            $page_title = "Your Shop - Categories";
+            echo $page_title;
     }
 
     echo $page_title;

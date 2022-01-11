@@ -141,14 +141,14 @@ require "assets/common/header.php";
                                                     </div>
                                                 </div>
 
-                                                <!-- <div class="row mb-4">
+                                                <div class="row mb-4">
                                                     <label for="stock_status" class="col-sm-3 col-form-label text-right">Manufacturer:</label>
                                                     <div class="col-sm-9">
-                                                        <select class="form-control" id="">
-                                                            <?php // $class->get_category_description(); ?>
+                                                        <select class="form-control" id="manufacturer_id">
+                                                            <?php $class->get_manufacturer_value(); ?>
                                                         </select>
                                                     </div>
-                                                </div> -->
+                                                </div>
 
                                                 <div class="row mb-4">
                                                     <label for="product_category" class="col-sm-3 col-form-label text-right">Categories:</label>

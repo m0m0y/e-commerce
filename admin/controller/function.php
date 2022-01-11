@@ -292,7 +292,7 @@ class Main extends database_connection{
 	function get_product() {
 		$table = "";
 		$conn = $this->db_conn();
-		$sql = "SELECT product.product_id, product.product_name, product.quantity, product.stock_status_id, product.price, product.product_weight, product.weight_id, product.product_status, product_description.product_desc, product_description.meta_title, product_description.meta_description, product_description.meta_keywords FROM product INNER JOIN product_description ON product.product_id = product_description.product_id";
+		$sql = "SELECT product.product_id, product.product_name, product.quantity, product.stock_status_id, product.manufacturer_id, product.price, product.product_weight, product.weight_id, product.product_status, product_description.product_desc, product_description.meta_title, product_description.meta_description, product_description.meta_keywords FROM product INNER JOIN product_description ON product.product_id = product_description.product_id";
 		$result = mysqli_query($conn, $sql);
 
 		// Product table
@@ -318,6 +318,7 @@ class Main extends database_connection{
 				$product_id = $row["product_id"];
 				$name = $row["product_name"];
 				$quantity = $row["quantity"];
+				$manufacturer_id = $row["manufacturer_id"];
 				$price = $row["price"];
 				$product_desc = $row["product_desc"];
 				$meta_title = $row["meta_title"];
@@ -342,7 +343,7 @@ class Main extends database_connection{
 						<td>'.$quantity.'</td>
 						<td>'.$product_status.'</td>
 						<td>
-							<button type="button" class="btn btn-sm btn-info" onclick="update_products(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\',\'' . $product_category . '\')"><i class="fas fa-pencil-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_products(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $manufacturer_id . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\',\'' . $product_category . '\')"><i class="fas fa-pencil-alt"></i></button>
 
 							<button type="button" class="btn btn-sm btn-danger" onclick="delete_products(\'' . $product_id . '\',)"><i class="fas fa-trash-alt"></i></button>
 						</td>
@@ -414,11 +415,12 @@ class Main extends database_connection{
 		$product_weight = $_POST["product_weight"];
 		$weight_class = $_POST["weight_class"];
 		$product_status = $_POST["product_status"];
+		$manufacturer_id = $_POST["manufacturer_id"];
 		$product_category = $_POST["product_category"];
 
 		$conn = $this->db_conn();
 		// Update for Product table
-		$sql = "UPDATE product SET product_name='$product_name', quantity='$quantity', stock_status_id='$stock_status', price='$price', product_weight='$product_weight', weight_id='$weight_class', product_status='$product_status' WHERE product_id='$product_id'";
+		$sql = "UPDATE product SET product_name='$product_name', quantity='$quantity', stock_status_id='$stock_status', manufacturer_id='$manufacturer_id', price='$price', product_weight='$product_weight', weight_id='$weight_class', product_status='$product_status' WHERE product_id='$product_id'";
 
 		// Update for Product Description table
 		$sql1 = "UPDATE product_description SET product_name='$product_name', product_desc='$product_desc', meta_title='$meta_tag_title', meta_description='$meta_tag_description', meta_keywords='$meta_tag_keywords' WHERE product_id='$product_id'";
@@ -454,6 +456,7 @@ class Main extends database_connection{
 		$meta_tag_title = $_POST["meta_tag_title"];
 		$meta_tag_description = $_POST["meta_tag_description"];
 		$meta_tag_keywords = $_POST["meta_tag_keywords"];
+		$manufacturer_id = $_POST["manufacturer_id"];
 		$product_category = $_POST["product_category"];
 		$price = $_POST["price"];
 		$quantity = $_POST["quantity"];
@@ -461,11 +464,10 @@ class Main extends database_connection{
 		$product_weight = $_POST["product_weight"];
 		$weight_class = $_POST["weight_class"];
 		$product_status = $_POST["product_status"];
-
 		$date_added = date("Y-m-d h:i:sa");
 
 		$conn = $this->db_conn();
-		$sql = "INSERT INTO product (product_name, quantity, stock_status_id, price, product_weight, weight_id, product_status, date_added) VALUES ('$product_name', '$quantity', '$stock_status', '$price', '$product_weight', '$weight_class', '$product_status', '$date_added');";
+		$sql = "INSERT INTO product (product_name, quantity, stock_status_id, manufacturer_id, price, product_weight, weight_id, product_status, date_added) VALUES ('$product_name', '$quantity', '$stock_status', '$manufacturer_id', '$price', '$product_weight', '$weight_class', '$product_status', '$date_added');";
 
 		$sql .= "INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_title', '$meta_tag_description', '$meta_tag_keywords');";
 
@@ -1021,6 +1023,110 @@ class Main extends database_connection{
 			echo "Error updating record: " . $conn->error;
 		}
 	}
+
+	function get_manufacturers() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM manufacturer";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<div align="right" style="margin-bottom:5px;">
+				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_manufacturers()"><i class="fas fa-plus-square"></i> Add New</button>
+			</div>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$manufacturer_id = $row["manufacturer_id"];
+				$name = $row["name"];
+
+				$table .= '
+					<tr>
+						<td>'.$name.'</td>
+						<td>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_manufacturers(\'' . $manufacturer_id . '\',\'' . $name . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_manufacturers(\'' . $manufacturer_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .= '
+			<tr>
+				<td colspan="2" align="center">No data found</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function add_manufacturer() {
+		$name = $_POST["name"];
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO manufacturer (name) VALUES ('$name')";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
+	function update_manufaturer() {
+		$manufacturer_id = $_POST["manufacturer_id"];
+		$name = $_POST["name"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE manufacturer SET name='$name' WHERE manufacturer_id='$manufacturer_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_manufacturer() {
+		$manufacturer_id = $_POST["manufacturer_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM manufacturer WHERE manufacturer_id='$manufacturer_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function get_manufacturer_value() {
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM manufacturer";
+		$result = mysqli_query($conn, $sql);
+
+		foreach ($result as $key => $value) {
+			echo '
+				<option value="'.$value["manufacturer_id"].'">'.$value["name"].'</option>
+			';
+		}
+	}
 }
 
 $class = new Main();
@@ -1127,5 +1233,17 @@ if(isset($_GET["update_orderstatus"])){
 
 if(isset($_GET["delete_orderstatus"])){
 	$class->delete_orderstatus();
+}
+
+if(isset($_GET["add_manufacturer"])){
+	$class->add_manufacturer();
+}
+
+if(isset($_GET["update_manufaturer"])){
+	$class->update_manufaturer();
+}
+
+if(isset($_GET["delete_manufacturer"])){
+	$class->delete_manufacturer();
 }
 ?>

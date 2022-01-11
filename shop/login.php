@@ -41,18 +41,14 @@ require "assets/common/header.php";
 
     <script> 
     $(document).ready(function(){
-        $('#alert').hide();
-
         $('#submit').on("click", function(){
             var customer_email = $('#customer_email').val();
             var customer_password = $('#customer_password').val();
 
             if(customer_email == "" || customer_password == "") {
-                $('#alert').show();
                 alert_message = "No match for Email Address and Password";
                 $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
             } else {
-                $('#alert').hide();
                 $.ajax({
                     url: 'controller/login.controller.php?get_customer',
                     method: 'POST',
@@ -62,9 +58,11 @@ require "assets/common/header.php";
                     },
                     success: function(response) {
                         if (response == "success") {
-                            // window.location.replace("myaccount");
+                            window.location.replace("myaccount");
+                        } else if (response == "invalid") {
+                            alert_message = "No match for Email Address and Password";
+                            $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
                         } else {
-                            $('.alert').show();
                             alert_message = "No match for Email Address and Password";
                             $('.alert').text(alert_message);
                         }

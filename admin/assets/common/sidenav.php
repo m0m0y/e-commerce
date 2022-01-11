@@ -48,6 +48,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item <?php echo ($host == "/test/admin/categories" ? "active" : "") ?>" href="categories">Categories</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/product" ? "active" : "") ?>" href="product">Products</a>
+                        <a class="collapse-item <?php echo ($host == "/test/admin/manufacturer" ? "active" : "") ?>" href="manufacturer">Manufacturers</a>
                         <a class="collapse-item <?php echo ($host == "/test/admin/information" ? "active" : "") ?>" href="information">Information</a>
                     </div>
                 </div>

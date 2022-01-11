@@ -87,8 +87,9 @@ require "assets/common/header.php";
                 <div class="row mb-4">
                     <label for="stock_status" class="col-sm-3 col-form-label text-right">Manufacturer:</label>
                     <div class="col-sm-9">
-                      <select class="form-control" id="">
-                      <?php // $class->get_category_description(); ?>
+                      <select class="form-control" id="manufacturer_id">
+                      <option value="" selected disabled>Select Manufacturer</option>
+                      <?php $class->get_manufacturer_value(); ?>
                       </select>
                     </div>
                 </div>
@@ -97,6 +98,7 @@ require "assets/common/header.php";
                     <label for="product_category" class="col-sm-3 col-form-label text-right">Categories:</label>
                     <div class="col-sm-9">
                       <select class="form-control" id="product_category">
+                        <option value="" selected disabled>Select Categories</option>
                         <?php $class->get_category_description(); ?>
                       </select>
                     </div>
@@ -215,6 +217,7 @@ require "assets/common/header.php";
           var meta_tag_description = $('#meta_tag_description').val();
           var meta_tag_keywords = $('#meta_tag_keywords').val();
 
+          var manufacturer_id = $('#manufacturer_id').val();
           var product_category = $('#product_category').val();
           var price = $('#price').val();
           var quantity = $('#quantity').val();
@@ -236,6 +239,7 @@ require "assets/common/header.php";
                   meta_tag_title:meta_tag_title,
                   meta_tag_description:meta_tag_description,
                   meta_tag_keywords:meta_tag_keywords,
+                  manufacturer_id:manufacturer_id,
                   product_category:product_category,
                   price:price,
                   quantity:quantity,

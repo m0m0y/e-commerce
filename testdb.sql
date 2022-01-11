@@ -65,10 +65,10 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `Index` (`api_id`,`customer_id`,`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.cart: ~1 rows (approximately)
+-- Dumping data for table testdb.cart: ~0 rows (approximately)
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
 INSERT INTO `cart` (`cart_id`, `api_id`, `customer_id`, `product_id`, `quantity`, `date_added`) VALUES
-	(1, 0, 0, 1, 1, '2022-01-09 02:05:22');
+	(1, 0, 3, 6, 1, '2022-01-11 06:53:36');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.categories
@@ -85,13 +85,13 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- Dumping data for table testdb.categories: ~6 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` (`category_id`, `parent_id`, `category_status`, `date_added`, `date_modified`) VALUES
-	(4, 0, 1, '2022-01-05 03:48:33', '2022-01-06 17:11:23'),
+	(4, 0, 1, '2022-01-05 03:48:33', '2022-01-09 23:24:12'),
 	(5, 0, 1, '2022-01-05 03:48:55', '2022-01-05 15:48:55'),
 	(6, 0, 1, '2022-01-05 03:49:11', '2022-01-05 15:49:11'),
 	(7, 0, 1, '2022-01-05 03:49:27', '2022-01-05 15:49:27'),
 	(8, 0, 1, '2022-01-05 03:49:40', '2022-01-05 15:49:40'),
-	(10, 0, 1, '2022-01-05 03:51:08', '2022-01-05 16:01:39'),
-	(13, 0, 1, '2022-01-06 05:23:39', '2022-01-08 21:49:09');
+	(10, 0, 1, '2022-01-05 03:51:08', '2022-01-10 20:18:52'),
+	(13, 0, 1, '2022-01-06 05:23:39', '2022-01-10 20:18:44');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.category_description
@@ -127,12 +127,13 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table testdb.customer: ~1 rows (approximately)
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` (`customer_id`, `firstname`, `lastname`, `email`, `telephone`, `password`, `ip`, `status`, `date_added`) VALUES
-	(2, 'John', 'Doe', 'example@email.com', '09123456789', '123', '::1', 1, '2022-01-07 02:25:57');
+	(2, 'John', 'Doe', 'example@email.com', '09123456789', '123', '::1', 1, '2022-01-07 02:25:57'),
+	(3, 'Yuan', 'Ulpato', 'test@email.com', '091234567890', '1', '::1', 1, '2022-01-09 04:55:50');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.customer_address
@@ -148,13 +149,14 @@ CREATE TABLE IF NOT EXISTS `customer_address` (
   `region` varchar(50) NOT NULL,
   PRIMARY KEY (`address_id`),
   KEY `Index` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table testdb.customer_address: ~0 rows (approximately)
 /*!40000 ALTER TABLE `customer_address` DISABLE KEYS */;
 INSERT INTO `customer_address` (`address_id`, `customer_id`, `firstname`, `lastname`, `address_1`, `address_2`, `city`, `postcode`, `region`) VALUES
 	(1, 1, 'Christian', 'Pascual', '044 Santol', '', 'Balagtas', '3016', 'Bulacan'),
-	(2, 2, 'John', 'Doe', '044 Sanrol', '', 'Balagtas', '3016', 'Bulacan');
+	(2, 2, 'John', 'Doe', '044 Sanrol', '', 'Balagtas', '3016', 'Bulacan'),
+	(3, 3, 'Yuan', 'Ulpato', '044, Santol', 'Wakas, Bocaue', 'Balagtas', '3016', 'Bulacan');
 /*!40000 ALTER TABLE `customer_address` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.customer_ip
@@ -166,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `customer_ip` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_ip_id`) USING BTREE,
   KEY `Index 2` (`ip`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table testdb.customer_ip: ~4 rows (approximately)
 /*!40000 ALTER TABLE `customer_ip` DISABLE KEYS */;
@@ -175,7 +177,8 @@ INSERT INTO `customer_ip` (`customer_ip_id`, `customer_id`, `email`, `ip`, `date
 	(2, 2, 'itchaaanp@gmail.com', '::1', '2022-01-01 00:00:00'),
 	(3, 1, 'cpascual107@gmail.com', '::1', '2022-01-07 00:00:00'),
 	(4, 1, 'cpascual107@gmail.com', '::1', '2022-01-07 01:37:22'),
-	(5, 2, 'example@email.com', '::1', '2022-01-07 02:25:57');
+	(5, 2, 'example@email.com', '::1', '2022-01-07 02:25:57'),
+	(6, 3, 'test@email.com', '::1', '2022-01-09 04:55:50');
 /*!40000 ALTER TABLE `customer_ip` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.customer_wishlist
@@ -186,11 +189,10 @@ CREATE TABLE IF NOT EXISTS `customer_wishlist` (
   PRIMARY KEY (`customer_id`,`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.customer_wishlist: ~2 rows (approximately)
+-- Dumping data for table testdb.customer_wishlist: ~3 rows (approximately)
 /*!40000 ALTER TABLE `customer_wishlist` DISABLE KEYS */;
 INSERT INTO `customer_wishlist` (`customer_id`, `product_id`, `date_added`) VALUES
-	(2, 1, '2022-01-09 01:27:43'),
-	(2, 2, '2022-01-09 01:33:36');
+	(3, 6, '2022-01-11 05:45:55');
 /*!40000 ALTER TABLE `customer_wishlist` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.information_description
@@ -222,10 +224,13 @@ CREATE TABLE IF NOT EXISTS `manufacturer` (
   `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`manufacturer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.manufacturer: ~0 rows (approximately)
+-- Dumping data for table testdb.manufacturer: ~3 rows (approximately)
 /*!40000 ALTER TABLE `manufacturer` DISABLE KEYS */;
+INSERT INTO `manufacturer` (`manufacturer_id`, `name`) VALUES
+	(1, 'CDO'),
+	(2, 'Selecta');
 /*!40000 ALTER TABLE `manufacturer` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.order
@@ -322,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `quantity` int(4) NOT NULL DEFAULT 0,
   `stock_status_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `manufacturer_id` int(11) NOT NULL DEFAULT 0,
+  `manufacturer_id` int(11) NOT NULL,
   `price` decimal(15,4) NOT NULL,
   `product_weight` decimal(15,8) NOT NULL DEFAULT 0.00000000,
   `weight_id` int(11) NOT NULL DEFAULT 0,
@@ -330,15 +335,18 @@ CREATE TABLE IF NOT EXISTS `product` (
   `date_added` datetime NOT NULL,
   `date_modified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.product: ~4 rows (approximately)
+-- Dumping data for table testdb.product: ~7 rows (approximately)
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`product_id`, `product_name`, `quantity`, `stock_status_id`, `image`, `manufacturer_id`, `price`, `product_weight`, `weight_id`, `product_status`, `date_added`, `date_modified`) VALUES
-	(1, 'Manggo', 123, 4, '', 0, 123.0000, 1.00000000, 1, 1, '2022-01-06 02:16:05', '2022-01-06 16:18:06'),
+	(1, 'Manggo', 123, 4, '', 0, 123.0000, 1.00000000, 1, 1, '2022-01-06 02:16:05', '2022-01-09 21:51:20'),
 	(2, 'Watermelon', 123, 5, '', 0, 123.0000, 2.00000000, 2, 1, '2022-01-06 02:16:44', '2022-01-06 17:14:37'),
-	(3, 'Orange', 123, 7, '', 0, 123.0000, 2.00000000, 1, 1, '2022-01-06 02:18:51', '2022-01-06 16:19:08'),
-	(4, 'Lemon', 111, 5, '', 0, 111.0000, 1.00000000, 3, 1, '2022-01-06 02:21:09', '2022-01-06 16:18:49');
+	(3, 'Orange', -100, 7, '', 0, 100.0000, 2.00000000, 1, 1, '2022-01-06 02:18:51', '2022-01-09 21:55:35'),
+	(4, 'Lemon', 100, 5, '', 0, 111.0000, 1.00000000, 3, 1, '2022-01-06 02:21:09', '2022-01-09 21:55:53'),
+	(6, 'Hotdog', 100, 4, '', 1, 150.0000, 1000.00000000, 1, 1, '2022-01-09 10:11:44', '2022-01-11 19:04:57'),
+	(7, 'Ham', 150, 4, '', 1, 100.0000, 5.00000000, 2, 1, '2022-01-09 10:12:24', '2022-01-10 20:11:57'),
+	(8, 'Ice Cream', 60, 5, '', 2, 200.0000, 0.00000000, 1, 1, '2022-01-09 10:58:30', '2022-01-09 23:18:33');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_description
@@ -350,15 +358,18 @@ CREATE TABLE IF NOT EXISTS `product_description` (
   `meta_description` varchar(255) NOT NULL,
   `meta_keywords` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.product_description: ~5 rows (approximately)
+-- Dumping data for table testdb.product_description: ~7 rows (approximately)
 /*!40000 ALTER TABLE `product_description` DISABLE KEYS */;
 INSERT INTO `product_description` (`product_id`, `product_name`, `product_desc`, `meta_title`, `meta_description`, `meta_keywords`) VALUES
 	(1, 'Manggo', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor.', 'Manggo', '', ''),
 	(2, 'Watermelon', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor. Etiam in tempus sem, vel feugiat elit. Fusce sit amet dapibus nunc. Nam ultricies fringilla ante at facilisis. Donec nibh mauris, vestibulum a mi non, molestie sagittis leo. Phasellus aliquam laoreet dolor in ullamcorper. Vestibulum faucibus urna eu aliquet viverra. Quisque tempus risus et est porta auctor.', 'Watermelon', '', ''),
-	(3, 'Orange', '', 'Product 3', '', ''),
-	(4, 'Lemon', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor. Etiam in tempus sem, vel feugiat elit. Fusce sit amet dapibus nunc. Nam ultricies fringilla ante at facilisis. Donec nibh mauris, vestibulum a mi non, molestie sagittis leo. Phasellus aliquam laoreet dolor in ullamcorper. Vestibulum faucibus urna eu aliquet viverra. Quisque tempus risus et est porta auctor.', 'Lemon', '', '');
+	(3, 'Orange', 'Test Description', 'Orange', '', ''),
+	(4, 'Lemon', 'Nam faucibus ultricies tellus. Donec accumsan, orci non facilisis posuere, massa nisl pharetra felis, nec lobortis ipsum tellus at justo. Etiam sed lectus dolor. Etiam in tempus sem, vel feugiat elit. Fusce sit amet dapibus nunc. Nam ultricies fringilla ante at facilisis. Donec nibh mauris, vestibulum a mi non, molestie sagittis leo. Phasellus aliquam laoreet dolor in ullamcorper. Vestibulum faucibus urna eu aliquet viverra. Quisque tempus risus et est porta auctor.', 'Lemon', '', ''),
+	(6, 'Hotdog', '', 'Hotdog', '', ''),
+	(7, 'Ham', '', 'Ham', '', ''),
+	(8, 'Ice Cream', 'Flavors: Ube, Pandan, Cookies and Cream, Manggo, 3 in 1, Rocky Road', 'Ice Cream', '', '');
 /*!40000 ALTER TABLE `product_description` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_to_category
@@ -369,14 +380,36 @@ CREATE TABLE IF NOT EXISTS `product_to_category` (
   KEY `Index` (`category_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.product_to_category: ~4 rows (approximately)
+-- Dumping data for table testdb.product_to_category: ~6 rows (approximately)
 /*!40000 ALTER TABLE `product_to_category` DISABLE KEYS */;
 INSERT INTO `product_to_category` (`product_id`, `category_id`) VALUES
+	(6, 8),
+	(7, 8),
+	(8, 8),
 	(1, 13),
 	(2, 13),
 	(3, 13),
 	(4, 13);
 /*!40000 ALTER TABLE `product_to_category` ENABLE KEYS */;
+
+-- Dumping structure for table testdb.review
+CREATE TABLE IF NOT EXISTS `review` (
+  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `text` text NOT NULL,
+  `rating` int(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `date_added` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`review_id`),
+  KEY `Index 2` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table testdb.review: ~0 rows (approximately)
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.stock_status
 CREATE TABLE IF NOT EXISTS `stock_status` (

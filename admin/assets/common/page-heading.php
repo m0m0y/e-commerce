@@ -69,4 +69,9 @@ switch ($host) {
             <h1 class="h3 mb-0 text-gray-800">Order Status</h1>
         ';
         break;
+    case "/test/admin/manufacturer";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Manufacturers</h1>
+        ';
+        break;
 }

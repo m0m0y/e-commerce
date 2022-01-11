@@ -19,7 +19,7 @@ function add_product() {
     window.location.href="add_product";
 }
 
-function update_products(product_id, name, quantity, price, product_status, description, meta_title, meta_description, meta_keywords, stock_status_id, product_weight, weight_id, product_category) {
+function update_products(product_id, name, quantity, manufacturer_id, price, product_status, description, meta_title, meta_description, meta_keywords, stock_status_id, product_weight, weight_id, product_category) {
     $('#close').click(function(){
         window.location.reload();
     });
@@ -44,7 +44,8 @@ function update_products(product_id, name, quantity, price, product_status, desc
     } else if (product_status == "Disabled") {
         $('#product_status').val(0);
     }
-
+    
+    $('#manufacturer_id').val(manufacturer_id);
     $('#product_category').val(product_category);
 
     $('#update').on('click', function(){
@@ -61,7 +62,7 @@ function update_products(product_id, name, quantity, price, product_status, desc
         var product_weight = $('#weight').val();
         var weight_class = $('#weight_class').val();
         var product_status = $('#product_status').val();
-
+        var manufacturer_id = $('#manufacturer_id').val();
         var product_category = $('#product_category').val();
 
         if (product_name == "" || price == "" || quantity == "" || meta_tag_title == "" || weight == "") {
@@ -84,6 +85,7 @@ function update_products(product_id, name, quantity, price, product_status, desc
                     product_weight:product_weight,
                     weight_class:weight_class,
                     product_status:product_status,
+                    manufacturer_id:manufacturer_id,
                     product_category:product_category
                 },
                 success:function(){

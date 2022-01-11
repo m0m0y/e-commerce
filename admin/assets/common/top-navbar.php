@@ -29,7 +29,7 @@
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
                 </a>
-                <a class="dropdown-item" href="http://localhost/test/" target="blank">
+                <a class="dropdown-item" href="http://localhost/test/shop/home" target="blank">
                     <i class="fas fa-shopping-cart fa-sm fa-fw mr-2 text-gray-400"></i>
                     Your Store
                 </a>
