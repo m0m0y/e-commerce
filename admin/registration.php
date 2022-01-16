@@ -80,7 +80,7 @@ require "assets/common/header.php";
 					$('#usercheck').text(error_msg).addClass("alert alert-danger");
 				} else {
 					$.ajax({
-						url:'controller/function.php?register',
+						url:'controller/base.controller.php?register',
 						method:'POST',
 						data:{
 							fname:fname, lname:lname, mail:mail, pass:pass

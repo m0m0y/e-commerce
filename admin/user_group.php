@@ -35,7 +35,7 @@ require "assets/common/header.php";
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="Mymodal">
+                            <div class="modal fade Mymodal" id="staticBackdrop" data-bs-backdrop="static">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -47,6 +47,8 @@ require "assets/common/header.php";
                                             <div id="alertMessage"></div>
                                             <label for="user_group_name" class="col-form-label"><span class="required">*</span> User Group Name:</label>
                                             <div class="col-sm-12">
+                                                <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                                                <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
                                                 <input type="text" id="user_group_name" class="form-control" name="user_group_name" placeholder="Type Here..."/>
                                             </div>
                                         </div>   
@@ -63,6 +65,7 @@ require "assets/common/header.php";
                 </div>
 
                 <!-- Footer -->
+                <div id="preloader" style="display: none;"></div>
                 <?php require "assets/common/footer.php"; ?>
 
             </div>

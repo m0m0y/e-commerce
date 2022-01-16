@@ -31,9 +31,24 @@ function page_title() {
         case "/test/shop/wishlist":
             $page_title = "My Wish List";
             break;
-        case "/test/shop/product":
-            $page_title = "Your Shop - Categories";
-            echo $page_title;
+        case "/test/shop/update_account":
+            $page_title = "My Account Information";
+            break;
+        case "/test/shop/update_password":
+            $page_title = "Change Password";
+            break;
+        case "/test/shop/cart":
+            $page_title = "Shopping Cart";
+            break;
+        case "/test/shop/update_address":
+            $page_title = "Update Address";
+            break;
+        case "/test/shop/checkout":
+            $page_title = "Checkout";
+            break;
+        case "/test/shop/confirm_order":
+            $page_title = "Confirm Order";
+            break;
     }
 
     echo $page_title;

@@ -1,4 +1,5 @@
 function add_info() {
+    $('#preloader').show();
     window.location.href="add_information";
 }
 
@@ -7,7 +8,7 @@ function update_info(information_id, info_title, info_description, meta_title, m
         window.location.reload();
     });
 
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update Information');
     $('.save-btn').attr("id", "update");
 
@@ -38,7 +39,7 @@ function update_info(information_id, info_title, info_description, meta_title, m
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?update_products',
+                url: 'controller/base.controller.php?update_products',
                 method: 'POST',
                 data: {
                     information_id:information_id,
@@ -50,6 +51,7 @@ function update_info(information_id, info_title, info_description, meta_title, m
                     info_status:info_status
                 },
                 success:function(){
+                    $('#preloader').show();
                     window.location.reload();
                 }
             });
@@ -60,12 +62,13 @@ function update_info(information_id, info_title, info_description, meta_title, m
 
 function delete_info(information_id) {
     $.ajax({
-        url: 'controller/function.php?delete_informations',
+        url: 'controller/base.controller.php?delete_informations',
         method: 'POST',
         data: {
             information_id:information_id
         },
         success:function(){
+            $('#preloader').show();
             window.location.reload();
         }
     });
@@ -88,7 +91,7 @@ $(document).ready(function(){
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?add_information',
+                url: 'controller/base.controller.php?add_information',
                 method: 'POST',
                 data: {
                     info_title:info_title,
@@ -99,6 +102,7 @@ $(document).ready(function(){
                     info_status:info_status
                 },
                 success:function(){
+                    $('#preloader').show();
                     window.location.reload();
                 }
             });

@@ -10,7 +10,7 @@ $(document).ready(function(){
             $('#usercheck').text(error_msg).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url:'controller/function.php?login',
+                url:'controller/base.controller.php?login',
                 type:'post',
                 data:{
                     email:email,

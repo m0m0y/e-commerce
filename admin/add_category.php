@@ -46,6 +46,8 @@ require "assets/common/header.php";
                                 <div class="row mb-4">
                                     <label for="category_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Category Name:</label>
                                     <div class="col-sm-9">
+                                            <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                                            <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
                                         <input type="text" id="category_name" class="form-control" placeholder="Category Name">
                                     </div>
                                 </div>
@@ -80,6 +82,7 @@ require "assets/common/header.php";
             </div>
 
             <!-- Footer -->
+            <div id="preloader" style="display: none;"></div>
             <?php require "assets/common/footer.php"; ?>
         </div>
     </div>

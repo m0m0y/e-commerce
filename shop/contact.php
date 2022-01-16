@@ -9,6 +9,15 @@ require "assets/common/header.php";
     <?php require "assets/common/navbar.php"; ?>
   
     <section class="mt-5 container">
+        <div class="mb-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb" style="margin: 0;">
+                    <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
+                    <li class="breadcrumb-item">Contact Us</li>
+                </ol>
+            </nav>
+        </div>
+        
         <h1 class="title">Contact Us</h1>
         <div class="row mt-5"> 
             <div class="col-sm-12 col-md-4 location-info">
@@ -61,7 +70,7 @@ require "assets/common/header.php";
                     <div class="mb-3">
                         <label for="customer_message" class="form-label">Message: *</label>
                         <textarea class="form-control" id="customer_message" rows="3" placeholder="Type Here..."></textarea>
-                        <div id="captcha" class="form-text">Input your Inqury here.</div>
+                        <div class="form-text">Input your Inqury here.</div>
                     </div>
 
                     <button type="submit" class="btn btn-md btn-primary" id="submit">Submit</button>

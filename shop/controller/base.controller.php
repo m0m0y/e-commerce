@@ -11,12 +11,14 @@ class BaseController extends database_connection {
 
         foreach ($result as $key => $value) {
             $category_id = $value["category_id"];
+            $category_status = $value["category_status"];
             $category_name = $this->get_category_description("category_name", $category_id);
             $description = $this->get_category_description("description", $category_id);
             $meta_title = $this->get_category_description("meta_title", $category_id);
 
             echo '<a class="dropdown-item" href="category?category_id='.$category_id.'">'.$category_name.'</a>';
 		}
+       
     }
     
     // Side menu on category page
@@ -29,7 +31,7 @@ class BaseController extends database_connection {
             $category_id = $value["category_id"];
             $category_name = $this->get_category_description("category_name", $category_id);
 
-            echo '<li class="list-group-item"><a class="category-menu" href="category?category_id='.$category_id.'">'.$category_name.'</a></li>';
+            echo '<li class="list-group-item"><a class="text-decoration-none" href="category?category_id='.$category_id.'">'.$category_name.'</a></li>';
 		}
     }
 
@@ -87,7 +89,7 @@ class BaseController extends database_connection {
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
-                                <p class="card-text"><a href="product?product_id='.$product_id.'">'.$product_name.'</a></p>
+                                <p class="card-text"><a href="product?product_id='.$product_id.'" class="text-decoration-none">'.$product_name.'</a></p>
                                 <small>'.$product_desc.'</small>
                                 <h5>₱ '.$price.'</h5>
                                 <div class="d-grid gap-1 d-sm-flex justify-content-sm-center">
@@ -107,7 +109,7 @@ class BaseController extends database_connection {
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
-                                <p class="card-text"><a href="product?product_id='.$product_id.'">'.$product_name.'</a></p>
+                                <p class="card-text"><a href="product?product_id='.$product_id.'" class="text-decoration-none">'.$product_name.'</a></p>
                                 <small>'.$product_desc.'</small>
                                 <h5>₱ '.$price.'</h5>
 
@@ -162,7 +164,7 @@ class BaseController extends database_connection {
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
-                                <p class="card-text"><a href="product?product_id='.$product_id.'">'.$product_name.'</a></p>
+                                <p class="card-text"><a href="product?product_id='.$product_id.'" class="text-decoration-none">'.$product_name.'</a></p>
                                 <small>'.$product_desc.'</small>
                                 <h5>₱ '.$price.'</h5>
                                 <div class="d-grid gap-1">
@@ -182,7 +184,7 @@ class BaseController extends database_connection {
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
-                                <p class="card-text"><a href="product?product_id='.$product_id.'">'.$product_name.'</a></p>
+                                <p class="card-text"><a href="product?product_id='.$product_id.'" class="text-decoration-none">'.$product_name.'</a></p>
                                 <small>'.$product_desc.'</small>
                                 <h5>₱ '.$price.'</h5>
                                 <div class="d-grid gap-1">
@@ -195,6 +197,16 @@ class BaseController extends database_connection {
                     ';
                 }
             }
+        } else {
+            echo '
+                <div class="col-sm-12">
+                    <div class="container card"> 
+                        <div class="card-body">
+                            <h2 class="text-center font-weight-normal">No products yet..</h2>
+                        </div>
+                    </div>
+                </div>
+            ';
         }
     }
 
@@ -236,7 +248,7 @@ class BaseController extends database_connection {
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
-                                <p class="card-text"><a href="product?product_id='.$product_id.'">'.$product_name.'</a></p>
+                                <p class="card-text"><a href="product?product_id='.$product_id.'" class="text-decoration-none">'.$product_name.'</a></p>
                                 <p><small>'.$product_desc.'</small></p>
                                 <h5>₱ '.$price.'</h5>
                                 <div class="d-grid gap-1">
@@ -256,7 +268,7 @@ class BaseController extends database_connection {
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
-                                <p class="card-text"><a href="product?product_id='.$product_id.'">'.$product_name.'</a></p>
+                                <p class="card-text"><a href="product?product_id='.$product_id.'" class="text-decoration-none">'.$product_name.'</a></p>
                                 <p><small>'.$product_desc.'</small></p>
                                 <h5>₱ '.$price.'</h5>
                                 <div class="d-grid gap-1">
@@ -269,6 +281,16 @@ class BaseController extends database_connection {
                     ';
                 }
             }
+        } else {
+            echo '
+                <div class="col-sm-12">
+                    <div class="container card"> 
+                        <div class="card-body">
+                            <h2 class="text-center font-weight-normal">No products yet..</h2>
+                        </div>
+                    </div>
+                </div>
+            ';
         }
     }
 
@@ -387,21 +409,15 @@ class BaseController extends database_connection {
                             <td>'.$product_name.'</td>
                             <td>'.$stock_status_name.'</td>
                             <td>₱ '.number_format($price, 2).'</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-primary" onclick="add_to_cart(\'' . $customer_id . '\',\'' . $product_id . '\',\'' . $quantity . '\')"><i class="fa fa-shopping-cart"></i></button>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-outline-primary" onclick="add_to_cart(\'' . $customer_id . '\',\'' . $product_id . '\',\'' . $quantity . '\')"><i class="fa fa-shopping-cart"></i></button>
 
-                                <button type="button" class="btn btn-sm btn-danger" onclick="remove_wishlist(\'' . $product_id . '\')"><i class="fas fa-ban"></i></button>
+                                <button type="button" class="btn btn-outline-danger" onclick="remove_wishlist(\'' . $product_id . '\')"><i class="fas fa-ban"></i></button>
                             </td>
                         </tr>
                     ';
                 }
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="4" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -411,6 +427,198 @@ class BaseController extends database_connection {
 
 		echo $table;
     }
+
+    function get_cart_info($column, $cart_id) {
+        $conn = $this->db_conn();
+        $sql = "SELECT $column FROM cart WHERE cart_id='$cart_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+    }
+
+    function get_customer_cart($customer_id) {
+        $table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM cart WHERE customer_id='$customer_id'";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Product Name</th>
+                        <th>Manufacturer</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+                $cart_id = $row["cart_id"];
+				$customer_id = $row["customer_id"];
+                $product_id = $row["product_id"];
+                $quantity = $row["quantity"];
+
+                $product_name = $this->get_product("product_name", $product_id);
+                $product_status = $this->get_product("product_status", $product_id);
+                $price = $this->get_product("price", $product_id);
+                $stock_status_id = $this->get_product("stock_status_id", $product_id);
+                $manufacturer_id = $this->get_product("manufacturer_id", $product_id);
+
+                $manufacturer_name = $this->get_product_manufacturer("name", $manufacturer_id);
+
+                if ($manufacturer_id == 0) {
+                    $manufacturer_name = "N/A";
+                }
+
+                $cart_product_id = $this->get_cart_info("product_id", $cart_id);
+
+                $total_price = $price * $quantity;
+
+                if ($product_status == 1) {
+                    $table .= '
+                        <tr>
+                            <td>'.$product_name.'</td>
+                            <td>'.$manufacturer_name.'</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" value="'.$quantity.'" id="quantity'.$cart_id.'">
+                                    <button type="button" class="btn btn-outline-primary" onclick="update_quantity(\'' . $cart_id . '\')">Update</button>
+                                </div>
+                            </td>
+                            <td>₱ '.number_format($price, 2).'</td>
+                            <td data-id="'.$cart_id.'">₱ <span>'.number_format($total_price, 2).'</span></td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-outline-danger" onclick="remove_product(\'' . $cart_id . '\')" alt="Remove"><i class="fas fa-ban"></i></button>
+                            </td>
+                        </tr>
+                    ';
+                }
+			}
+		}
+
+		$table .='
+				</tbody>
+			</table>
+        ';
+
+
+		echo $table;
+    }
+
+    function get_customer_address($column, $customer_id) {
+        $conn = $this->db_conn();
+        $sql = "SELECT $column FROM customer_address WHERE customer_id='$customer_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+    }
+
+    function get_cart_to_confirm($customer_id) {
+        $table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM cart WHERE customer_id='$customer_id'";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Product Name</th>
+                        <th>Manufacturer</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th class="text-end">Total</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+                $cart_id = $row["cart_id"];
+				$customer_id = $row["customer_id"];
+                $product_id = $row["product_id"];
+                $quantity = $row["quantity"];
+
+                $product_name = $this->get_product("product_name", $product_id);
+                $product_status = $this->get_product("product_status", $product_id);
+                $price = $this->get_product("price", $product_id);
+                $stock_status_id = $this->get_product("stock_status_id", $product_id);
+                $manufacturer_id = $this->get_product("manufacturer_id", $product_id);
+
+                $manufacturer_name = $this->get_product_manufacturer("name", $manufacturer_id);
+
+
+                if ($manufacturer_id == 0) {
+                    $manufacturer_name = "N/A";
+                }
+
+                $cart_product_id = $this->get_cart_info("product_id", $cart_id);
+
+                $total_price = $price * $quantity;
+
+                if ($product_status == 1) {
+                    $table .= '
+                        <input type="text" id="cart_id" class="form-control" value="'.$cart_id.'" readonly>
+                        <input type="hidden" id="product_id" class="form-control" value="'.$product_id.'" readonly>
+                        <input type="hidden" id="product_name" class="form-control" value="'.$product_name.'" readonly>
+                        <input type="hidden" id="quantity" class="form-control" value="'.$quantity.'" readonly>
+                        <input type="hidden" id="price" class="form-control" value="'.$price.'" readonly>
+                        <input type="hidden" id="total_price" class="form-control" value="'.$total_price.'" readonly>
+
+                        <tr>
+                            <td><a href="product?product_id='.$product_id.'" class="text-decoration-none"> '.$product_name.'</a></td>
+                            <td>'.$manufacturer_name.'</td>
+                            <td>'.$quantity.'</td>
+                            <td>₱ '.number_format($price, 2).'</td>
+                            <td data-id="'.$cart_id.'" class="text-end">₱ <span>'.number_format($total_price, 2).'</span></td>
+                        </tr>
+                    ';
+                }
+			}
+		}
+
+		$table .='
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-end fw-bold">SUB-TOTAL:</td>
+                        <td class="text-end fw-normal" id="sub-total"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-end fw-bold">VAT:</td>
+                        <td class="text-end fw-normal" id="vat"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-end fw-bold">TOTAL:</td>
+                        <td class="text-end fw-bold" id="total-price"></td>
+                    </tr>
+				</tbody>
+			</table>
+        ';
+
+
+		echo $table;
+    }
+
+    function get_banks($column, $bank_name) {
+        $conn = $this->db_conn();
+        $sql = "SELECT $column FROM banks WHERE bank_name='$bank_name'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+    }
+
 }
 
 $class = new BaseController();

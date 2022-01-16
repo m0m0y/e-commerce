@@ -35,7 +35,7 @@ require "assets/common/header.php";
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="Mymodal">
+                            <div class="modal fade Mymodal" id="staticBackdrop" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -49,6 +49,8 @@ require "assets/common/header.php";
                                             <div class="row mb-4">
                                                 <label for="name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Manufacturer Name:</label>
                                                 <div class="col-sm-9">
+                                                    <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                                                    <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
                                                     <input type="text" id="name" class="form-control" placeholder="Manufacturer Name">
                                                 </div>
                                             </div>
@@ -65,6 +67,7 @@ require "assets/common/header.php";
                 </div>
 
                 <!-- Footer -->
+                <div id="preloader" style="display: none;"></div>
                 <?php require "assets/common/footer.php"; ?>
             </div>
         </div>
@@ -91,85 +94,5 @@ require "assets/common/header.php";
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    <script>
-        function add_manufacturers() {
-            $('#close').click(function(){
-                window.location.href="manufacturer";
-            });
-
-            $('#Mymodal').modal('show');
-            $('.title-container').html('<i class="fas fa-pencil-alt"></i> Add Manufacturer');
-            $('.save-btn').attr('id', 'save');
-
-            $('#save').on('click', function(){
-                var alert_message = $('#alertMessage').val();
-
-                var name = $('#name').val();
-
-                if(name == "") {
-                    alert_message = "Please double check the required fields!";
-                    $('#alertMessage').text(alert_message).addClass("alert alert-danger");
-                } else {
-                    $.ajax({
-                        url: 'controller/function.php?add_manufacturer',
-                        method: 'POST',
-                        data: {
-                            name:name
-                        },
-                        success:function(){
-                            window.location.reload();
-                        }
-                    });
-                }
-            });
-        }
-
-        function update_manufacturers(manufacturer_id, name) {
-            $('#close').click(function(){
-                window.location.href="manufacturer";
-            });
-
-            $('#Mymodal').modal('show');
-            $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update Manufacturer');
-            $('.save-btn').attr('id', 'update');
-
-            $('#name').val(name);
-
-            $('#update').on('click', function(){
-                var alert_message = $('#alertMessage').val();
-
-                var name = $('#name').val();
-
-                if(name == "") {
-                    alert_message = "Please double check the required fields!";
-                    $('#alertMessage').text(alert_message).addClass("alert alert-danger");
-                } else {
-                    $.ajax({
-                        url: 'controller/function.php?update_manufaturer',
-                        method: 'POST',
-                        data: {
-                            manufacturer_id:manufacturer_id,
-                            name:name
-                        },
-                        success:function(){
-                            window.location.reload();
-                        }
-                    });
-                }
-            });
-        }
-
-        function delete_manufacturers(manufacturer_id) {
-            $.ajax({
-                url: 'controller/function.php?delete_manufacturer',
-                method: 'POST',
-                data: {
-                    manufacturer_id:manufacturer_id
-                },
-                success:function(){
-                    window.location.reload();
-                }
-            });
-        }
-    </script>
+    <script src="script/manufacturer.js"></script>
 </body>

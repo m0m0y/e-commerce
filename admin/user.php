@@ -34,7 +34,7 @@ require "assets/common/header.php";
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="Mymodal">
+                            <div class="modal fade Mymodal" id="staticBackdrop" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -44,10 +44,12 @@ require "assets/common/header.php";
                                         </div> 
                                         <div class="modal-body">
                                             <div id="alertMessage"></div>
-
+                                    
                                             <div class="row mb-4">
                                                 <label for="firstname" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Firstname:</label>
                                                 <div class="col-sm-9">
+                                                    <input type="hidden" id="ses_email" class="form-control" value="<?= $email ?>" readonly/>
+                                                    <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
                                                     <input type="text" id="firstname" class="form-control" name="fname" placeholder="First Name">
                                                 </div>
                                             </div>
@@ -76,14 +78,14 @@ require "assets/common/header.php";
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="password" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Password:</label>
+                                                <label for="password" class="col-sm-3 col-form-label text-right"> Password:</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" id="password" class="form-control" name="pass" placeholder="Password">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-4">
-                                                <label for="confirm_password" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Confirm Password:</label>
+                                                <label for="confirm_password" class="col-sm-3 col-form-label text-right"> Confirm Password:</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" id="confirm_password" class="form-control" name="confirm_pass" placeholder="Confirm Password">
                                                 </div>
@@ -111,6 +113,7 @@ require "assets/common/header.php";
                 </div>
 
                 <!-- Footer -->
+                <div id="preloader" style="display: none;"></div>
                 <?php require "assets/common/footer.php"; ?>
             </div>
         

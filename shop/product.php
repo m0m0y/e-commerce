@@ -37,9 +37,15 @@ if ($product_status == 0) {
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb" style="margin: 0;">
-                    <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
-                    <li class="breadcrumb-item"><?= $category_name; ?></li>
-                    <li class="breadcrumb-item"><?= $product_name; ?></li>
+                    <!-- Check if the product has category -->
+                    <?php if ($category_name == "") { ?>
+                        <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
+                        <li class="breadcrumb-item"><?= $product_name; ?></li>
+                    <?php } else { ?>
+                        <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
+                        <li class="breadcrumb-item"><?= $category_name; ?></li>
+                        <li class="breadcrumb-item"><?= $product_name; ?></li>
+                    <?php } ?>
                 </ol>
             </nav> 
         </div>

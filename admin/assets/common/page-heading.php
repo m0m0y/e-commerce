@@ -74,4 +74,14 @@ switch ($host) {
             <h1 class="h3 mb-0 text-gray-800">Manufacturers</h1>
         ';
         break;
+    case "/test/admin/activity_log";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Activity Logs</h1>
+        ';
+        break;
+    case "/test/admin/bank_details";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Bank Details</h1>
+        ';
+        break;
 }

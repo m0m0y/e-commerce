@@ -61,10 +61,38 @@ class AddToCart extends database_connection {
             echo "Error updating record: " . $conn->error;
         }
     }
+
+    function update_cart_quantity() {
+        $cart_id = $_POST["cart_id"];
+        $quantity = $_POST["quantity"];
+        
+        $conn = $this->db_conn();
+        $this->update_cart("quantity='$quantity'", "cart_id='$cart_id'");
+    }
+
+    function delete_customer_cart() {
+        $cart_id = $_POST["cart_id"];
+
+        $conn = $this->db_conn();
+		$sql = "DELETE FROM cart WHERE cart_id='$cart_id'";
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+    }
 }
 
 $class = New AddToCart();
 
 if(isset($_GET["add_cart"])){
 	$class->add_cart();
+}
+
+if(isset($_GET["update_cart_quantity"])){
+	$class->update_cart_quantity();
+}
+
+if(isset($_GET["delete_customer_cart"])){
+	$class->delete_customer_cart();
 }

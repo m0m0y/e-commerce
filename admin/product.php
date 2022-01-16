@@ -31,7 +31,7 @@ require "assets/common/header.php";
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="Mymodal">
+                            <div class="modal fade Mymodal" id="staticBackdrop" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -58,6 +58,8 @@ require "assets/common/header.php";
                                                 <div class="row mb-4">
                                                     <label for="product_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Product Name:</label>
                                                     <div class="col-sm-9">
+                                                        <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                                                        <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
                                                         <input type="text" id="product_name" class="form-control" placeholder="Product Name">
                                                     </div>
                                                 </div>
@@ -142,7 +144,7 @@ require "assets/common/header.php";
                                                 </div>
 
                                                 <div class="row mb-4">
-                                                    <label for="stock_status" class="col-sm-3 col-form-label text-right">Manufacturer:</label>
+                                                    <label for="manufacturer_id" class="col-sm-3 col-form-label text-right">Manufacturer:</label>
                                                     <div class="col-sm-9">
                                                         <select class="form-control" id="manufacturer_id">
                                                             <?php $class->get_manufacturer_value(); ?>
@@ -173,6 +175,7 @@ require "assets/common/header.php";
                 </div>
 
                 <!-- Footer -->
+                <div id="preloader" style="display: none;"></div>
                 <?php require "assets/common/footer.php"; ?>
             </div>
         </div>

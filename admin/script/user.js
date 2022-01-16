@@ -5,13 +5,15 @@ $(document).ready(function(){
 });
 
 function add_user_admin() {
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-user-plus"></i> Add User');
     $('.save-btn').attr("id", "save");
 
     $('#save').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var ses_email = $('#ses_email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var fname = $('#firstname').val();
         var lname = $('#lastname').val();
         var user_group = $('#user_group').val();
@@ -28,9 +30,11 @@ function add_user_admin() {
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url:'controller/function.php?add_user_admin',
+                url:'controller/base.controller.php?add_user_admin',
                 method:'POST',
                 data: {
+                    ses_email:ses_email,
+                    ses_group_id:ses_group_id,
                     fname:fname,
                     lname:lname,
                     user_group:user_group,
@@ -40,8 +44,8 @@ function add_user_admin() {
                     admin_status:admin_status
                 },
                 success:function() {
-                    alert_message = "Successfully";
-                    $('#alertMessage').text(alert_message).addClass("alert alert-success");
+                    $('#preloader').show();
+                    window.location.reload();
                 }
             });
         }
@@ -49,20 +53,8 @@ function add_user_admin() {
     });
 }
 
-function delete_admin_user(admin_user_id) {
-    $.ajax({
-        url:'controller/function.php?delete_admin_users',
-        method:'POST', 
-        data: {admin_user_id},
-        success:function() {
-            window.location.href="user";
-            alert("Delete Successfully!");        
-        }
-    });
-}
-
 function update_admin_user(admin_user_id, firstname, lastname, email, admin_status, user_group) {
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update User Admin');
     $('.save-btn').attr('id', 'update');
     $('#firstname').val(firstname);
@@ -83,6 +75,8 @@ function update_admin_user(admin_user_id, firstname, lastname, email, admin_stat
     $('#update').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var ses_email = $('#ses_email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var fname = $('#firstname').val();
         var lname = $('#lastname').val();
         var mail = $('#email').val();
@@ -99,9 +93,11 @@ function update_admin_user(admin_user_id, firstname, lastname, email, admin_stat
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?update_user_admins',
+                url: 'controller/base.controller.php?update_user_admins',
                 method: 'POST',
                 data: {
+                    ses_email:ses_email,
+                    ses_group_id:ses_group_id,
                     admin_user_id:admin_user_id,
                     fname:fname,
                     lname:lname,
@@ -111,11 +107,32 @@ function update_admin_user(admin_user_id, firstname, lastname, email, admin_stat
                     user_group:user_group
                 },
                 success:function(){
+                    $('#preloader').show();
                     window.location.reload();
-                    alert("Success");
                 }
             });
         }
 
     });
 }
+
+
+function delete_admin_user(admin_user_id) {
+    var ses_email = $('#ses_email').val();
+    var ses_group_id = $('#ses_group_id').val();
+
+    $.ajax({
+        url:'controller/base.controller.php?delete_admin_users',
+        method:'POST', 
+        data: {
+            ses_email:ses_email,
+            ses_group_id:ses_group_id,
+            admin_user_id:admin_user_id
+        },
+        success:function() {
+            $('#preloader').show();
+            window.location.reload();     
+        }
+    });
+}
+

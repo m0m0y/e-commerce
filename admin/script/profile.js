@@ -16,7 +16,7 @@ $(document).ready(function(){
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url:'controller/function.php?update_profile',
+                url:'controller/base.controller.php?update_profile',
                 method:'POST',
                 data:{
                     userId:userId, 
@@ -26,8 +26,8 @@ $(document).ready(function(){
                     pass:pass
                 },
                 success: function(){
-                    window.location.reload();
-                    alert("Successfully modified your profile!");                          
+                    $('#preloader').show();
+                    window.location.reload();                      
                 }
             });
         }

@@ -20,7 +20,15 @@ class Main extends database_connection{
 				$_SESSION["lastname"] = $row["lastname"];
 				$_SESSION["email"] = $row["email"];
 				$_SESSION["password"] = $row["password"];
+				$_SESSION["user_group"] = $row["user_group"];
 				echo "success";
+
+				$user_group_id = $_SESSION["user_group"];
+				$email = $_SESSION["email"];
+				$date_added = date("Y-m-d h:i:sa");
+
+				// Add activity logs
+				$this->add_to_logs("user_group_id, email, activity, date_added", "'$user_group_id', '$email', 'Login on dashboard', '$date_added'");
 			}
 		} else {
 			echo "invalid";
@@ -40,16 +48,23 @@ class Main extends database_connection{
 		$_SESSION["lastname"] = $_POST["lname"];
 		$_SESSION["email"] = $_POST["mail"];
 		$pass = $_POST["pass"];
+		
+		$user_group_id = $_SESSION["user_group"];
+		$email = $_SESSION["email"];
+		$date_added = date("Y-m-d h:i:sa");
+
+		$conn = $this->db_conn();
 
 		if($pass == NULL || $pass == "") {
-			$conn = $this->db_conn();
 			$sql = "UPDATE admin_user SET firstname='".$_SESSION["firstname"]."' , lastname='".$_SESSION["lastname"]."', email='".$_SESSION["email"]."' WHERE id='$user_id'";
 			$result = mysqli_query($conn, $sql);
 		} else {
-			$conn = $this->db_conn();
 			$sql = "UPDATE admin_user SET firstname='".$_SESSION["firstname"]."' , lastname='".$_SESSION["lastname"]."', email='".$_SESSION["email"]."', password='$pass' WHERE id='$user_id'";
 			$result = mysqli_query($conn, $sql);
 		}
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$user_group_id', '$email', 'Update Profile', '$date_added'");
 	}
 
 	function select_user_groups() {
@@ -58,48 +73,73 @@ class Main extends database_connection{
 		$sql = "SELECT * FROM admin_user_group WHERE user_group_status = 1";
 		$result = mysqli_query($conn, $sql);
 
-		// Admin user group table
-		$table .= '
-			<div align="right" style="margin-bottom:5px;">
-				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_group()"><i class="fas fa-user-plus"></i> Add New</button>
-			</div>
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-				<thead>
-					<tr>
-						<th>User Group Name</th>
-						<th>Action</th>
-					</tr>
-				</thead>
+		// Check session user group
+		if ($_SESSION["user_group"] == 2) {
+			$table .= '
+				<div align="right" style="margin-bottom:5px;">
+					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" disabled><i class="fas fa-user-plus"></i> Add New</button>
+				</div>
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>User Group Name</th>
+							<th>Action</th>
+						</tr>
+					</thead>
 
-				<tbody>
-		';
+					<tbody>
+			';
+		} else {
+			$table .= '
+				<div align="right" style="margin-bottom:5px;">
+					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_group()"><i class="fas fa-user-plus"></i> Add New</button>
+				</div>
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>User Group Name</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+			';
+		}
 
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$user_group_name = $row["user_group_name"];
 				$user_group_id  = $row['user_group_id'];
-		
-				$table .= '
-					<tr>
-						<td>'.$user_group_name.'</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-info" id="update_user_button" onclick="update_user_group('.$user_group_id.',\''.$user_group_name.'\')"><i class="fas fa-pencil-alt"></i></button>
+				
+				// Check session user group
+				if ($_SESSION["user_group"] == 2) { 
+					$table .= '
+						<tr>
+							<td>'.$user_group_name.'</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info" disabled><i class="fas fa-pencil-alt"></i></button>
 
-							<button type="button" class="btn btn-sm btn-danger" onclick="delete_user_group('.$user_group_id.')"><i class="fas fa-trash-alt"></i></button>
-						</td>
-					</tr>
-				';
+								<button type="button" class="btn btn-sm btn-danger" disabled><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					';	
+				} else {
+					$table .= '
+						<tr>
+							<td>'.$user_group_name.'</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info" onclick="update_user_group('.$user_group_id.',\''.$user_group_name.'\')"><i class="fas fa-pencil-alt"></i></button>
+
+								<button type="button" class="btn btn-sm btn-danger" onclick="delete_user_group('.$user_group_id.')"><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					';
+				}
+				
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="6" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
-				
 				</tbody>
 			</table>
 		';
@@ -108,10 +148,17 @@ class Main extends database_connection{
 	} 
 
 	function add_user_groups() {
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
 		$name = $_POST["name"];
+		$date_added = date("Y-m-d h:i:sa");
 
 		$conn = $this->db_conn();
-		$sql = "INSERT INTO admin_user_group (user_group_name) VALUES ('.$name.')";
+		$sql = "INSERT INTO admin_user_group (user_group_name) VALUES ('$name')";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$user_group_id', '$email', 'Add on user groups', '$date_added'");
+
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {
@@ -120,13 +167,18 @@ class Main extends database_connection{
 	}
 
 	function update_user_groups() {
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
 		$user_group_id = $_POST["user_group_id"];
 		$name = $_POST["name"];
-
-		echo $name;
+		$date_added = date("Y-m-d h:i:sa");
 
 		$conn = $this->db_conn();
 		$sql = "UPDATE admin_user_group SET user_group_name='$name' WHERE user_group_id ='$user_group_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Update on user groups', '$date_added'");
+
 		if ($conn->query($sql) === TRUE) {
 			echo "Record updated successfully";
 		} else {
@@ -135,7 +187,10 @@ class Main extends database_connection{
 	}
 
 	function delete_user_groups() {
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
 		$user_group_id = $_POST["user_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
 
 		$conn = $this->db_conn();
 		// Update status
@@ -143,6 +198,9 @@ class Main extends database_connection{
 
 		// Auto update the table of admin_user
 		$sql1 = "UPDATE admin_user SET admin_status=0 WHERE user_group='$user_group_id'";
+		
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Delete on user groups', '$date_added'");
 
 		if ($conn->query($sql) === TRUE && $conn->query($sql1)) {
 			echo "Record delete successfully";
@@ -151,37 +209,67 @@ class Main extends database_connection{
 		}
 	}
 
+	function get_admin_user_group($column, $user_group_id) {
+        $conn = $this->db_conn();
+        $sql = "SELECT $column FROM admin_user_group WHERE user_group_id='$user_group_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+    }
+
 	function get_admin_user() {
 		$table="";
 		$conn = $this->db_conn();
 		$sql = "SELECT * FROM admin_user";
 		$result = mysqli_query($conn, $sql);
 
-		// Admin user table
-		$table .= '
-			<div align="right" style="margin-bottom:5px;">
-				<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_admin()"><i class="fas fa-user-plus"></i> Add New</button>
-			</div>
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-				<thead>
-					<tr>
-						<th>Firstname</th>
-						<th>Lastname</th>
-						<th>Status</th>
-						<th>Date Added</th>
-						<th>Action</th>
-					</tr>
-				</thead>
+		// Check session user group
+		if ($_SESSION["user_group"] == 2) {
+			$table .= '
+				<div align="right" style="margin-bottom:5px;">
+					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" disabled><i class="fas fa-user-plus"></i> Add New</button>
+				</div>
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Status</th>
+							<th>User Group</th>
+							<th>Date Added</th>
+							<th>Action</th>
+						</tr>
+					</thead>
 
-				<tbody>
-		';
+					<tbody>
+			';
+		} else {
+			$table .= '
+				<div align="right" style="margin-bottom:5px;">
+					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_admin()"><i class="fas fa-user-plus"></i> Add New</button>
+				</div>
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Status</th>
+							<th>User Group</th>
+							<th>Date Added</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+			';
+		}
 
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$admin_user_id = $row["id"];
 				$firstname = $row["firstname"];
 				$lastname  = $row["lastname"];
-				$user_group = $row["user_group"];
+				$user_group_id = $row["user_group"];
 				$email = $row["email"];
 				$date_added = $row["date_added"];
 
@@ -190,27 +278,42 @@ class Main extends database_connection{
 				} else {
 					$admin_status = "Disabled";
 				}
-		
-				$table .= '
-					<tr>
-						<td>'.$firstname.'</td>
-						<td>'.$lastname.'</td>
-						<td>'.$admin_status.'</td>
-						<td>'.$date_added.'</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-info" id="update_user_button" onclick="update_admin_user(\'' . $admin_user_id . '\',\'' . $firstname . '\',\'' . $lastname . '\',\'' . $email . '\',\'' . $admin_status . '\',\'' . $user_group . '\')"><i class="fas fa-pencil-alt"></i></button>
 
-							<button type="button" class="btn btn-sm btn-danger" onclick="delete_admin_user('.$admin_user_id.')"><i class="fas fa-trash-alt"></i></button>
-						</td>
-					</tr>
-				';
+				$user_group_name = $this->get_admin_user_group("user_group_name", $user_group_id);
+
+				// Check session user group
+				if ($_SESSION["user_group"] == 2) {
+					$table .= '
+						<tr>
+							<td>'.$firstname.'</td>
+							<td>'.$lastname.'</td>
+							<td>'.$admin_status.'</td>
+							<td>'.$user_group_name.'</td>
+							<td>'.$date_added.'</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info" disabled><i class="fas fa-pencil-alt"></i></button>
+
+								<button type="button" class="btn btn-sm btn-danger" disabled><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					';
+				} else {
+					$table .= '
+						<tr>
+							<td>'.$firstname.'</td>
+							<td>'.$lastname.'</td>
+							<td>'.$admin_status.'</td>
+							<td>'.$user_group_name.'</td>
+							<td>'.$date_added.'</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info" onclick="update_admin_user(\'' . $admin_user_id . '\',\'' . $firstname . '\',\'' . $lastname . '\',\'' . $email . '\',\'' . $admin_status . '\',\'' . $user_group_id . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+								<button type="button" class="btn btn-sm btn-danger" onclick="delete_admin_user('.$admin_user_id.')"><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					';
+				}
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="6" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -219,18 +322,6 @@ class Main extends database_connection{
 		';
 
 		echo $table;
-	}
-
-	function delete_admin_users() {
-		$admin_user_id = $_POST["admin_user_id"];
-
-		$conn = $this->db_conn();
-		$sql = "DELETE FROM admin_user WHERE id='$admin_user_id'";
-		if ($conn->query($sql) === TRUE) {
-			echo "Record delete successfully";
-		} else {
-			echo "Error updating record: " . $conn->error;
-		}
 	}
 
 	function get_user_group_id() {
@@ -253,10 +344,17 @@ class Main extends database_connection{
 		$user_group = $_POST["user_group"];
 		$admin_status = $_POST["admin_status"];
 
+		$ses_email = $_POST["ses_email"];
+		$ses_group_id = $_POST["ses_group_id"];
+
 		$date_added = date("Y-m-d h:i:sa");
 
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO admin_user (firstname, lastname, email, password, user_group, admin_status, date_added) VALUES ('$firstname', '$lastname', '$email', '$password', '$user_group', '$admin_status', '$date_added')";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Add new user', '$date_added'");
+
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {
@@ -272,18 +370,45 @@ class Main extends database_connection{
 		$pass = $_POST["pass"];
 		$status = $_POST["admin_status"];
 
+		$ses_email = $_POST["ses_email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
+		$conn = $this->db_conn();
+
 		if ($pass == NULL) {
-			$conn = $this->db_conn();
 			$sql = "UPDATE admin_user SET firstname='$firstname' , lastname='$lastname', email='$email', admin_status='$status' WHERE id='$id'";
 			$result = mysqli_query($conn, $sql);
 		} else {
-			$conn = $this->db_conn();
 			$sql = "UPDATE admin_user SET firstname='$firstname' , lastname='$lastname', email='$email', password='$pass', admin_status='$status' WHERE id='$id'";
 			$result = mysqli_query($conn, $sql);
 		}
 
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Update 1 user details', '$date_added'");
+
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE ) {
 			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_admin_users() {
+		$admin_user_id = $_POST["admin_user_id"];
+
+		$ses_email = $_POST["ses_email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM admin_user WHERE id='$admin_user_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Delete user account', '$date_added'");
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
 		}
@@ -350,12 +475,6 @@ class Main extends database_connection{
 					</tr>
 				';
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="5" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -418,6 +537,10 @@ class Main extends database_connection{
 		$manufacturer_id = $_POST["manufacturer_id"];
 		$product_category = $_POST["product_category"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		// Update for Product table
 		$sql = "UPDATE product SET product_name='$product_name', quantity='$quantity', stock_status_id='$stock_status', manufacturer_id='$manufacturer_id', price='$price', product_weight='$product_weight', weight_id='$weight_class', product_status='$product_status' WHERE product_id='$product_id'";
@@ -428,6 +551,9 @@ class Main extends database_connection{
 		// Update for product_to_category table
 		$sql2 = "UPDATE product_to_category SET category_id='$product_category' WHERE product_id='$product_id'";
 
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Update product', '$date_added'");
+
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE) {
 			echo "Record updated successfully";
 		} else {
@@ -437,11 +563,18 @@ class Main extends database_connection{
 
 	function delete_product() {
 		$product_id = $_POST["product_id"];
+
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
 		
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM product WHERE product_id='$product_id'";
 		$sql1 = "DELETE FROM product_description WHERE product_id='$product_id'";
 		$sql2 = "DELETE FROM product_to_category WHERE product_id='$product_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Delete categories', '$date_added'");
 		
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2)) {
 			echo "Record delete successfully";
@@ -464,6 +597,10 @@ class Main extends database_connection{
 		$product_weight = $_POST["product_weight"];
 		$weight_class = $_POST["weight_class"];
 		$product_status = $_POST["product_status"];
+
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+
 		$date_added = date("Y-m-d h:i:sa");
 
 		$conn = $this->db_conn();
@@ -472,6 +609,9 @@ class Main extends database_connection{
 		$sql .= "INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_title', '$meta_tag_description', '$meta_tag_keywords');";
 
 		$sql .= "INSERT INTO product_to_category (product_id, category_id) VALUES ((SELECT product_id FROM product WHERE product_name='$product_name'), '$product_category');";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Add new product', '$date_added'");
 
 		if ($conn->multi_query($sql) === TRUE) {
 			echo $product_category;
@@ -529,12 +669,6 @@ class Main extends database_connection{
 					</tr>
 				';
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="4" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -551,12 +685,18 @@ class Main extends database_connection{
 		$meta_tag_title = $_POST["meta_tag_title"];
 		$category_status = $_POST["category_status"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+
 		$date_added = date("Y-m-d h:i:sa");
 
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO categories (category_status, date_added) VALUES ('$category_status', '$date_added');";
 
 		$sql .= "INSERT INTO category_description (category_name, description, meta_title) VALUES ('$category_name', '$description', '$meta_tag_title');";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Add new categories', '$date_added'");
 
 		if ($conn->multi_query($sql) === TRUE) {
 			echo "New records created successfully";
@@ -572,10 +712,17 @@ class Main extends database_connection{
 		$meta_tag_title = $_POST["meta_tag_title"];
 		$category_status = $_POST["category_status"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "UPDATE categories SET category_status='$category_status' WHERE category_id='$category_id'";
 
 		$sql1 = "UPDATE category_description SET category_name='$category_name', description='$description', meta_title='$meta_tag_title' WHERE category_id='$category_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Update categories', '$date_added'");
 
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) ) {
 			echo "Record updated successfully";
@@ -587,10 +734,19 @@ class Main extends database_connection{
 	function delete_categories() {
 		$category_id = $_POST["category_id"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM categories WHERE category_id='$category_id'";
 		$sql1 = "DELETE FROM category_description WHERE category_id='$category_id'";
-		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
+		$sql2 = "UPDATE product_to_category SET category_id=0 WHERE category_id='$category_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Delete categories', '$date_added'");
+
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE) {
 			echo "Record delete successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
@@ -613,22 +769,43 @@ class Main extends database_connection{
 		$sql = "SELECT * FROM information_description";
 		$result = mysqli_query($conn, $sql);
 
-		$table .= '
-			<div align="right" style="margin-bottom:5px;">
-				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_info()"><i class="fas fa-plus-square"></i> Add New</button>
-			</div>
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-				<thead>
-					<tr>
-						<th>Information Title</th>
-						<th>Status</th>
-						<th>Date Added</th>
-						<th>Action</th>
-					</tr>
-				</thead>
+		// Check session user group
+		if ($_SESSION["user_group"] == 2) {
+			$table .= '
+				<div align="right" style="margin-bottom:5px;">
+					<button type="button" id="add_product_button" class="btn btn-sm btn-primary" disabled><i class="fas fa-plus-square"></i> Add New</button>
+				</div>
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Information Title</th>
+							<th>Status</th>
+							<th>Date Added</th>
+							<th>Action</th>
+						</tr>
+					</thead>
 
-				<tbody>
-		';
+					<tbody>
+			';
+		} else {
+			$table .= '
+				<div align="right" style="margin-bottom:5px;">
+					<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_info()"><i class="fas fa-plus-square"></i> Add New</button>
+				</div>
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Information Title</th>
+							<th>Status</th>
+							<th>Date Added</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+			';
+		}
+		
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$information_id = $row["information_id"];
@@ -645,25 +822,36 @@ class Main extends database_connection{
 					$info_status = "Disabled";
 				}
 
-				$table .= '
-					<tr>
-						<td>'.$info_title.'</td>
-						<td>'.$info_status.'</td>
-						<td>'.$date_added.'</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\',\'' . $info_title . '\',\'' . $info_description . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keyword . '\',\'' . $info_status . '\')"><i class="fas fa-pencil-alt"></i></button>
+				// Check session user group
+				if ($_SESSION["user_group"] == 2) {
+					$table .= '
+						<tr>
+							<td>'.$info_title.'</td>
+							<td>'.$info_status.'</td>
+							<td>'.$date_added.'</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info" disabled><i class="fas fa-pencil-alt"></i></button>
 
-							<button type="button" class="btn btn-sm btn-danger" onclick="delete_info(\'' . $information_id . '\',)"><i class="fas fa-trash-alt"></i></button>
-						</td>
-					</tr>
-				';
+								<button type="button" class="btn btn-sm btn-danger" disabled></i></button>
+							</td>
+						</tr>
+					';
+				} else {
+					$table .= '
+						<tr>
+							<td>'.$info_title.'</td>
+							<td>'.$info_status.'</td>
+							<td>'.$date_added.'</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\',\'' . $info_title . '\',\'' . $info_description . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keyword . '\',\'' . $info_status . '\')"><i class="fas fa-pencil-alt"></i></button>
+
+								<button type="button" class="btn btn-sm btn-danger" onclick="delete_info(\'' . $information_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					';
+				}
+
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="4" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -785,12 +973,6 @@ class Main extends database_connection{
 					</tr>
 				';
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="6" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -815,10 +997,22 @@ class Main extends database_connection{
 		$postcode = $_POST["postcode"];
 		$region = $_POST["region"];
 
+		$ses_email = $_POST["ses_email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
-		$sql = "UPDATE customer SET firstname='$firstname', lastname='$lastname', email='$email', telephone='$telephone', password='$password', status='$status' WHERE customer_id='$customer_id'";
+
+		if ($password == NULL) {
+			$sql = "UPDATE customer SET firstname='$firstname', lastname='$lastname', email='$email', telephone='$telephone', status='$status' WHERE customer_id='$customer_id'";
+		} else {
+			$sql = "UPDATE customer SET firstname='$firstname', lastname='$lastname', email='$email', telephone='$telephone', password='$password', status='$status' WHERE customer_id='$customer_id'";
+		}
 
 		$sql1 = "UPDATE customer_address SET firstname='$firstname', lastname='$lastname', address_1='$address_1', address_2='$address_2', city='$city', postcode='$postcode', region='$region' WHERE customer_id='$customer_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Update customer information', '$date_added'");
 
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
 			echo "Record updated successfully";
@@ -830,10 +1024,21 @@ class Main extends database_connection{
 	function delete_customer_accnt() {
 		$customer_id = $_POST["customer_id"];
 
+		$ses_email = $_POST["ses_email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM customer WHERE customer_id='$customer_id'";
 		$sql1 = "DELETE FROM customer_address WHERE customer_id='$customer_id'";
-		if ($conn->query($sql) === TRUE) {
+		$sql2 = "DELETE FROM customer_ip WHERE customer_id='$customer_id'";
+		$sql3 = "DELETE FROM customer_wishlist WHERE customer_id='$customer_id'";
+		$sql4 = "DELETE FROM cart WHERE customer_id='$customer_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Delete customer account', '$date_added'");
+
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE && $conn->query($sql4) === TRUE) {
 			echo "Record delete successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
@@ -876,12 +1081,6 @@ class Main extends database_connection{
 					</tr>
 				';
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="2" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -895,8 +1094,15 @@ class Main extends database_connection{
 	function add_stockstatus() {
 		$name = $_POST["name"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO stock_status (name) VALUES ('$name')";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Add new stock status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "New records created successfully";
@@ -909,8 +1115,15 @@ class Main extends database_connection{
 		$stock_status_id = $_POST["stock_status_id"];
 		$name = $_POST["name"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "UPDATE stock_status SET name='$name' WHERE stock_status_id='$stock_status_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Update details on stock status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "Record updated successfully";
@@ -922,8 +1135,15 @@ class Main extends database_connection{
 	function delete_stockstatus() {
 		$stock_status_id = $_POST["stock_status_id"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM stock_status WHERE stock_status_id='$stock_status_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Delete data in stock status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
@@ -968,12 +1188,6 @@ class Main extends database_connection{
 					</tr>
 				';
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="2" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -987,8 +1201,15 @@ class Main extends database_connection{
 	function add_orderstatus() {
 		$name = $_POST["name"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO order_status (name) VALUES ('$name')";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Add new order status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "New records created successfully";
@@ -1001,8 +1222,15 @@ class Main extends database_connection{
 		$order_status_id = $_POST["order_status_id"];
 		$name = $_POST["name"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "UPDATE order_status SET name='$name' WHERE order_status_id='$order_status_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Update details on order status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "Record updated successfully";
@@ -1014,8 +1242,15 @@ class Main extends database_connection{
 	function delete_orderstatus() {
 		$order_status_id = $_POST["order_status_id"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM order_status WHERE order_status_id='$order_status_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Delete data in order status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
@@ -1060,12 +1295,6 @@ class Main extends database_connection{
 					</tr>
 				';
 			}
-		} else {
-			$table .= '
-			<tr>
-				<td colspan="2" align="center">No data found</td>
-			</tr>
-			';
 		}
 
 		$table .='
@@ -1079,8 +1308,15 @@ class Main extends database_connection{
 	function add_manufacturer() {
 		$name = $_POST["name"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO manufacturer (name) VALUES ('$name')";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Add new manufacturer', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "New records created successfully";
@@ -1093,8 +1329,15 @@ class Main extends database_connection{
 		$manufacturer_id = $_POST["manufacturer_id"];
 		$name = $_POST["name"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "UPDATE manufacturer SET name='$name' WHERE manufacturer_id='$manufacturer_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Uodate manufacturer details', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "Record updated successfully";
@@ -1106,8 +1349,15 @@ class Main extends database_connection{
 	function delete_manufacturer() {
 		$manufacturer_id = $_POST["manufacturer_id"];
 
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+
 		$conn = $this->db_conn();
 		$sql = "DELETE FROM manufacturer WHERE manufacturer_id='$manufacturer_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Uodate manufacturer details', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
@@ -1126,6 +1376,265 @@ class Main extends database_connection{
 				<option value="'.$value["manufacturer_id"].'">'.$value["name"].'</option>
 			';
 		}
+	}
+
+	function get_latest_customers_account() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM customer ORDER BY date_added ASC LIMIT 5";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Customer Name</th>
+						<th>Email</th>
+						<th>Status</th>
+						<th>Date Added</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$firstname = $row["firstname"];
+				$lastname = $row["lastname"];
+				$email = $row["email"];
+				$date_added = $row["date_added"];
+
+				if ($row["status"] == 1) {
+					$status = "Enable";
+				} else {
+					$status = "Disabled";
+				}
+				
+				$table .= '
+					<tr>
+						<td>'.$firstname.' '.$lastname.'</td>
+						<td>'.$email.'</td>
+						<td>'.$status.'</td>
+						<td>'.$date_added.'</td>
+					</tr>
+				';
+			}
+		}else {
+			$table .='
+			<tr>
+				<td class="text-center text-md-start" colspan="4">No Data..</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function add_notes() {
+		$title = $_POST["title"];
+		$note = $_POST["note"];
+		$date_added = date("Y-m-d h:i:sa");
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO notes (title, note, date_added) VALUES ('$title', '$note', '$date_added')";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
+
+	function get_notes() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM notes";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Notes</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$note_id = $row["note_id"];
+				$title = $row["title"];
+				$note = $row["note"];
+				$date_added = $row["date_added"];
+
+				$uncut_title = $row["title"];
+				$uncut_note = $row["note"];
+
+				$note = strip_tags($note);
+                if (strlen($note) > 10) {
+                    $stringCut = substr($note, 0 , 10);
+                    $endPoint = strrpos($stringCut, ' ');
+
+                    $note = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                    $note .= '...';
+                }
+
+				$title = strip_tags($title);
+				if (strlen($title) > 6) {
+                    $stringCut = substr($title, 0 , 6);
+                    $endPoint = strrpos($stringCut, '');
+
+                    $title = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                    $title .= '...';
+                }
+
+				$table .= '
+					<tr>
+						<td>'.$title.'</td>
+						<td>'.$note.'</td>
+						<td class="text-center">
+							<button type="button" class="btn btn-sm btn-info" onclick="view_notes(\'' . $note_id . '\',\'' . $uncut_title . '\',\'' . $uncut_note . '\',\'' . $date_added . '\')"><i class="fas fa-eye"></i></button>
+
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_notes(\'' . $note_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		} else {
+			$table .='
+			<tr>
+				<td class="text-center text-md-start" colspan="3">No Data..</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function update_note() {
+		$note_id = $_POST["note_id"];
+		$title = $_POST["title"];
+		$note = $_POST["note"];
+
+		$conn = $this->db_conn();
+		$sql = "UPDATE notes SET title='$title', note='$note' WHERE note_id='$note_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function delete_note() {
+		$note_id = $_POST["note_id"];
+
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM notes WHERE note_id='$note_id'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function get_customer_rows() {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM customer";
+        $result = $conn->query($sql);
+        $numrow = mysqli_num_rows($result);
+
+        return $numrow;
+    }
+
+	function get_admin_logs() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM admin_logs";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Email</th>
+						<th>Activity</th>
+						<th>Date Added</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$activity_id = $row["activity_id"];
+				$user_group_id = $row["user_group_id"];
+				$email = $row["email"];
+				$activity = $row["activity"];
+				$date_added = $row["date_added"];
+
+				$user_group_name = $this->get_admin_user_group("user_group_name", $user_group_id);
+				
+				// Check session user group
+				if ($_SESSION["user_group"] == 2) {
+					$table .= '
+						<tr>
+							<td>'.$user_group_name.'</td>
+							<td>'.$email.'</td>
+							<td>'.$activity.'</td>
+							<td>'.$date_added.'</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-sm btn-danger" disabled><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					';
+				} else {
+					$table .= '
+						<tr>
+							<td>'.$user_group_name.'</td>
+							<td>'.$email.'</td>
+							<td>'.$activity.'</td>
+							<td>'.$date_added.'</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-sm btn-danger" onclick="delete_notes(\'' . $activity_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+							</td>
+						</tr>
+					';
+				}
+			}
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function add_to_logs($column, $values) {
+		$conn = $this->db_conn();
+        $sql = "INSERT INTO admin_logs ($column) VALUES ($values)";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "";
+        }
 	}
 }
 
@@ -1155,16 +1664,16 @@ if(isset($_GET["update_user_groups"])){
 	$class->update_user_groups();
 }
 
-if(isset($_GET["delete_admin_users"])){
-	$class->delete_admin_users();
-}
-
 if(isset($_GET["add_user_admin"])){
 	$class->add_user_admin();
 }
 
 if(isset($_GET["update_user_admins"])){
 	$class->update_user_admins();
+}
+
+if(isset($_GET["delete_admin_users"])){
+	$class->delete_admin_users();
 }
 
 if(isset($_GET["update_product"])){
@@ -1245,5 +1754,17 @@ if(isset($_GET["update_manufaturer"])){
 
 if(isset($_GET["delete_manufacturer"])){
 	$class->delete_manufacturer();
+}
+
+if(isset($_GET["add_notes"])){
+	$class->add_notes();
+}
+
+if(isset($_GET["update_note"])){
+	$class->update_note();
+}
+
+if(isset($_GET["delete_note"])){
+	$class->delete_note();
 }
 ?>

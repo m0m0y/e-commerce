@@ -8,7 +8,16 @@ require "assets/common/header.php";
     <?php require "assets/common/navbar.php"; ?>
 
     <section class="mt-5 container"> 
-        <div class="row"> 
+        <div class="row">
+            <div class="mb-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" style="margin: 0;">
+                        <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
+                        <li class="breadcrumb-item">Register</li>
+                    </ol>
+                </nav>
+            </div>
+
             <div class="col-sm-12 col-md-8 register-form"> 
                 <div class="form container"> 
                     <h3 class="title mb-3">Register Account</h3>

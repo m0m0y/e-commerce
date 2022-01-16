@@ -24,7 +24,7 @@ if (isset($_SESSION["customer_id"])) {
 
         <div class="d-flex flex-row-reverse bd-highlight">
             <div class="p-2 bd-highlight">
-                <a class="btn btn-md btn-secondary" href="#" role="button"><i class="fa fa-shopping-cart"></i> Shopping Cart (<?= $class->get_cart_rows($customer_id) ?>)</a>
+                <a class="btn btn-md btn-outline-secondary" href="<?= $BASE_URL ?>cart" role="button"><i class="fa fa-shopping-cart"></i> Shopping Cart (<?= $class->get_cart_rows($customer_id) ?>)</a>
             </div>
         </div>
     </div>
@@ -100,7 +100,7 @@ if (isset($_SESSION["customer_id"])) {
 
         <div class="d-flex flex-row-reverse bd-highlight">
             <div class="p-2 bd-highlight">
-                <a class="btn btn-md btn-secondary" href="#" role="button"><i class="fa fa-shopping-cart"></i> Shopping Cart (<?= $class->get_cart_rows(0) ?>)</a>
+                <a class="btn btn-md btn-outline-secondary" href="<?= $BASE_URL ?>cart" role="button"><i class="fa fa-shopping-cart"></i> Shopping Cart (<?= $class->get_cart_rows(0) ?>)</a>
             </div>
         </div>
     </div>

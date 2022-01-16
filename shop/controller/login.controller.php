@@ -17,9 +17,10 @@ class Login extends database_connection {
 				$_SESSION["firstname"] = $row["firstname"];
 				$_SESSION["lastname"] = $row["lastname"];
 				$_SESSION["email"] = $row["email"];
+				$_SESSION["telephone"] = $row["telephone"];
 				$_SESSION["password"] = $row["password"];
 
-				// Update the customer id that get in the session 
+				// Update cart customer id that get in the session 
 				if (isset($_POST)) {
 					$this->update_cart($_SESSION["customer_id"]);
 				}
@@ -37,7 +38,7 @@ class Login extends database_connection {
 		if ($conn->query($sql) === TRUE) {
 			echo "success";
 		} else {
-			echo "mali";
+			echo "error";
 		}
 	}
 
@@ -49,6 +50,7 @@ class Login extends database_connection {
 
         return $result[$column];
 	}
+
 }
 
 $class = new Login();

@@ -1,9 +1,26 @@
+function openTabs(event, tabName) {
+    var c, tabcontent, tab_button;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (c = 0; c < tabcontent.length; c++) {
+    tabcontent[c].style.display = "none";
+    }
+
+    tab_button = document.getElementsByClassName("tab_button");
+    for (c = 0; c < tab_button.length; c++) {
+    tab_button[c].className = tab_button[c].className.replace(" active", "");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    event.currentTarget.className += " active";
+}
+
 function update_cunstomer_info(customer_id, firstname, lastname, email, telephone, status, address_1, address_2, city, postcode, region) {
     $('#close').click(function(){
         window.location.reload();
     });
 
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Customer Information');
     $('.save-btn').attr("id", "update");
 
@@ -29,6 +46,8 @@ function update_cunstomer_info(customer_id, firstname, lastname, email, telephon
     $('#update').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var ses_email = $('#ses_email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var firstname = $('#firstname').val();
         var lastname = $('#lastname').val();
         var email = $('#email').val();
@@ -42,18 +61,19 @@ function update_cunstomer_info(customer_id, firstname, lastname, email, telephon
         var city = $('#city').val();
         var postcode = $('#postcode').val();
         var region = $('#region').val();
-
-        if (password != confirm_pass) {
+        if (password != confirm_pass){
             alert_message = "Password did not match!";
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
-        } else if (firstname == "" || lastname == "" || email == "" || telephone == "" || password == "" || confirm_pass == "" || address_1 == "" || city == "" || region == "") {
+        } else if (firstname == "" || lastname == "" || email == "" || telephone == "" || address_1 == "" || city == "" || region == "") {
             alert_message = "Please double check the required fields!";
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?update_customer_info',
+                url: 'controller/base.controller.php?update_customer_info',
                 method: 'POST',
                 data: {
+                    ses_email:ses_email,
+                    ses_group_id:ses_group_id,
                     customer_id:customer_id,
                     firstname:firstname,
                     lastname:lastname,
@@ -68,6 +88,7 @@ function update_cunstomer_info(customer_id, firstname, lastname, email, telephon
                     region:region
                 },
                 success:function(){
+                    $('#preloader').show();
                     window.location.reload();
                 }
             });
@@ -76,31 +97,20 @@ function update_cunstomer_info(customer_id, firstname, lastname, email, telephon
 }
 
 function delete_customer(customer_id) {
+    var ses_email = $('#ses_email').val();
+    var ses_group_id = $('#ses_group_id').val();
+
     $.ajax({
-        url: 'controller/function.php?delete_customer_accnt',
+        url: 'controller/base.controller.php?delete_customer_accnt',
         method: 'POST',
         data: {
+            ses_email:ses_email,
+            ses_group_id:ses_group_id,
             customer_id:customer_id
         },
         success:function(){
+            $('#preloader').show();
             window.location.reload();
         }
     });
-}
-
-function openTabs(event, tabName) {
-    var c, tabcontent, tab_button;
-
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (c = 0; c < tabcontent.length; c++) {
-    tabcontent[c].style.display = "none";
-    }
-
-    tab_button = document.getElementsByClassName("tab_button");
-    for (c = 0; c < tab_button.length; c++) {
-    tab_button[c].className = tab_button[c].className.replace(" active", "");
-    }
-
-    document.getElementById(tabName).style.display = "block";
-    event.currentTarget.className += " active";
 }

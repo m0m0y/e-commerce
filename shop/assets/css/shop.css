@@ -69,14 +69,7 @@ a.my-account-button:hover {
     padding-bottom: 2%; 
     border-radius: 5px;
 }
-.category-menu{
-    text-decoration: none;
-}
 
 img.product-icon {
     opacity: 80%;
-}
-
-.product-name {
-    text-decoration: none;
 }

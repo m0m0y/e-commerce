@@ -49,6 +49,8 @@ require "assets/common/header.php";
                 <div class="row mb-4">
                   <label for="product_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Product Name:</label>
                   <div class="col-sm-9">
+                    <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                    <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
                     <input type="text" id="product_name" class="form-control" name="product_name" placeholder="Product Name">
                   </div>
                 </div>
@@ -158,6 +160,7 @@ require "assets/common/header.php";
           </div>
             
             <!-- Footer -->
+            <div id="preloader" style="display: none;"></div>
             <?php require "assets/common/footer.php"; ?>
         </div>
       </div>
@@ -189,71 +192,5 @@ require "assets/common/header.php";
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
 
-    <script>
-      function openTabs(event, tabName) {
-        var c, tabcontent, tab_button;
-
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (c = 0; c < tabcontent.length; c++) {
-          tabcontent[c].style.display = "none";
-        }
-
-        tab_button = document.getElementsByClassName("tab_button");
-        for (c = 0; c < tab_button.length; c++) {
-          tab_button[c].className = tab_button[c].className.replace(" active", "");
-        }
-
-        document.getElementById(tabName).style.display = "block";
-        event.currentTarget.className += " active";
-      }
-
-      $(document).ready(function(){
-        $('#save').on('click',function(){
-          var alert_message = $('#alertMessage').val();
-
-          var product_name = $('#product_name').val();
-          var description = $('#description').val();
-          var meta_tag_title = $('#meta_tag_title').val();
-          var meta_tag_description = $('#meta_tag_description').val();
-          var meta_tag_keywords = $('#meta_tag_keywords').val();
-
-          var manufacturer_id = $('#manufacturer_id').val();
-          var product_category = $('#product_category').val();
-          var price = $('#price').val();
-          var quantity = $('#quantity').val();
-          var stock_status = $('#stock_status').val();
-          var product_weight = $('#weight').val();
-          var weight_class = $('#weight_class').val();
-          var product_status = $('#product_status').val();
-
-          if (product_name == "" || meta_tag_title == "" || price == ""|| quantity == "") {
-            alert_message = "Please fill up the required field!";
-            $('#alertMessage').text(alert_message).addClass("alert alert-danger");
-          } else {
-            $.ajax({
-                url: 'controller/function.php?add_product',
-                method: 'POST',
-                data:{
-                  product_name:product_name,
-                  description:description,
-                  meta_tag_title:meta_tag_title,
-                  meta_tag_description:meta_tag_description,
-                  meta_tag_keywords:meta_tag_keywords,
-                  manufacturer_id:manufacturer_id,
-                  product_category:product_category,
-                  price:price,
-                  quantity:quantity,
-                  stock_status:stock_status,
-                  product_weight:product_weight,
-                  weight_class:weight_class,
-                  product_status:product_status
-                },
-                success: function(){
-                  window.location.reload();         
-                }
-            });
-          }
-        });
-      });
-    </script>
+    <script src="script/product.js"></script>
 </body>

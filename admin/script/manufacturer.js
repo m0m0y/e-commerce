@@ -1,10 +1,10 @@
-function add_stockStatus() {
+function add_manufacturers() {
     $('#close').click(function(){
-        window.location.href="stock_status";
+        window.location.href="manufacturer";
     });
 
     $('.Mymodal').modal('show');
-    $('.title-container').html('<i class="fas fa-pencil-alt"></i> Add Stock Status');
+    $('.title-container').html('<i class="fas fa-pencil-alt"></i> Add Manufacturer');
     $('.save-btn').attr('id', 'save');
 
     $('#save').on('click', function(){
@@ -19,7 +19,7 @@ function add_stockStatus() {
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/base.controller.php?add_stockstatus',
+                url: 'controller/base.controller.php?add_manufacturer',
                 method: 'POST',
                 data: {
                     email:email,
@@ -35,13 +35,13 @@ function add_stockStatus() {
     });
 }
 
-function update_stockStatus(stock_status_id, name) {
+function update_manufacturers(manufacturer_id, name) {
     $('#close').click(function(){
-        window.location.href="stock_status";
+        window.location.href="manufacturer";
     });
 
     $('.Mymodal').modal('show');
-    $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update Stock Status');
+    $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update Manufacturer');
     $('.save-btn').attr('id', 'update');
 
     $('#name').val(name);
@@ -58,12 +58,12 @@ function update_stockStatus(stock_status_id, name) {
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/base.controller.php?update_stockstatus',
+                url: 'controller/base.controller.php?update_manufaturer',
                 method: 'POST',
                 data: {
                     email:email,
                     ses_group_id:ses_group_id,
-                    stock_status_id:stock_status_id,
+                    manufacturer_id:manufacturer_id,
                     name:name
                 },
                 success:function(){
@@ -75,17 +75,17 @@ function update_stockStatus(stock_status_id, name) {
     });
 }
 
-function delete_stockStatus(stock_status_id) {
+function delete_manufacturers(manufacturer_id) {
     var email = $('#email').val();
     var ses_group_id = $('#ses_group_id').val();
-
+    
     $.ajax({
-        url: 'controller/base.controller.php?delete_stockstatus',
+        url: 'controller/base.controller.php?delete_manufacturer',
         method: 'POST',
         data: {
             email:email,
             ses_group_id:ses_group_id,
-            stock_status_id:stock_status_id
+            manufacturer_id:manufacturer_id
         },
         success:function(){
             $('#preloader').show();

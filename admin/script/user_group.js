@@ -5,12 +5,14 @@ $(document).ready(function(){
 });
 
 function add_user_group() {
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-user-plus"></i> Add User Group');
     $('.save-btn').attr('id', 'save');
 
     $('#save').on('click', function(){
         var alert_message = $('#alertMessage').val();
+        var email = $('#email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var name = $('#user_group_name').val();
 
         if(name == "") {
@@ -18,14 +20,16 @@ function add_user_group() {
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url:'controller/function.php?add_user_groups',
+                url:'controller/base.controller.php?add_user_groups',
                 method:'POST',
                 data:{
+                    email:email,
+                    ses_group_id:ses_group_id,
                     name:name
                 },
                 success:function() {
+                    $('#preloader').show();
                     window.location.reload();
-                    alert("Success!");
                 }
             });
         }
@@ -33,13 +37,15 @@ function add_user_group() {
 }
 
 function update_user_group(user_group_id, name){
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update User Group');
     $('.save-btn').attr('id', 'update');
     $('#user_group_name').val(name);
 
     $('#update').on('click', function(){
         var alert_message = $('#alertMessage').val();
+        var email = $('#email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var u_name = $("#user_group_name").val();  
 
         if(u_name == ""){
@@ -47,15 +53,17 @@ function update_user_group(user_group_id, name){
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url:'controller/function.php?update_user_groups',
+                url:'controller/base.controller.php?update_user_groups',
                 method:'POST',
                 data: {
+                    email:email,
+                    ses_group_id:ses_group_id,
+                    user_group_id:user_group_id,
                     name:u_name,
-                    user_group_id:user_group_id
                 },
                 success:function() {
-                    window.location.reload();
-                    alert("Successfully Modified!");     
+                    $('#preloader').show();
+                    window.location.reload();  
                 }
             }); 
         }
@@ -63,13 +71,20 @@ function update_user_group(user_group_id, name){
 }
 
 function delete_user_group(user_group_id){
+    var email = $('#email').val();
+    var ses_group_id = $('#ses_group_id').val();
+
     $.ajax({
-        url:'controller/function.php?delete_user_groups',
+        url:'controller/base.controller.php?delete_user_groups',
         method:'POST', 
-        data: {user_group_id},
+        data: {
+            email:email,
+            ses_group_id:ses_group_id,
+            user_group_id:user_group_id
+        },
         success:function() {
-            window.location.reload();
-            alert("Delete Successfully!");        
+            $('#preloader').show();
+            window.location.reload();     
         }
     });
 }

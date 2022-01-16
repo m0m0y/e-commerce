@@ -95,6 +95,7 @@ require "assets/common/header.php";
             </div>
 
             <!-- Footer -->
+            <div id="preloader" style="display: none;"></div>
             <?php require "assets/common/footer.php"; ?>
         </div>
 

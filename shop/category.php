@@ -80,7 +80,7 @@ if ($category_status == 0) {
                     quantity:quantity
                 },
                 success:function(){
-                    // window.location.reload();
+                    window.location.reload();
                 }
             });
         }

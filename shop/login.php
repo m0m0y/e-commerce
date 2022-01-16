@@ -8,6 +8,15 @@ require "assets/common/header.php";
     <?php require "assets/common/navbar.php"; ?>
 
     <section class="mt-5 container"> 
+        <div class="mb-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb" style="margin: 0;">
+                    <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
+                    <li class="breadcrumb-item">Login</li>
+                </ol>
+            </nav>
+        </div>
+
         <div class="row"> 
             <div class="col-sm-12 col-md-8 login-form"> 
                 <div class="form container"> 
@@ -40,36 +49,36 @@ require "assets/common/header.php";
     <?php require "assets/common/footer.php"; ?>
 
     <script> 
-    $(document).ready(function(){
-        $('#submit').on("click", function(){
-            var customer_email = $('#customer_email').val();
-            var customer_password = $('#customer_password').val();
+        $(document).ready(function(){
+            $('#submit').on("click", function(){
+                var customer_email = $('#customer_email').val();
+                var customer_password = $('#customer_password').val();
 
-            if(customer_email == "" || customer_password == "") {
-                alert_message = "No match for Email Address and Password";
-                $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
-            } else {
-                $.ajax({
-                    url: 'controller/login.controller.php?get_customer',
-                    method: 'POST',
-                    data: {
-                        customer_email:customer_email,
-                        customer_password:customer_password
-                    },
-                    success: function(response) {
-                        if (response == "success") {
-                            window.location.replace("myaccount");
-                        } else if (response == "invalid") {
-                            alert_message = "No match for Email Address and Password";
-                            $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
-                        } else {
-                            alert_message = "No match for Email Address and Password";
-                            $('.alert').text(alert_message);
+                if(customer_email == "" || customer_password == "") {
+                    alert_message = "No match for Email Address and Password";
+                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
+                } else {
+                    $.ajax({
+                        url: 'controller/login.controller.php?get_customer',
+                        method: 'POST',
+                        data: {
+                            customer_email:customer_email,
+                            customer_password:customer_password
+                        },
+                        success: function(response) {
+                            if (response == "success") {
+                                window.location.replace("myaccount");
+                            } else if (response == "invalid") {
+                                alert_message = "No match for Email Address and Password";
+                                $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
+                            } else {
+                                alert_message = "No match for Email Address and Password";
+                                $('.alert').text(alert_message);
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
-    });
     </script>
 </body>

@@ -3,13 +3,15 @@ function add_orderStatus() {
         window.location.href="order_status";
     });
 
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Add Stock Status');
     $('.save-btn').attr('id', 'save');
 
     $('#save').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var email = $('#email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var name = $('#name').val();
 
         if(name == "") {
@@ -17,12 +19,15 @@ function add_orderStatus() {
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?add_orderstatus',
+                url: 'controller/base.controller.php?add_orderstatus',
                 method: 'POST',
                 data: {
+                    email:email,
+                    ses_group_id:ses_group_id,
                     name:name
                 },
                 success:function(){
+                    $('#preloader').show();
                     window.location.reload();
                 }
             });
@@ -35,7 +40,7 @@ function update_orderStatus(order_status_id, name) {
         window.location.href="order_status";
     });
 
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update Stock Status');
     $('.save-btn').attr('id', 'update');
 
@@ -44,6 +49,8 @@ function update_orderStatus(order_status_id, name) {
     $('#update').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var email = $('#email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var name = $('#name').val();
 
         if(name == "") {
@@ -51,13 +58,16 @@ function update_orderStatus(order_status_id, name) {
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?update_orderstatus',
+                url: 'controller/base.controller.php?update_orderstatus',
                 method: 'POST',
                 data: {
+                    email:email,
+                    ses_group_id:ses_group_id,
                     order_status_id:order_status_id,
                     name:name
                 },
                 success:function(){
+                    $('#preloader').show();
                     window.location.reload();
                 }
             });
@@ -66,13 +76,19 @@ function update_orderStatus(order_status_id, name) {
 }
 
 function delete_orderStatus(order_status_id) {
+    var email = $('#email').val();
+    var ses_group_id = $('#ses_group_id').val();
+    
     $.ajax({
-        url: 'controller/function.php?delete_orderstatus',
+        url: 'controller/base.controller.php?delete_orderstatus',
         method: 'POST',
         data: {
+            email:email,
+            ses_group_id:ses_group_id,
             order_status_id:order_status_id
         },
         success:function(){
+            $('#preloader').show();
             window.location.reload();
         }
     });

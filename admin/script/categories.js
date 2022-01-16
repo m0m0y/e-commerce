@@ -1,4 +1,5 @@
 function add_category(){
+    $('#preloader').show();
     window.location.href="add_category";
 }
 
@@ -7,7 +8,7 @@ function update_category(category_id, category_name, description, meta_title, ca
         window.location.reload();
     });
 
-    $('#Mymodal').modal('show');
+    $('.Mymodal').modal('show');
     $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update Categories');
     $('.save-btn').attr("id", "update");
 
@@ -24,6 +25,8 @@ function update_category(category_id, category_name, description, meta_title, ca
     $('#update').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var email = $('#email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var category_name = $('#category_name').val();
         var description = $('#description').val();
         var meta_tag_title = $('#meta_tag_title').val();
@@ -34,9 +37,11 @@ function update_category(category_id, category_name, description, meta_title, ca
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?update_categories',
+                url: 'controller/base.controller.php?update_categories',
                 method: 'POST',
                 data: {
+                    email:email,
+                    ses_group_id:ses_group_id,
                     category_id:category_id,
                     category_name:category_name,
                     description:description,
@@ -44,6 +49,7 @@ function update_category(category_id, category_name, description, meta_title, ca
                     category_status:category_status
                 },
                 success: function(){
+                    $('#preloader').show();
                     window.location.reload();
                 }
             });
@@ -52,13 +58,19 @@ function update_category(category_id, category_name, description, meta_title, ca
 }
 
 function delete_category(category_id) {
+    var email = $('#email').val();
+    var ses_group_id = $('#ses_group_id').val();
+    
     $.ajax({
-        url: 'controller/function.php?delete_categories',
+        url: 'controller/base.controller.php?delete_categories',
         method: 'POST',
         data: {
+            email:email,
+            ses_group_id:ses_group_id,
             category_id:category_id
         },
         success: function() {
+            $('#preloader').show();
             window.location.reload();
         }
     });
@@ -87,6 +99,8 @@ $(document).ready(function(){
     $('#save').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var email = $('#email').val();
+        var ses_group_id = $('#ses_group_id').val();
         var category_name = $('#category_name').val();
         var description = $('#description').val();
         var meta_tag_title = $('#meta_tag_title').val();
@@ -97,15 +111,18 @@ $(document).ready(function(){
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/function.php?add_categories',
+                url: 'controller/base.controller.php?add_categories',
                 method: 'POST',
                 data: {
+                    email:email,
+                    ses_group_id:ses_group_id,
                     category_name:category_name,
                     description:description,
                     meta_tag_title:meta_tag_title,
                     category_status:category_status
                 },
                 success:function(){
+                    $('#preloader').show();
                     window.location.reload();
                 }
             });

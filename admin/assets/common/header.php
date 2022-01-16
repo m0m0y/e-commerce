@@ -1,11 +1,12 @@
 <?php 
-require "controller/function.php";
+require "controller/base.controller.php";
 session_start();
 
 $firstname = $_SESSION["firstname"];
 $lastname = $_SESSION["lastname"];
 $email = $_SESSION["email"];
 $user_id = $_SESSION["id"];
+$user_group = $_SESSION["user_group"];
 $class->islogin($email);
 ?>
 <!doctype html>
