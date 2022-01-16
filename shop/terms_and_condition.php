@@ -12,12 +12,12 @@ require "assets/common/header.php";
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb" style="margin: 0;">
                     <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
-                    <li class="breadcrumb-item">About Us</li>
+                    <li class="breadcrumb-item">Terms & Condition</li>
                 </ol>
             </nav>
         </div>
 
-        <?php $class->get_about_us() ?>
+        <?php $class->get_terms_and_condition() ?>
         
     </section>
 

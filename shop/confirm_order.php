@@ -71,24 +71,7 @@ $comment = $_POST["comment"];
                 window.location.href="checkout";
             });
 
-
             $('#confirm_order').on('click', function(){
-                var customer_id = $('#customer_id').val();
-                var customer_firstname = $('#customer_firstname').val();
-                var customer_lastname = $('#customer_lastname').val();
-                var customer_email = $('#customer_email').val();
-                var customer_telephone = $('#customer_telephone').val();
-
-                var address_1 = $('#address_1').val();
-                var address_2 = $('#address_2').val();
-                var city = $('#city').val();
-                var postcode = $('#postcode').val();
-                var region = $('#region').val();
-
-                var pick_up_date = $('#pick_up_date').val();
-                var payment_option = $('#payment_option').val();
-                var comment = $('#comment').val();
-
                 var cart_id = $('#cart_id').val();
                 var product_id = $('#product_id').val();
                 var product_name = $('#product_name').val();
@@ -96,36 +79,64 @@ $comment = $_POST["comment"];
                 var price = $('#price').val();
                 var total_price = $('#total_price').val();
 
-                $.ajax({
-                    url: 'controller/order.controller.php?add_order',
-                    method: 'POST',
-                    data: {
-                        customer_id:customer_id,
-                        customer_firstname:customer_firstname,
-                        customer_lastname:customer_lastname,
-                        customer_email:customer_email,
-                        customer_telephone:customer_telephone,
-                        address_1:address_1,
-                        address_2:address_2,
-                        city:city,
-                        postcode:postcode,
-                        region:region,
-                        pick_up_date:pick_up_date,
-                        payment_option:payment_option,
-                        over_all_total:over_all_total,
-                        comment:comment,
-                        cart_id:cart_id,
-                        product_id:product_id,
-                        product_name:product_name,
-                        quantity:quantity,
-                        price:price,
-                        total_price:total_price
-                    },
-                    success:function() {
-                        // window.location.replace("home");
-                    }
-                });
+                alert(cart_id);
             });
+
+
+            // $('#confirm_order').on('click', function(){
+            //     var customer_id = $('#customer_id').val();
+            //     var customer_firstname = $('#customer_firstname').val();
+            //     var customer_lastname = $('#customer_lastname').val();
+            //     var customer_email = $('#customer_email').val();
+            //     var customer_telephone = $('#customer_telephone').val();
+
+            //     var address_1 = $('#address_1').val();
+            //     var address_2 = $('#address_2').val();
+            //     var city = $('#city').val();
+            //     var postcode = $('#postcode').val();
+            //     var region = $('#region').val();
+
+            //     var pick_up_date = $('#pick_up_date').val();
+            //     var payment_option = $('#payment_option').val();
+            //     var comment = $('#comment').val();
+
+            //     var cart_id = $('#cart_id').val();
+            //     var product_id = $('#product_id').val();
+            //     var product_name = $('#product_name').val();
+            //     var quantity = $('#quantity').val();
+            //     var price = $('#price').val();
+            //     var total_price = $('#total_price').val();
+
+            //     $.ajax({
+            //         url: 'controller/order.controller.php?add_order',
+            //         method: 'POST',
+            //         data: {
+            //             customer_id:customer_id,
+            //             customer_firstname:customer_firstname,
+            //             customer_lastname:customer_lastname,
+            //             customer_email:customer_email,
+            //             customer_telephone:customer_telephone,
+            //             address_1:address_1,
+            //             address_2:address_2,
+            //             city:city,
+            //             postcode:postcode,
+            //             region:region,
+            //             pick_up_date:pick_up_date,
+            //             payment_option:payment_option,
+            //             over_all_total:over_all_total,
+            //             comment:comment,
+            //             cart_id:cart_id,
+            //             product_id:product_id,
+            //             product_name:product_name,
+            //             quantity:quantity,
+            //             price:price,
+            //             total_price:total_price
+            //         },
+            //         success:function() {
+
+            //         }
+            //     });
+            // });
         });
     </script>
 </body>

@@ -619,6 +619,109 @@ class BaseController extends database_connection {
         return $result[$column];
     }
 
+    function site_map_categories() {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM categories WHERE category_status=1";
+        $result = mysqli_query($conn, $sql);
+
+        foreach ($result as $key => $value) {
+            $category_id = $value["category_id"];
+            $category_name = $this->get_category_description("category_name", $category_id);
+
+            echo '<li><a href="category?category_id='.$category_id.'" class="text-decoration-none">'.$category_name.'</a></li>';
+		}
+    }
+
+    function get_about_us() {
+        $info_title = "About Us";
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM information_description WHERE info_title='$info_title'";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) { 
+                $information_id = $row["information_id"];
+                $info_title = $row["info_title"];
+                $info_description = $row["info_description"];
+                $info_status = $row["info_status"];
+
+                if ($info_status == 1) {
+                    echo '
+                        <h3>'.$info_title.'</h3>
+
+                        <p class="mt-5 text-lg-start">'.$info_description.'</p>
+                    ';
+                } else {
+                    echo '
+                        <h3>'.$info_title.'</h3>
+
+                        <h4 class="mt-5 text-lg-start fw-normal">No Content.</h4>
+                    ';
+                }
+            }
+        }
+    }
+
+    function get_privacy_policy() {
+        $info_title = "Privacy Policy";
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM information_description WHERE info_title='$info_title'";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) { 
+                $information_id = $row["information_id"];
+                $info_title = $row["info_title"];
+                $info_description = $row["info_description"];
+                $info_status = $row["info_status"];
+
+                if ($info_status == 1) {
+                    echo '
+                        <h3>'.$info_title.'</h3>
+
+                        <p class="mt-5 text-lg-start">'.$info_description.'</p>
+                    ';
+                } else {
+                    echo '
+                        <h3>'.$info_title.'</h3>
+
+                        <h4 class="mt-5 text-lg-start fw-normal">No Content.</h4>
+                    ';
+                }
+            }
+        }
+    }
+
+    function get_terms_and_condition() {
+        $info_title = "Terms & Condition";
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM information_description WHERE info_title='$info_title'";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) { 
+                $information_id = $row["information_id"];
+                $info_title = $row["info_title"];
+                $info_description = $row["info_description"];
+                $info_status = $row["info_status"];
+
+                if ($info_status == 1) {
+                    echo '
+                        <h3>'.$info_title.'</h3>
+
+                        <p class="mt-5 text-lg-start">'.$info_description.'</p>
+                    ';
+                } else {
+                    echo '
+                        <h3>'.$info_title.'</h3>
+
+                        <h4 class="mt-5 text-lg-start fw-normal">No Content.</h4>
+                    ';
+                }
+            }
+        }
+    }
+
 }
 
 $class = new BaseController();

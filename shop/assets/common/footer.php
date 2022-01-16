@@ -7,36 +7,36 @@ if (isset($_SESSION["customer_id"])) {
         <div class="row">
             <div class="col-sm-12 col-md-3">
                 <h5>Information</h5>
-                <a href="<?= $BASE_URL ?>about" target="blank" class="btn btn-link">About Us</a>
+                <a href="about" class="text-decoration-none text-white">About Us</a>
                 <br/>
-                <a href="#" target="blank" class="btn btn-link">Privacy Policy</a>
+                <a href="privacy_policy" class="text-decoration-none text-white">Privacy Policy</a>
                 <br/>
-                <a href="#" target="blank" class="btn btn-link">Terms & Condition</a>
+                <a href="terms_and_condition" class="text-decoration-none text-white" text-white>Terms & Condition</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>Customer Service</h5>
-                <a href="<?= $BASE_URL ?>about" class="btn btn-link">Contact Us</a>
+                <a href="about" class="text-decoration-none text-white">Contact Us</a>
                 <br/>
-                <a href="#" target="blank" class="btn btn-link">Returns</a>
+                <a href="#" class="text-decoration-none text-white">Returns</a>
                 <br/>
-                <a href="#" target="blank" class="btn btn-link">Site Map</a>
+                <a href="site_map" class="text-decoration-none text-white">Site Map</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>Extras</h5>
-                <a href="#" target="blank" class="btn btn-link">Brands</a>
+                <a href="#" class="text-decoration-none text-white">Brands</a>
                 <br/>
-                <a href="#" target="blank" class="btn btn-link">Special Offers</a>
+                <a href="#" class="text-decoration-none text-white">Special Offers</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>My Account</h5>
-                <a href="<?= $BASE_URL ?>myaccount" class="btn btn-link">My Account</a>
+                <a href="myaccount" class="text-decoration-none text-white">My Account</a>
                 <br/>
-                <a href="#" target="blank" class="btn btn-link">Order History</a>
+                <a href="#" class="text-decoration-none text-white">Order History</a>
                 <br/>
-                <a href="#" target="blank" class="btn btn-link">Wish List</a>
+                <a href="#" class="text-decoration-none text-white">Wish List</a>
             </div>
 
             <div class="pt-5"> 
@@ -55,36 +55,36 @@ if (isset($_SESSION["customer_id"])) {
         <div class="row">
             <div class="col-sm-12 col-md-3">
                 <h5>Information</h5>
-                <a href="<?= $BASE_URL ?>about" class="btn btn-link">About Us</a>
+                <a href="about" class="text-decoration-none text-white">About Us</a>
                 <br/>
-                <a href="#" class="btn btn-link">Privacy Policy</a>
+                <a href="privacy_policy" class="text-decoration-none text-white">Privacy Policy</a>
                 <br/>
-                <a href="#" class="btn btn-link">Terms & Condition</a>
+                <a href="terms_and_condition" class="text-decoration-none text-white">Terms & Condition</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>Customer Service</h5>
-                <a href="<?= $BASE_URL ?>about" class="btn btn-link">Contact Us</a>
+                <a href="about" class="text-decoration-none text-white">Contact Us</a>
                 <br/>
-                <a href="#" class="btn btn-link">Returns</a>
+                <a href="#" class="text-decoration-none text-white">Returns</a>
                 <br/>
-                <a href="#" class="btn btn-link">Site Map</a>
+                <a href="site_map" class="text-decoration-none text-white">Site Map</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>Extras</h5>
-                <a href="#" class="btn btn-link">Brands</a>
+                <a href="#" class="text-decoration-none text-white">Brands</a>
                 <br/>
-                <a href="#" class="btn btn-link">Special Offers</a>
+                <a href="#" class="text-decoration-none text-white">Special Offers</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>My Account</h5>
-                <a href="<?= $BASE_URL ?>login" class="btn btn-link">My Account</a>
+                <a href="login" class="text-decoration-none text-white">My Account</a>
                 <br/>
-                <a href="<?= $BASE_URL ?>login" class="btn btn-link">Order History</a>
+                <a href="login" class="text-decoration-none text-white">Order History</a>
                 <br/>
-                <a href="<?= $BASE_URL ?>login" class="btn btn-link">Wish List</a>
+                <a href="login" class="text-decoration-none text-white">Wish List</a>
             </div>
 
             <div class="pt-5"> 

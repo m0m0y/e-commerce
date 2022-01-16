@@ -49,6 +49,15 @@ function page_title() {
         case "/test/shop/confirm_order":
             $page_title = "Confirm Order";
             break;
+        case "/test/shop/site_map":
+            $page_title = "Site Map";
+            break;
+        case "/test/shop/privacy_policy":
+            $page_title = "Privacy Policy";
+            break;
+        case "/test/shop/terms_and_condition":
+            $page_title = "Terms and Condition";
+            break;
     }
 
     echo $page_title;

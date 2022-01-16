@@ -14,6 +14,14 @@ $address_2 = $class->get_customer_address("address_2", $customer_id);
 $city = $class->get_customer_address("city", $customer_id);
 $postcode = $class->get_customer_address("postcode", $customer_id);
 $region = $class->get_customer_address("region", $customer_id);
+
+$check_cart = $class->get_cart_rows($customer_id);
+if ($check_cart == 0) {
+?>
+<!-- Redirect to shopping cart if the cart is empty -->
+<script>window.location.replace("cart");</script>
+<?php
+}
 ?>
 
 <body>
@@ -232,6 +240,14 @@ $region = $class->get_customer_address("region", $customer_id);
 
 <?php
 } else { 
+$customer_id = "";
+$check_cart = $class->get_cart_rows($customer_id);
+if ($check_cart == 0) {
+?>
+<!-- Redirect to shopping cart if the cart is empty -->
+<script>window.location.replace("cart");</script>
+<?php
+}
 ?>
 
 <body>

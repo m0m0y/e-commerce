@@ -23,10 +23,9 @@ $mail->Debugoutput = 'html';
 $mail->Host = "ssl://smtp.gmail.com";
 $mail->Port = 465;
 $mail->SMTPAuth = true;
-$mail->Username = "cpascual107@gmail.com";
-$mail->Password = "123Pascual123";
-$mail->setFrom('cpascual107@gmail.com', 'no-reply');
-$mail->addAddress('itchaaanp@gmail.com', 'PMC');
+$mail->Username = ""; // Enter Email Address
+$mail->Password = ""; // Enter Email Password
+$mail->setFrom('', 'no-reply'); // Enter Email Address
 $mail->Subject = "Customer Inqury";
 $mail->Body = $emailBody;
 $mail->isHTML(true);
