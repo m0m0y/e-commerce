@@ -542,6 +542,7 @@ class BaseController extends database_connection {
 		';
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
+
                 $cart_id = $row["cart_id"];
 				$customer_id = $row["customer_id"];
                 $product_id = $row["product_id"];
@@ -560,19 +561,10 @@ class BaseController extends database_connection {
                     $manufacturer_name = "N/A";
                 }
 
-                $cart_product_id = $this->get_cart_info("product_id", $cart_id);
-
                 $total_price = $price * $quantity;
 
                 if ($product_status == 1) {
                     $table .= '
-                        <input type="text" id="cart_id" class="form-control" value="'.$cart_id.'" readonly>
-                        <input type="hidden" id="product_id" class="form-control" value="'.$product_id.'" readonly>
-                        <input type="hidden" id="product_name" class="form-control" value="'.$product_name.'" readonly>
-                        <input type="hidden" id="quantity" class="form-control" value="'.$quantity.'" readonly>
-                        <input type="hidden" id="price" class="form-control" value="'.$price.'" readonly>
-                        <input type="hidden" id="total_price" class="form-control" value="'.$total_price.'" readonly>
-
                         <tr>
                             <td><a href="product?product_id='.$product_id.'" class="text-decoration-none"> '.$product_name.'</a></td>
                             <td>'.$manufacturer_name.'</td>

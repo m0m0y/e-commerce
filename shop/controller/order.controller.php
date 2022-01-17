@@ -47,29 +47,18 @@ class OrderController extends database_connection {
 
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        $cart_id = $_POST["cart_id"];
-        $product_id = $_POST["product_id"];
-        $product_name = $_POST["product_name"];
-        $quantity = $_POST["quantity"];
-        $price = $_POST["price"];
-        $total_price = $_POST["total_price"];
+        $conn = $this->db_conn();
+        $sql = "INSERT INTO orders (invoice_no, customer_id, firstname, lastname, email, telephone, comment, payment_method, payment_code, total, order_status_id, ip, pick_up_date, date_added) VALUES ('$invoice_no', '$customer_id', '$customer_firstname', '$customer_lastname', '$customer_email', '$customer_telephone', '$comment', '$payment_method', '$payment_option', '$over_all_total', '2', '$ip', '$pick_up_date', '$date_added');";
 
-        $sadd = $this->get_cart("product_id");
+        $this->add_order_product($customer_id, $invoice_no, "(SELECT order_id FROM orders WHERE invoice_no='$invoice_no')");
 
-        echo $sadd;
+        $sql .= "INSERT INTO orders_history (invoice_no, order_id, order_status_id, comment, date_added) VALUES ('$invoice_no', (SELECT order_id FROM orders WHERE invoice_no='$invoice_no'), '2', '$comment', '$date_added');";
 
-        // $conn = $this->db_conn();
-        // $sql = "INSERT INTO orders (invoice_no, customer_id, firstname, lastname, email, telephone, comment, payment_method, payment_code, total, order_status_id, ip, pick_up_date, date_added) VALUES ('$invoice_no', '$customer_id', '$customer_firstname', '$customer_lastname', '$customer_email', '$customer_telephone', '$comment', '$payment_method', '$payment_option', '$over_all_total', '2', '$ip', '$pick_up_date', '$date_added');";
-
-        // $sql .= "INSERT INTO order_product (invoice_no, order_id, product_id, product_name, quantity, price, total) VALUES ('$invoice_no', (SELECT order_id FROM orders WHERE invoice_no='$invoice_no'), '$product_id', '$product_name', '$quantity', '$price', '$total_price');";
-
-        // $sql .= "INSERT INTO orders_history (invoice_no, order_id, order_status_id, comment, date_added) VALUES ('$invoice_no', (SELECT order_id FROM orders WHERE invoice_no='$invoice_no'), '2', '$comment', '$date_added');";
-
-        // if ($conn->multi_query($sql) === TRUE) {
-		// 	echo "New records created successfully";
-		// } else {
-		// 	echo "Error: " . $sql . "<br>" . $conn->error;
-		// }
+        if ($conn->multi_query($sql) === TRUE) {
+			echo "New records created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
     }
 
     // Get the numbers of rows in orders
@@ -82,19 +71,47 @@ class OrderController extends database_connection {
         return $numrow;
     }
 
-    function get_cart($column) {
+    function get_product($column, $product_id) {
         $conn = $this->db_conn();
-        $sql = "SELECT $column FROM cart";
+        $sql = "SELECT $column FROM product WHERE product_id='$product_id' AND product_status=1";
         $result = mysqli_fetch_assoc($conn->query($sql));
 
         return $result[$column];
+    }
+
+    function add_order_product($customer_id, $invoice_no, $order_id) {
+        $conn = $this->db_conn();
+		$sql = "SELECT * FROM cart WHERE customer_id='$customer_id'";
+		$result = mysqli_query($conn, $sql);
+
+        if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+                $cart_id = $row["cart_id"];
+                $product_id = $row["product_id"];
+                $quantity = $row["quantity"];
+                $product_name = $this->get_product("product_name", $product_id);
+                $price = $this->get_product("price", $product_id);
+
+                $total_price = $price * $quantity;
+
+                $sql = "INSERT INTO order_product (invoice_no, order_id, product_id, product_name, quantity, price, total) VALUES ('$invoice_no', '$order_id', '$product_id', '$product_name', '$quantity', '$price', '$total_price')";
+
+                $this->delete_cart($cart_id);
+
+                if ($conn->query($sql) === TRUE) {
+                	echo "";
+                } else {
+                	echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
+        }
     }
 
     function delete_cart($cart_id) {
         $conn = $this->db_conn();
 		$sql = "DELETE FROM cart WHERE cart_id='$cart_id'";
 		if ($conn->query($sql) === TRUE) {
-			echo "Record delete successfully";
+			echo "";
 		} else {
 			echo "Error updating record: " . $conn->error;
 		}

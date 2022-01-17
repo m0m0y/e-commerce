@@ -16,6 +16,7 @@ $postcode = $class->get_customer_address("postcode", $customer_id);
 $region = $class->get_customer_address("region", $customer_id);
 
 $check_cart = $class->get_cart_rows($customer_id);
+
 if ($check_cart == 0) {
 ?>
 <!-- Redirect to shopping cart if the cart is empty -->
@@ -180,10 +181,13 @@ if ($check_cart == 0) {
                                                         <p>Bank Name: <?= $class->get_banks("bank_name", "Gcash") ?></p>
                                                         <p>Account Name: <?= $class->get_banks("account_name", "Gcash") ?></p>
                                                         <p>Account Number: <?= $class->get_banks("account_number", "Gcash") ?></p>
+                                                        <small>Please transfer the total amount to the following gcash account.</small>
                                                     </div>
 
                                                     <div class="bank_transfer box p-4 bg-light border" style="display: none;">
-                                                        <h5>Bank Details:</h5>
+                                                        <h3>Bank Transfer Instructions:</h3>
+                                                        <p><small>Please transfer the total amount to the following bank account.</small></p>
+                                                        <h5 class="fw-normal">Bank Details:</h5>
                                                         <p>Bank Name: <?= $class->get_banks("bank_name", "BDO") ?></p>
                                                         <p>Account Name: <?= $class->get_banks("account_name", "BDO") ?></p>
                                                         <p>Account Number: <?= $class->get_banks("account_number", "BDO") ?></p>
