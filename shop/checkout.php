@@ -177,7 +177,7 @@ if ($check_cart == 0) {
 
                                                 <div class="row mb-4 d-grid gap-3">
                                                     <div class="gcash box p-4 bg-light border" style="display: none;">
-                                                        <h5>Gcash Details:</h5>
+                                                        <h5 class="fw-normal">Gcash Details:</h5>
                                                         <p>Bank Name: <?= $class->get_banks("bank_name", "Gcash") ?></p>
                                                         <p>Account Name: <?= $class->get_banks("account_name", "Gcash") ?></p>
                                                         <p>Account Number: <?= $class->get_banks("account_number", "Gcash") ?></p>

@@ -464,7 +464,7 @@ class Base_controller extends database_connection{
 				$table .= '
 					<tr>
 						<td>'.$name.'</td>
-						<td>Php '.number_format($price, '2').'</td>
+						<td>₱ '.number_format($price, 2).'</td>
 						<td>'.$quantity.'</td>
 						<td>'.$product_status.'</td>
 						<td>
@@ -1817,6 +1817,98 @@ class Base_controller extends database_connection{
         $result = mysqli_fetch_assoc($conn->query($sql));
 
         return $result[$column];
+	}
+
+	function get_customer_address($column, $customer_id) {
+		$conn = $this->db_conn();
+        $sql = "SELECT $column FROM customer_address WHERE customer_id='$customer_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+	}
+
+	function get_orders_product($order_id) {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM order_product WHERE order_id='$order_id'";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered">
+				<thead> 
+					<tr>
+						<th>Product</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th class="text-end">Total</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$order_id = $row["order_id"];
+				$product_id = $row["product_id"];
+				$product_name = $row["product_name"];
+				$quantity = $row["quantity"];
+				$price = $row["price"];
+				$total = $row["total"];
+
+				$table .= '
+					<tr>
+						<td><a href="/test/shop/product?product_id='.$product_id.'" class="text-decoration-none" target="blank"> '.$product_name.' </a></td>
+						<td>'.$quantity.'</td>
+						<td>₱ '.number_format($price, 2).'</td>
+						<td class="text-end" data-id="'.$order_id.'">₱ <span>'.number_format($total, 2).'</span></td>
+					</tr>
+				';
+			}
+		}
+
+		$table .='
+					<tr>
+						<td colspan="2"></td>
+						<td class="text-end">Sub-total:</td>
+						<td class="text-end fw-normal" id="sub-total"></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2"></td>
+						<td class="text-end">Vat:</td>
+						<td class="text-end fw-normal" id="vat"></td>
+					</tr>
+
+					<tr>
+						<td colspan="2"></td>
+						<th class="text-end">Total:</th>
+						<td class="text-end fw-bold" id="total-price"></td>
+					</tr>
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function get_customer_history($column, $order_id) {
+		$conn = $this->db_conn();
+        $sql = "SELECT $column FROM orders_history WHERE order_id='$order_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+	}
+
+	function get_order_status_value() {
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM order_status";
+		$result = mysqli_query($conn, $sql);
+
+		foreach ($result as $key => $value) {
+			echo '
+				<option value="'.$value["order_status_id"].'">'.$value["name"].'</option>
+			';
+		}
 	}
 }
 
