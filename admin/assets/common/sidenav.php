@@ -31,7 +31,7 @@
             </a>
             <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item <?= ($host == "/test/admin/order" ? "active" : "") ?>" href="orders">Orders</a>
+                    <a class="collapse-item <?= ($host == "/test/admin/orders" ? "active" : "") ?>" href="orders">Orders</a>
                     <a class="collapse-item" href="">Cancel Orders</a>
                 </div>
             </div>

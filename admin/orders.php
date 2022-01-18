@@ -31,6 +31,9 @@ require "assets/common/header.php";
 
                     <div class="card-body">
                         <div class="table-responsive">
+                            <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                            <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
+
                             <?php $class->get_orders(); ?>
                         </div>
 
@@ -95,6 +98,22 @@ require "assets/common/header.php";
     <script src="assets/js/demo/datatables-demo.js"></script>
 
     <script> 
-        
+        function delete_orders(order_id) {
+            var email = $('#email').val();
+            var ses_group_id = $('#ses_group_id').val();
+
+            $.ajax({
+                url: 'controller/base.controller.php?delete_order',
+                method: 'POST',
+                data: {
+                    email:email,
+                    ses_group_id:ses_group_id,
+                    order_id:order_id
+                },
+                success:function() {
+
+                }
+            });
+        }
     </script>
 </body>

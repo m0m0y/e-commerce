@@ -1766,8 +1766,8 @@ class Base_controller extends database_connection{
 						<td>'.$total.'</td>
 						<td>'.$date_added.'</td>
 						<td class="text-center">
-							<button type="button" class="btn btn-md btn-info"><i class="fas fa-eye"></i></button>
-							<button type="button" class="btn btn-md btn-danger"  onclick="delete_notes(\'' . $order_id . '\')"><i class="fas fa-trash-alt"></i></button>
+							<a class="btn btn-md btn-info" href="order_summary?order_id='.$order_id.'"><i class="fas fa-eye"></i></a>
+							<button type="button" class="btn btn-md btn-danger"  onclick="delete_orders(\'' . $order_id . '\')"><i class="fas fa-trash-alt"></i></button>
 						</td>
 					</tr>
 				';
@@ -1782,6 +1782,26 @@ class Base_controller extends database_connection{
 		echo $table;
 	}
 
+	function delete_order() {
+		$order_id = $_POST["order_id"];
+
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$date_added = date("Y-m-d h:i:sa");
+		
+		$conn = $this->db_conn();
+		$sql = "DELETE FROM notes WHERE order_id='$order_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Delete order details', '$date_added'");
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record delete successfully";
+		} else {
+			echo "Error deleting record: " . $conn->error;
+		}
+	}
+
 	function add_to_logs($column, $values) {
 		$conn = $this->db_conn();
         $sql = "INSERT INTO admin_logs ($column) VALUES ($values)";
@@ -1789,6 +1809,14 @@ class Base_controller extends database_connection{
         if ($conn->query($sql) === TRUE) {
             echo "";
         }
+	}
+
+	function get_order_details($column, $order_id) {
+		$conn = $this->db_conn();
+        $sql = "SELECT $column FROM orders WHERE order_id='$order_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
 	}
 }
 
@@ -1924,5 +1952,9 @@ if(isset($_GET["delete_note"])){
 
 if(isset($_GET["update_banks"])){
 	$class->update_banks();
+}
+
+if(isset($_GET["delete_order"])){
+	$class->delete_order();
 }
 ?>
