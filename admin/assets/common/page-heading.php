@@ -84,4 +84,9 @@ switch ($host) {
             <h1 class="h3 mb-0 text-gray-800">Bank Details</h1>
         ';
         break;
+    case "/test/admin/orders";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Orders</h1>
+        ';
+        break;
 }

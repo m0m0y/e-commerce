@@ -410,7 +410,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -579,7 +579,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2)) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -749,7 +749,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -909,7 +909,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -1041,7 +1041,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE && $conn->query($sql4) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -1148,7 +1148,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -1255,7 +1255,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -1362,7 +1362,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -1503,7 +1503,7 @@ class Base_controller extends database_connection{
 						<td class="text-center">
 							<button type="button" class="btn btn-sm btn-info" onclick="view_notes(\'' . $note_id . '\',\'' . $uncut_title . '\',\'' . $uncut_note . '\',\'' . $date_added . '\')"><i class="fas fa-eye"></i></button>
 
-							<button type="button" class="btn btn-sm btn-danger" onclick="delete_notes(\'' . $note_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-danger" onclick="delete_notes(\'' . $note_id . '\')"><i class="fas fa-trash-alt"></i></button>
 						</td>
 					</tr>
 				';
@@ -1548,7 +1548,7 @@ class Base_controller extends database_connection{
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -1711,7 +1711,76 @@ class Base_controller extends database_connection{
 		}
 	}
 
+	function get_order_status_id($column, $order_status_id) {
+		$conn = $this->db_conn();
+        $sql = "SELECT $column FROM order_status WHERE order_status_id='$order_status_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
 
+        return $result[$column];
+	}
+
+	function get_orders() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM orders";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Order ID</th>
+						<th>Customer Name</th>
+						<th>Status</th>
+						<th>Total</th>
+						<th>Date Added</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$order_id = $row["order_id"];
+				$customer_id = $row["customer_id"];
+				$firstname = $row["firstname"];
+				$lastname = $row["lastname"];
+				$email = $row["email"];
+				$telephone = $row["telephone"];
+				$payment_method = $row["payment_method"];
+				$payment_code = $row["payment_code"];
+				$total = $row["total"];
+				$order_status_id = $row["order_status_id"];
+				$ip = $row["ip"];
+				$pick_up_date = $row["pick_up_date"];
+				$date_added = $row["date_added"];
+
+				$status_name = $this->get_order_status_id("name", $order_status_id);
+			
+				$table .= '
+					<tr>
+						<td>'.$order_id.'</td>
+						<td>'.$firstname.' '.$lastname.'</td>
+						<td>'.$status_name.'</td>
+						<td>'.$total.'</td>
+						<td>'.$date_added.'</td>
+						<td class="text-center">
+							<button type="button" class="btn btn-md btn-info"><i class="fas fa-eye"></i></button>
+							<button type="button" class="btn btn-md btn-danger"  onclick="delete_notes(\'' . $order_id . '\')"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
 
 	function add_to_logs($column, $values) {
 		$conn = $this->db_conn();

@@ -39,7 +39,8 @@ class OrderController extends database_connection {
             $randomString .= $characters[$index];
         }
 
-        $order_rows = $this->get_orders_rows($customer_id);
+        // Count the number of orders
+        $order_rows = $this->get_orders_rows();
         for ($x = 0; $x <= $order_rows; $x++) {
             $counter = $x;
         }
@@ -50,11 +51,14 @@ class OrderController extends database_connection {
         $conn = $this->db_conn();
         $sql = "INSERT INTO orders (invoice_no, customer_id, firstname, lastname, email, telephone, comment, payment_method, payment_code, total, order_status_id, ip, pick_up_date, date_added) VALUES ('$invoice_no', '$customer_id', '$customer_firstname', '$customer_lastname', '$customer_email', '$customer_telephone', '$comment', '$payment_method', '$payment_option', '$over_all_total', '2', '$ip', '$pick_up_date', '$date_added');";
 
-        $this->add_order_product($customer_id, $invoice_no, "(SELECT order_id FROM orders WHERE invoice_no='$invoice_no')");
-
         $sql .= "INSERT INTO orders_history (invoice_no, order_id, order_status_id, comment, date_added) VALUES ('$invoice_no', (SELECT order_id FROM orders WHERE invoice_no='$invoice_no'), '2', '$comment', '$date_added');";
 
         if ($conn->multi_query($sql) === TRUE) {
+            $last_id =mysqli_insert_id($conn);
+
+            // Insert every order products by customer and automatic clear their cart
+            $this->add_order_product($customer_id, $invoice_no, $last_id);
+
 			echo "New records created successfully";
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
@@ -62,9 +66,9 @@ class OrderController extends database_connection {
     }
 
     // Get the numbers of rows in orders
-    function get_orders_rows($customer_id) {
+    function get_orders_rows() {
         $conn = $this->db_conn();
-        $sql = "SELECT * FROM orders WHERE customer_id='$customer_id'";
+        $sql = "SELECT * FROM orders";
         $result = $conn->query($sql);
         $numrow = mysqli_num_rows($result);
 
@@ -79,7 +83,7 @@ class OrderController extends database_connection {
         return $result[$column];
     }
 
-    function add_order_product($customer_id, $invoice_no, $order_id) {
+    function add_order_product($customer_id, $invoice_no, $last_id) {
         $conn = $this->db_conn();
 		$sql = "SELECT * FROM cart WHERE customer_id='$customer_id'";
 		$result = mysqli_query($conn, $sql);
@@ -94,7 +98,7 @@ class OrderController extends database_connection {
 
                 $total_price = $price * $quantity;
 
-                $sql = "INSERT INTO order_product (invoice_no, order_id, product_id, product_name, quantity, price, total) VALUES ('$invoice_no', '$order_id', '$product_id', '$product_name', '$quantity', '$price', '$total_price')";
+                $sql = "INSERT INTO order_product (invoice_no, order_id, product_id, product_name, quantity, price, total) VALUES ('$invoice_no', '$last_id', '$product_id', '$product_name', '$quantity', '$price', '$total_price')";
 
                 $this->delete_cart($cart_id);
 
@@ -113,7 +117,7 @@ class OrderController extends database_connection {
 		if ($conn->query($sql) === TRUE) {
 			echo "";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
     }
 

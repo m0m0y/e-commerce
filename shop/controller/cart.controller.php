@@ -78,7 +78,7 @@ class AddToCart extends database_connection {
 		if ($conn->query($sql) === TRUE) {
 			echo "Record delete successfully";
 		} else {
-			echo "Error updating record: " . $conn->error;
+			echo "Error deleting record: " . $conn->error;
 		}
     }
 }

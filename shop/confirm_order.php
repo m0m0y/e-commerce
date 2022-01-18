@@ -70,17 +70,6 @@ $comment = $_POST["comment"];
             $('#back').on('click', function(){
                 window.location.href="checkout";
             });
-
-            $('#confirm_order').on('click', function(){
-                var cart_id = $('#cart_id').val();
-                var product_id = $('#product_id').val();
-                var product_name = $('#product_name').val();
-                var quantity = $('#quantity').val();
-                var price = $('#price').val();
-                var total_price = $('#total_price').val();
-
-                alert(cart_id);
-            });
             
             $('#confirm_order').on('click', function(){
                 var customer_id = $('#customer_id').val();
@@ -119,6 +108,7 @@ $comment = $_POST["comment"];
                         comment:comment
                     },
                     success:function() {
+                        // redirect to original receipt
                         window.location.replace("cart");
                     }
                 });
