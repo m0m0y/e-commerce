@@ -1209,7 +1209,7 @@ class Base_controller extends database_connection{
 		$sql = "INSERT INTO order_status (name) VALUES ('$name')";
 
 		// Add activity logs
-		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Add new order status', '$date_added'");
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Add new ".$name." in order status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "New records created successfully";
@@ -1230,7 +1230,7 @@ class Base_controller extends database_connection{
 		$sql = "UPDATE order_status SET name='$name' WHERE order_status_id='$order_status_id'";
 
 		// Add activity logs
-		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Update details on order status', '$date_added'");
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Update the ".$name." in order status', '$date_added'");
 
 		if ($conn->query($sql) === TRUE) {
 			echo "Record updated successfully";
@@ -1910,6 +1910,32 @@ class Base_controller extends database_connection{
 			';
 		}
 	}
+
+	function add_newHistory() {
+		$order_id = $_POST["order_id"];
+		$invoice_no = $_POST["invoice_no"];
+		$customer_name = $_POST["customer_name"];
+		$order_status = $_POST["order_status"];
+		$comment = $_POST["comment"];
+		$date_added = date("Y-m-d h:i:sa");
+
+		$email = $_POST["email"];
+		$ses_group_id = $_POST["ses_group_id"];
+
+		$conn = $this->db_conn();
+		$sql = "INSERT INTO orders_history (invoice_no, order_id, order_status_id, comment, date_added) VALUES ('$invoice_no', '$order_id', '$order_status', '$comment', '$date_added')";
+
+		$sql1 = "UPDATE orders SET order_status_id='$order_status' WHERE order_id='$order_id'";
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Change the order status of customer ".$customer_name."', '$date_added'");
+
+		if ($conn->query($sql) === TRUE || $conn->query($sql1) === TRUE) {
+			echo "New record created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
 }
 
 $class = new Base_controller();
@@ -2048,5 +2074,9 @@ if(isset($_GET["update_banks"])){
 
 if(isset($_GET["delete_order"])){
 	$class->delete_order();
+}
+
+if(isset($_GET["add_newHistory"])) {
+	$class->add_newHistory();
 }
 ?>

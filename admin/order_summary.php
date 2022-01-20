@@ -1,30 +1,36 @@
 <?php 
 require "assets/common/header.php";
-$order_id = $_GET["order_id"];
+$get_order_id = $_GET["order_id"];
 
-$invoice_no = $class->get_order_details("invoice_no", $order_id);
-$customer_id = $class->get_order_details("customer_id", $order_id);
-$firstname = $class->get_order_details("firstname", $order_id);
-$lastname = $class->get_order_details("lastname", $order_id);
-$email = $class->get_order_details("email", $order_id);
-$telephone = $class->get_order_details("telephone", $order_id);
-$comment = $class->get_order_details("comment", $order_id);
-$payment_method = $class->get_order_details("payment_method", $order_id);
-$payment_code = $class->get_order_details("payment_code", $order_id);
-$total = $class->get_order_details("total", $order_id);
-$ip = $class->get_order_details("ip", $order_id);
-$pick_up_date = $class->get_order_details("pick_up_date", $order_id);
-$date_added = $class->get_order_details("date_added", $order_id);
+$order_id = $class->get_order_details("order_id", $get_order_id);
+$invoice_no = $class->get_order_details("invoice_no", $get_order_id);
+$customer_id = $class->get_order_details("customer_id", $get_order_id);
+$firstname = $class->get_order_details("firstname", $get_order_id);
+$lastname = $class->get_order_details("lastname", $get_order_id);
+$email = $class->get_order_details("email", $get_order_id);
+$telephone = $class->get_order_details("telephone", $get_order_id);
+$comment = $class->get_order_details("comment", $get_order_id);
+$payment_method = $class->get_order_details("payment_method", $get_order_id);
+$payment_code = $class->get_order_details("payment_code", $get_order_id);
+$total = $class->get_order_details("total", $get_order_id);
+$ip = $class->get_order_details("ip", $get_order_id);
+$pick_up_date = $class->get_order_details("pick_up_date", $get_order_id);
+$date_added = $class->get_order_details("date_added", $get_order_id);
 
 $address_1 = $class->get_customer_address("address_1", $customer_id);
 $address_2 = $class->get_customer_address("address_2", $customer_id);
 $city = $class->get_customer_address("city", $customer_id);
 $region = $class->get_customer_address("region", $customer_id);
 
-$order_status_id = $class->get_customer_history("order_status_id", $order_id);
-$comment = $class->get_customer_history("comment", $order_id);
+$order_status_id = $class->get_customer_history("order_status_id", $get_order_id);
+$comment = $class->get_customer_history("comment", $get_order_id);
 
 $status_name = $class->get_order_status_id("name", $order_status_id);
+if($get_order_id != $order_id) {
+?>
+    <script>window.location.replace("404.php");</script>
+<?php
+}
 ?>
 
 <body id="page-top">
@@ -47,7 +53,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Order Summary</h1>
                         <div class="d-none d-sm-inline-block ">
-                            <a href="#" class="btn btn-sm btn-info shadow-sm"><i class="fas fa-print"></i> Print Invoice</a>
+                            <a href="print_invoice" class="btn btn-sm btn-info shadow-sm"><i class="fas fa-print"></i> Print Invoice</a>
                             <a href="#" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
                             <a href="#" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left"></i> Back</a>
                         </div>
@@ -68,7 +74,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                             <tr>
                                                 <td>
                                                     <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-calendar-alt"></i> 
-                                                    Date Added:
+                                                    Date Added
                                                     </div> 
                                                 </td>
                                                 <td> 
@@ -79,7 +85,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                             <tr>
                                                 <td>
                                                     <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-credit-card"></i>
-                                                        Payment Method:
+                                                        Payment Method
                                                     </div> 
                                                 </td>
                                                 <td> 
@@ -90,7 +96,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                             <tr>
                                                 <td>
                                                     <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-credit-card"></i>
-                                                    Shipping Method:
+                                                    Shipping Method
                                                     </div> 
                                                 </td>
                                                 <td> 
@@ -101,7 +107,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                             <tr>
                                                 <td>
                                                     <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-calendar-alt"></i> 
-                                                    Pick up Date:
+                                                    Pick up Date
                                                     </div> 
                                                 </td>
                                                 <td> 
@@ -125,7 +131,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                             <tr>
                                                 <td>
                                                     <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-users"></i> 
-                                                    Customer:
+                                                    Customer
                                                     </div> 
                                                 </td>
                                                 <td> 
@@ -136,7 +142,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                             <tr>
                                                 <td>
                                                     <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-envelope"></i>
-                                                        Email:
+                                                        Email
                                                     </div> 
                                                 </td>
                                                 <td> 
@@ -147,7 +153,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                             <tr>
                                                 <td>
                                                     <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-phone-alt"></i>
-                                                    Telephone:
+                                                    Telephone
                                                     </div> 
                                                 </td>
                                                 <td> 
@@ -164,7 +170,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
 
                     <div class="card shadow mb-5">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle"></i> Order (#<?= $order_id ?>)</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-info-circle"></i> Order (#<?= $get_order_id ?>)</h6>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered">
@@ -189,7 +195,7 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                 </tbody>
                             </table>
 
-                            <?php $class->get_orders_product($order_id); ?>
+                            <?php $class->get_orders_product($get_order_id); ?>
                         </div>
                     </div>
 
@@ -228,28 +234,40 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
                                 <h5 class="mt-5 fw-normal">Add Order History</h5>
                                 <hr></hr>
                                 
+                                <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                                <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
+
+                                <input type="hidden" id="order_id" class="form-control" value="<?= $order_id ?>" readonly/>
+                                <input type="hidden" id="invoice_no" class="form-control" value="<?= $invoice_no ?>" readonly/>
+                                <input type="hidden" id="customer_name" class="form-control" value="<?= $firstname. ' ' . $lastname ?>" readonly/>
+
                                 <div class="row mb-4">
-                                    <label for="product_name" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Order Status:</label>
+                                    <label for="order_status" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Order Status:</label>
                                     <div class="col-sm-9">
-                                        <select class="form-select" required>
+                                        <select class="form-select" id="order_status" required>
+                                            <option value="" selected disabled>Choose status</option>
                                             <?php $class->get_order_status_value(); ?>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="row mb-4">
-                                    <label for="product_name" class="col-sm-3 col-form-label text-right"> Comment:</label>
+                                    <label for="comment" class="col-sm-3 col-form-label text-right"> Comment:</label>
                                     <div class="col-sm-9">
                                         <textarea id="comment" rows="4" cols="50" class="form-control" placeholder="Comment"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button type="submit" class="btn btn-md btn-primary" id="submit"><i class="fa fa-plus-circle"></i> Add History</button>
+                                    <button type="submit" class="btn btn-md btn-primary" onclick="addHistory()"><i class="fa fa-plus-circle"></i> Add History</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Footer -->
+                    <div id="preloader" style="display: none;"></div>
+                    <?php require "assets/common/footer.php"; ?>
                 </div>
             </div>
         </div>
@@ -289,6 +307,38 @@ $status_name = $class->get_order_status_id("name", $order_status_id);
             var vat = $('#vat').html('₱ 0.00');
             var total_price = $('#total-price').html('₱ '+over_all_total+'.00');
         });
+
+        function addHistory() {
+            var order_id = $('#order_id').val();
+            var invoice_no = $('#invoice_no').val();
+            var customer_name = $('#customer_name').val();
+            var order_status = $('#order_status').val();
+            var comment = $('#comment').val();
+
+            var email = $('#email').val();
+            var ses_group_id = $('#ses_group_id').val();
+
+            if(order_status == "") {
+                $('#order_status').addClass("is-invalid");
+            } else {
+                $.ajax({
+                    url: 'controller/base.controller.php?add_newHistory',
+                    method: 'POST',
+                    data: {
+                        order_id:order_id,
+                        invoice_no:invoice_no,
+                        customer_name:customer_name,
+                        order_status:order_status,
+                        comment:comment,
+                        email,
+                        ses_group_id
+                    },
+                    success:function() {
+                        // window.location.reload();
+                    }
+                });
+            }
+        }
 
         function openTabs(event, tabName) {
             var c, tabcontent, tab_button;
