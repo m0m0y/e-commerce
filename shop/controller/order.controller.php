@@ -18,6 +18,16 @@ class OrderController extends database_connection {
         $payment_option = $_POST["payment_option"];
         $over_all_total = $_POST["over_all_total"];
 
+        $subtotal = $_POST["subtotal"];
+        $tax = $_POST["tax"];
+        $total = $_POST["total"];
+
+
+        $title = array();
+        foreach ($title as $title_value) {
+            $title_value;
+        }
+
         if ($payment_option == "cash") {
             $payment_method = "Cash";
         } else if ($payment_option == "gcash") {
@@ -52,6 +62,17 @@ class OrderController extends database_connection {
         $sql = "INSERT INTO orders (invoice_no, customer_id, firstname, lastname, email, telephone, comment, payment_method, payment_code, total, order_status_id, ip, pick_up_date, date_added) VALUES ('$invoice_no', '$customer_id', '$customer_firstname', '$customer_lastname', '$customer_email', '$customer_telephone', '$comment', '$payment_method', '$payment_option', '$over_all_total', '2', '$ip', '$pick_up_date', '$date_added');";
 
         $sql .= "INSERT INTO orders_history (invoice_no, order_id, order_status_id, comment, date_added) VALUES ('$invoice_no', (SELECT order_id FROM orders WHERE invoice_no='$invoice_no'), '2', '$comment', '$date_added');";
+
+        $title_value = array("Sub-Total", "Total", "Vat");
+            $total_value = array($subtotal, $total, $tax);
+            sort($title_value);
+
+            $titleLength = count($title_value);
+
+            $totalLength = $titleLength;
+            for($x = 0; $x < $totalLength; $x++) {
+                $sql .= "INSERT INTO order_total (order_id, invoice_no, title, val) VALUES ((SELECT order_id FROM orders WHERE invoice_no='$invoice_no'), '$invoice_no', '$title_value[$x]', '$total_value[$x]');";
+            }
 
         if ($conn->multi_query($sql) === TRUE) {
             $last_id =mysqli_insert_id($conn);
@@ -100,7 +121,7 @@ class OrderController extends database_connection {
 
                 $sql = "INSERT INTO order_product (invoice_no, order_id, product_id, product_name, quantity, price, total) VALUES ('$invoice_no', '$last_id', '$product_id', '$product_name', '$quantity', '$price', '$total_price')";
 
-                $this->delete_cart($cart_id);
+                // $this->delete_cart($cart_id);
 
                 if ($conn->query($sql) === TRUE) {
                 	echo "";

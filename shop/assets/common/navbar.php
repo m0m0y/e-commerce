@@ -67,7 +67,7 @@ if (isset($_SESSION["customer_id"])) {
                 <a href="#" id="navbardrop" class="my-account-button" data-toggle="dropdown"><i class="fa fa-user"></i> My Account</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="myaccount">My Accout</a>
-                    <a class="dropdown-item" href="#">Order History</a>
+                    <a class="dropdown-item" href="order_history">Order History</a>
                     <a class="dropdown-item" href="logout">Logout</a>
                 </div>
             </div>

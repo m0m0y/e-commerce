@@ -8,7 +8,7 @@ require "assets/common/header.php";
     <?php require "assets/common/navbar.php"; ?>
 
     <section class="mt-5 container">
-        <div class="mb-5 container">
+        <div class="mb-4 container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb" style="margin: 0;">
                     <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
@@ -18,7 +18,7 @@ require "assets/common/header.php";
             </nav>
         </div>
         
-        <div class="mb-5 container"> 
+        <div class="mb-5"> 
             <div class="row">
                 <div class="col-sm-12 col-md-8">
                     <h4>My Wishlist</h4>

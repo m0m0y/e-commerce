@@ -58,6 +58,9 @@ function page_title() {
         case "/test/shop/terms_and_condition":
             $page_title = "Terms and Condition";
             break;
+        case "/test/shop/order_history":
+            $page_title = "Order History";
+            break;
     }
 
     echo $page_title;

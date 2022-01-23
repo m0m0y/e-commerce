@@ -315,6 +315,16 @@ class BaseController extends database_connection {
         return $numrow;
     }
 
+    function get_order_product_rows($order_id) {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM order_product WHERE order_id='$order_id'";
+        $result = $conn->query($sql);
+
+        $numrow = mysqli_num_rows($result);
+
+        return $numrow;
+    }
+
     function get_product_category($column, $product_id) {
         $conn = $this->db_conn();
         $sql = "SELECT $column FROM product_to_category WHERE product_id='$product_id'";
@@ -366,6 +376,22 @@ class BaseController extends database_connection {
     function get_categories_status($column, $category_id) {
         $conn = $this->db_conn();
         $sql = "SELECT $column FROM categories WHERE category_id='$category_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+    }
+
+    function get_orders_tables($column, $table, $wherevalues) {
+        $conn = $this->db_conn();
+        $sql = "SELECT $column FROM $table WHERE $wherevalues";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+    }
+
+    function get_orders_history($column, $wherevalues) {
+        $conn = $this->db_conn();
+        $sql = "SELECT $column FROM orders_history WHERE $wherevalues ORDER BY order_history_id DESC";
         $result = mysqli_fetch_assoc($conn->query($sql));
 
         return $result[$column];
@@ -713,6 +739,139 @@ class BaseController extends database_connection {
             }
         }
     }
+
+
+    function get_order_history($customer_id) {
+        $table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM orders WHERE customer_id='$customer_id' ORDER BY order_id DESC";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Order ID</th>
+                        <th>Customer</th>
+                        <th>No. of Products</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+                $customer_id = $row["customer_id"];
+                $order_id = $row["order_id"];
+				$firstname = $row["firstname"];
+                $lastname = $row["lastname"];
+                $order_status_id = $row["order_status_id"];
+                $total = $row["total"];
+                $date_added = $row["date_added"];
+
+                $order_product_num = $this->get_order_product_rows($order_id);
+                $order_status = $this-> get_orders_tables("name", "order_status", "order_status_id='$order_status_id'");
+
+                $table .= '
+                    <tr>
+                        <td>'.$order_id.'</td>
+                        <td>'.$firstname.' '.$lastname.'</td>
+                        <td class="text-end">'.$order_product_num.'</td>
+                        <td>'.$order_status.'</td>
+                        <td>₱ '.number_format($total, 2).'</td>
+                        <td>'.$date_added.'</td>
+                        <td class="text-center">
+                            <a href="order_information?order_id='.$order_id.'" class="btn btn-outline-primary" alt="Remove"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                ';
+			}
+		}
+
+		$table .='
+				</tbody>
+			</table>
+        ';
+
+
+		echo $table;
+    }
+
+    function get_orders_product($order_id) {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM order_product WHERE order_id='$order_id'";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered">
+				<tbody>
+                    <td>Product</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td class="text-end">Total</td>
+                    <td class="text-center">Action</td>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$order_id = $row["order_id"];
+				$product_id = $row["product_id"];
+				$product_name = $row["product_name"];
+				$quantity = $row["quantity"];
+				$price = $row["price"];
+				$total = $row["total"];
+
+                $subtotal = $this->get_orders_tables("val", "order_total", "order_id='$order_id' AND title='Sub-total'");
+                $over_all_total = $this->get_orders_tables("val", "order_total", "order_id='$order_id' AND title='Total'");
+                $vat = $this->get_orders_tables("val", "order_total", "order_id='$order_id' AND title='Vat'");
+
+                $customer_id = $_SESSION["customer_id"];
+
+				$table .= '
+					<tr>
+						<td>'.$product_name.'</td>
+						<td>'.$quantity.'</td>
+						<td>₱ '.number_format($price, 2).'</td>
+						<td class="text-end">₱ <span>'.number_format($total, 2).'</span></td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="add_to_cart(\'' . $customer_id . '\', \'' . $product_id . '\', \'' . $quantity . '\')">Re-order</button>
+                        </td>
+					</tr>
+				';
+			}
+		}
+
+		$table .='
+					<tr>
+						<td colspan="2"></td>
+						<td class="text-end">Sub-total:</td>
+						<td class="text-end fw-normal">₱ '.number_format($subtotal, 2).'</td>
+                        <td></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2"></td>
+						<td class="text-end">Vat:</td>
+						<td class="text-end fw-normal" id="vat">₱ '.number_format($vat, 2).'</td>
+                        <td></td>
+					</tr>
+
+					<tr>
+						<td colspan="2"></td>
+						<th class="text-end">Total:</th>
+						<td class="text-end fw-bold" id="total-price">₱ '.number_format($over_all_total, 2).'</td>
+                        <td></td>
+					</tr>
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
 
 }
 

@@ -8,8 +8,7 @@ if (isset($_SESSION["customer_id"])) {
             <li class="list-group-item"><a href="update_password" class="text-decoration-none">Password</a></li>
             <li class="list-group-item"><a href="update_address" class="text-decoration-none">Update Address</a></li>
             <li class="list-group-item"><a href="wishlist" class="text-decoration-none">Wishlist</a></li>
-            <li class="list-group-item"><a href="#" class="text-decoration-none">Order History</li>
-            <li class="list-group-item"><a href="#" class="text-decoration-none">Transaction</a></li>
+            <li class="list-group-item"><a href="order_history" class="text-decoration-none">Order History</li>
             <li class="list-group-item"><a href="logout" class="text-decoration-none">Logout</a></li>
         </ul>
     </div>
@@ -25,7 +24,6 @@ if (isset($_SESSION["customer_id"])) {
             <li class="list-group-item"><a href="login" class="text-decoration-none">Address Book</a></li>
             <li class="list-group-item"><a href="login" class="text-decoration-none">Wishlist</a></li>
             <li class="list-group-item"><a href="login" class="text-decoration-none">Order History</a></li>
-            <li class="list-group-item"><a href="login" class="text-decoration-none">Transaction</a></li>
         </ul>
     </div>
 <?php

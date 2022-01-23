@@ -13,7 +13,9 @@ class Update_Account extends database_connection {
         $conn = $this->db_conn();
 		$sql = "UPDATE customer SET firstname='".$_SESSION["firstname"]."', lastname='".$_SESSION["lastname"]."', email='".$_SESSION["email"]."', telephone='".$_SESSION["telephone"]."' WHERE customer_id='$customer_id'";
 
-		if ($conn->query($sql) === TRUE) {
+        $sql1 = $this->update_orders_tables("orders", "firstname='".$_SESSION["firstname"]."', lastname='".$_SESSION["lastname"]."', email='".$_SESSION["email"]."', telephone='".$_SESSION["telephone"]."'", "customer_id='$customer_id'");
+
+		if ($conn->query($sql) === TRUE || $conn->query($sql1) === TRUE) {
 			echo "Record updated successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
@@ -53,6 +55,17 @@ class Update_Account extends database_connection {
 			echo "Error updating record: " . $conn->error;
 		}
     }
+
+    function update_orders_tables($table, $column, $wherevalues) {
+		$conn = $this->db_conn();
+		$sql = "UPDATE $table SET $column WHERE $wherevalues";
+		
+		if ($conn->query($sql) === TRUE) {
+			echo "";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
 }
 
 $class = new Update_Account();

@@ -21,7 +21,10 @@ require "assets/common/header.php";
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <ul>
-                    <?php $class->site_map_categories(); ?>
+                    <li><a href="#" class="text-decoration-none">Categories</a></li>
+                    <ul>
+                        <?php $class->site_map_categories(); ?>
+                    </ul>
                 </ul>  
             </div>
 

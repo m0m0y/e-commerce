@@ -43,7 +43,7 @@ if ($check_cart == 0) {
         <div class="mb-5 container"> 
             <h3>Checkout</h3>
 
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-sm-12 col-md-12">
 
                     <div class="accordion">
@@ -177,20 +177,23 @@ if ($check_cart == 0) {
 
                                                 <div class="row mb-4 d-grid gap-3">
                                                     <div class="gcash box p-4 bg-light border" style="display: none;">
-                                                        <h5 class="fw-normal">Gcash Details:</h5>
-                                                        <p>Bank Name: <?= $class->get_banks("bank_name", "Gcash") ?></p>
-                                                        <p>Account Name: <?= $class->get_banks("account_name", "Gcash") ?></p>
-                                                        <p>Account Number: <?= $class->get_banks("account_number", "Gcash") ?></p>
-                                                        <small>Please transfer the total amount to the following gcash account.</small>
+                                                        <h3 class="fw-normal">Gcash Details:</h3>
+                                                        <p><small>Please transfer the total amount to the following bank account.</small></p>
+                                                        <p>
+                                                            Account Name: <span class="fw-bold"><?= $class->get_banks("account_name", "Gcash") ?> </span> </br>
+                                                            Account Number: <span class="fw-bold"><?= $class->get_banks("account_number", "Gcash") ?> </span> </br>
+                                                        </p>
                                                     </div>
 
                                                     <div class="bank_transfer box p-4 bg-light border" style="display: none;">
                                                         <h3>Bank Transfer Instructions:</h3>
                                                         <p><small>Please transfer the total amount to the following bank account.</small></p>
                                                         <h5 class="fw-normal">Bank Details:</h5>
-                                                        <p>Bank Name: <?= $class->get_banks("bank_name", "BDO") ?></p>
-                                                        <p>Account Name: <?= $class->get_banks("account_name", "BDO") ?></p>
-                                                        <p>Account Number: <?= $class->get_banks("account_number", "BDO") ?></p>
+                                                        <p>
+                                                            Bank Name: <span class="fw-bold"><?= $class->get_banks("bank_name", "BDO") ?> </span> </br>
+                                                            Account Name: <span class="fw-bold"><?= $class->get_banks("account_name", "BDO") ?> </span> </br>
+                                                            Account Number: <span class="fw-bold"><?= $class->get_banks("account_number", "BDO") ?> </span> </br>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,7 +275,7 @@ if ($check_cart == 0) {
         <div class="mb-5 container"> 
             <h3>Checkout</h3>
 
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-sm-12 col-md-12">
                     
                     <div class="accordion">
@@ -291,7 +294,7 @@ if ($check_cart == 0) {
 
                                             </br>
 
-                                            <a class="text-decoration-none" href="<?= $BASE_URL ?>register">Register Account</a>
+                                            <a class="text-decoration-none" href="register">Register Account</a>
 
                                             <p class="text-xl-start mt-3">By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
                                         </div>

@@ -5,10 +5,10 @@ $get_order_id = $_GET["order_id"];
 $order_id = $class->get_order_details("order_id", $get_order_id);
 $invoice_no = $class->get_order_details("invoice_no", $get_order_id);
 $customer_id = $class->get_order_details("customer_id", $get_order_id);
-$firstname = $class->get_order_details("firstname", $get_order_id);
-$lastname = $class->get_order_details("lastname", $get_order_id);
-$email = $class->get_order_details("email", $get_order_id);
-$telephone = $class->get_order_details("telephone", $get_order_id);
+$customer_firstname = $class->get_order_details("firstname", $get_order_id);
+$customer_lastname = $class->get_order_details("lastname", $get_order_id);
+$customer_email = $class->get_order_details("email", $get_order_id);
+$customer_telephone = $class->get_order_details("telephone", $get_order_id);
 $comment = $class->get_order_details("comment", $get_order_id);
 $payment_method = $class->get_order_details("payment_method", $get_order_id);
 $payment_code = $class->get_order_details("payment_code", $get_order_id);
@@ -22,8 +22,7 @@ $address_2 = $class->get_customer_address("address_2", $customer_id);
 $city = $class->get_customer_address("city", $customer_id);
 $region = $class->get_customer_address("region", $customer_id);
 
-$order_status_id = $class->get_customer_history("order_status_id", $get_order_id);
-$comment = $class->get_customer_history("comment", $get_order_id);
+$order_status_id = $class->get_order_details("order_status_id", $get_order_id);
 
 $status_name = $class->get_order_status_id("name", $order_status_id);
 if($get_order_id != $order_id) {
@@ -53,9 +52,9 @@ if($get_order_id != $order_id) {
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Order Summary</h1>
                         <div class="d-none d-sm-inline-block ">
-                            <a href="print_invoice" class="btn btn-sm btn-info shadow-sm"><i class="fas fa-print"></i> Print Invoice</a>
-                            <a href="#" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
-                            <a href="#" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left"></i> Back</a>
+                            <a href="print_invoice?order_id=<?= $order_id ?>" target="blank" class="btn btn-sm btn-info shadow-sm"><i class="fas fa-print"></i> Print Invoice</a>
+                            <a href="update_orders?order_id=<?= $order_id ?>" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
+                            <a href="orders" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left"></i> Back</a>
                         </div>
                     </div>
 
@@ -135,7 +134,7 @@ if($get_order_id != $order_id) {
                                                     </div> 
                                                 </td>
                                                 <td> 
-                                                    <?= $firstname.' '.$lastname ?>
+                                                    <?= $customer_firstname.' '.$customer_lastname ?>
                                                 </td>
                                             </tr>
 
@@ -146,7 +145,7 @@ if($get_order_id != $order_id) {
                                                     </div> 
                                                 </td>
                                                 <td> 
-                                                    <?= $email ?>
+                                                    <?= $customer_email ?>
                                                 </td>
                                             </tr>
 
@@ -157,7 +156,7 @@ if($get_order_id != $order_id) {
                                                     </div> 
                                                 </td>
                                                 <td> 
-                                                    <?= $telephone ?>
+                                                    <?= $customer_telephone ?>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -185,7 +184,7 @@ if($get_order_id != $order_id) {
                                 <tbody> 
                                     <tr>
                                         <td>
-                                            <p><?= $firstname.' '.$lastname ?></p>
+                                            <p><?= $customer_firstname.' '.$customer_lastname ?></p>
                                             <p><?= $address_1 ?></p>
                                             <p><?= $address_2 ?></p>
                                             <p><?= $city ?></p>
@@ -234,12 +233,12 @@ if($get_order_id != $order_id) {
                                 <h5 class="mt-5 fw-normal">Add Order History</h5>
                                 <hr></hr>
                                 
-                                <input type="hidden" id="email" class="form-control" value="<?= $email ?>" readonly/>
+                                <input type="text" id="ses_email" class="form-control" value="<?= $email ?>" readonly/>
                                 <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
 
                                 <input type="hidden" id="order_id" class="form-control" value="<?= $order_id ?>" readonly/>
                                 <input type="hidden" id="invoice_no" class="form-control" value="<?= $invoice_no ?>" readonly/>
-                                <input type="hidden" id="customer_name" class="form-control" value="<?= $firstname. ' ' . $lastname ?>" readonly/>
+                                <input type="hidden" id="customer_name" class="form-control" value="<?= $customer_firstname. ' ' . $customer_lastname ?>" readonly/>
 
                                 <div class="row mb-4">
                                     <label for="order_status" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Order Status:</label>
@@ -254,7 +253,7 @@ if($get_order_id != $order_id) {
                                 <div class="row mb-4">
                                     <label for="comment" class="col-sm-3 col-form-label text-right"> Comment:</label>
                                     <div class="col-sm-9">
-                                        <textarea id="comment" rows="4" cols="50" class="form-control" placeholder="Comment"></textarea>
+                                        <textarea id="comment" rows="4" cols="50" class="form-control" placeholder="Comment"><?= $comment; ?></textarea>
                                     </div>
                                 </div>
 
@@ -295,66 +294,5 @@ if($get_order_id != $order_id) {
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    <script> 
-        $(document).ready(function(){
-            var over_all_total = 0;
-
-            $('td[data-id]').map(function() {
-                over_all_total += parseFloat($(this).find('span').text());
-            });
-
-            var sub_total = $('#sub-total').html('₱ '+over_all_total+'.00');
-            var vat = $('#vat').html('₱ 0.00');
-            var total_price = $('#total-price').html('₱ '+over_all_total+'.00');
-        });
-
-        function addHistory() {
-            var order_id = $('#order_id').val();
-            var invoice_no = $('#invoice_no').val();
-            var customer_name = $('#customer_name').val();
-            var order_status = $('#order_status').val();
-            var comment = $('#comment').val();
-
-            var email = $('#email').val();
-            var ses_group_id = $('#ses_group_id').val();
-
-            if(order_status == "") {
-                $('#order_status').addClass("is-invalid");
-            } else {
-                $.ajax({
-                    url: 'controller/base.controller.php?add_newHistory',
-                    method: 'POST',
-                    data: {
-                        order_id:order_id,
-                        invoice_no:invoice_no,
-                        customer_name:customer_name,
-                        order_status:order_status,
-                        comment:comment,
-                        email,
-                        ses_group_id
-                    },
-                    success:function() {
-                        // window.location.reload();
-                    }
-                });
-            }
-        }
-
-        function openTabs(event, tabName) {
-            var c, tabcontent, tab_button;
-
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (c = 0; c < tabcontent.length; c++) {
-            tabcontent[c].style.display = "none";
-            }
-
-            tab_button = document.getElementsByClassName("tab_button");
-            for (c = 0; c < tab_button.length; c++) {
-            tab_button[c].className = tab_button[c].className.replace(" active", "");
-            }
-
-            document.getElementById(tabName).style.display = "block";
-            event.currentTarget.className += " active";
-        }
-    </script>
+    <script src="script/order_summary.js"></script>
 </body>

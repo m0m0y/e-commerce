@@ -1011,10 +1011,12 @@ class Base_controller extends database_connection{
 
 		$sql1 = "UPDATE customer_address SET firstname='$firstname', lastname='$lastname', address_1='$address_1', address_2='$address_2', city='$city', postcode='$postcode', region='$region' WHERE customer_id='$customer_id'";
 
+		$sql2 = $this->update_orders_tables("orders", "firstname='$firstname', lastname='$lastname', email='$email', telephone='$telephone'", "customer_id='$customer_id'");
+
 		// Add activity logs
 		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Update customer information', '$date_added'");
 
-		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
+		if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE) {
 			echo "Record updated successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
@@ -1561,10 +1563,43 @@ class Base_controller extends database_connection{
         return $numrow;
     }
 
+	function get_order_rows() {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM orders";
+        $result = $conn->query($sql);
+        $numrow = mysqli_num_rows($result);
+
+        return $numrow;
+    }
+
+	function get_orders_pending_rows() {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM orders WHERE order_status_id=2";
+        $result = $conn->query($sql);
+        $numrow = mysqli_num_rows($result);
+
+        return $numrow;
+    }
+
+	function get_total_order() {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM order_total WHERE title='Total'";
+        $result = mysqli_query($conn, $sql);
+
+		$total_val = 0;
+        if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$total_val += $row["val"];
+			}
+		}
+		echo "₱ ".$total_val.".00";
+    }
+
+
 	function get_admin_logs() {
 		$table = "";
 		$conn = $this->db_conn();
-		$sql = "SELECT * FROM admin_logs";
+		$sql = "SELECT * FROM admin_logs ORDER BY date_added DESC";
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
@@ -1857,7 +1892,7 @@ class Base_controller extends database_connection{
 
 				$table .= '
 					<tr>
-						<td><a href="/test/shop/product?product_id='.$product_id.'" class="text-decoration-none" target="blank"> '.$product_name.' </a></td>
+						<td>'.$product_name.'</td>
 						<td>'.$quantity.'</td>
 						<td>₱ '.number_format($price, 2).'</td>
 						<td class="text-end" data-id="'.$order_id.'">₱ <span>'.number_format($total, 2).'</span></td>
@@ -1919,22 +1954,59 @@ class Base_controller extends database_connection{
 		$comment = $_POST["comment"];
 		$date_added = date("Y-m-d h:i:sa");
 
-		$email = $_POST["email"];
+		$ses_email = $_POST["ses_email"];
 		$ses_group_id = $_POST["ses_group_id"];
 
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO orders_history (invoice_no, order_id, order_status_id, comment, date_added) VALUES ('$invoice_no', '$order_id', '$order_status', '$comment', '$date_added')";
 
-		$sql1 = "UPDATE orders SET order_status_id='$order_status' WHERE order_id='$order_id'";
+		$this->update_orders_tables("orders", "order_status_id='$order_status'", "order_id='$order_id'");
 
 		// Add activity logs
-		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$email', 'Change the order status of customer ".$customer_name."', '$date_added'");
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Update the order status of customer ".$customer_name."', '$date_added'");
 
-		if ($conn->query($sql) === TRUE || $conn->query($sql1) === TRUE) {
+		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
+	}
+
+	function update_orders_tables($table, $column, $wherevalues) {
+		$conn = $this->db_conn();
+		$sql = "UPDATE $table SET $column WHERE $wherevalues";
+		
+		if ($conn->query($sql) === TRUE) {
+			echo "";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+	}
+
+	function get_orders_table($column, $table, $wherevalues) {
+		$conn = $this->db_conn();
+        $sql = "SELECT $column FROM $table WHERE $wherevalues";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+	}
+
+	function update_customer_orders() {
+		$ses_email = $_POST["ses_email"];
+		$ses_group_id = $_POST["ses_group_id"];
+		$order_id = $_POST["order_id"];
+		$firstname = $_POST["firstname"];
+		$lastname = $_POST["lastname"];
+		$email = $_POST["email"];
+		$telephone = $_POST["telephone"];
+		$payment_method = $_POST["payment_method"];
+		$payment_option = $_POST["payment_option"];
+		$date_added = date("Y-m-d h:i:sa");
+
+		$this->update_orders_tables("orders", "firstname='$firstname', lastname='$lastname', email='$email', telephone='$telephone', payment_method='$payment_method', payment_code='$payment_option'", "order_id='$order_id'");
+
+		// Add activity logs
+		$this->add_to_logs("user_group_id, email, activity, date_added", "'$ses_group_id', '$ses_email', 'Update the order details of customer ".$firstname." ".$lastname."', '$date_added'");
 	}
 }
 
@@ -2078,5 +2150,9 @@ if(isset($_GET["delete_order"])){
 
 if(isset($_GET["add_newHistory"])) {
 	$class->add_newHistory();
+}
+
+if(isset($_GET["update_customer_orders"])) {
+	$class->update_customer_orders();
 }
 ?>

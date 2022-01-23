@@ -27,7 +27,19 @@ $comment = $_POST["comment"];
     <?php require "assets/common/navbar.php"; ?>
 
     <section class="mt-5 container">
-        <div class="container">
+        <div class="mb-4 container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb" style="margin: 0;">
+                    <li class="breadcrumb-item active"><i class="fa fa-home" aria-hidden="true"></i></li>
+                    <li class="breadcrumb-item">Shopping Cart</li>
+                    <li class="breadcrumb-item">Checkout</li>
+                    <li class="breadcrumb-item">Confirm Order</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="mb-5 container"> 
+            <h3>Confirm Order</h3>
             <input type="hidden" id="customer_id" class="form-control" value="<?= $customer_id ?>" readonly>
             <input type="hidden" id="customer_firstname" class="form-control" value="<?= $customer_firstname ?>" readonly>
             <input type="hidden" id="customer_lastname" class="form-control" value="<?= $customer_lastname ?>" readonly>
@@ -43,6 +55,10 @@ $comment = $_POST["comment"];
             <input type="hidden" id="pick_up_date" class="form-control" value="<?= $pick_up_date ?>" readonly>
             <input type="hidden" id="payment_option" class="form-control" value="<?= $payment_option ?>" readonly>
             <input type="hidden" id="comment" class="form-control" value="<?= $comment ?>" readonly>
+
+            <input type="hidden" id="subtotal" class="form-control" readonly>
+            <input type="hidden" id="tax" class="form-control" readonly>
+            <input type="hidden" id="total" class="form-control" readonly>
 
             <?php $class->get_cart_to_confirm($customer_id) ?>
 
@@ -63,13 +79,17 @@ $comment = $_POST["comment"];
                 over_all_total += parseFloat($(this).find('span').text());
             });
 
-            var sub_total = $('#sub-total').html('₱ '+over_all_total+'.00');
-            var vat = $('#vat').html('₱ 0.00');
-            var total_price = $('#total-price').html('₱ '+over_all_total+'.00');
+            $('#sub-total').html('₱ '+over_all_total+'.00');
+            $('#vat').html('₱ 0.00');
+            $('#total-price').html('₱ '+over_all_total+'.00');
 
             $('#back').on('click', function(){
                 window.location.href="checkout";
             });
+
+            $('#subtotal').val(over_all_total);
+            $('#tax').val('0');
+            $('#total').val(over_all_total);
             
             $('#confirm_order').on('click', function(){
                 var customer_id = $('#customer_id').val();
@@ -88,6 +108,10 @@ $comment = $_POST["comment"];
                 var payment_option = $('#payment_option').val();
                 var comment = $('#comment').val();
 
+                var subtotal = $('#subtotal').val();
+                var tax = $('#tax').val();
+                var total = $('#total').val();
+
                 $.ajax({
                     url: 'controller/order.controller.php?add_order',
                     method: 'POST',
@@ -105,11 +129,14 @@ $comment = $_POST["comment"];
                         pick_up_date:pick_up_date,
                         payment_option:payment_option,
                         over_all_total:over_all_total,
-                        comment:comment
+                        comment:comment,
+                        subtotal:subtotal,
+                        tax:tax,
+                        total:total
                     },
                     success:function() {
                         // redirect to original receipt
-                        window.location.replace("cart");
+                        // window.location.replace("cart");
                     }
                 });
             });
