@@ -29,11 +29,16 @@ Shop Link: localhost/test/shop/home
 NOTE: There is no index.php on shop that's why we use home.php.
 
 **THIS IS THE DEFAULT ACCOUNT ON DASHBOARD**
-Email: cpasucal107@gmail.com
-Password: admin
+Admin
+Email: admin
+Password: 1
+
+Modifier
+john.doe@gmail.com
+1
 
 **THIS IS THE DEFAULT ACCOUNT ON SHOP**
-Email: example@email.com
-Password: 123
+Email: johndoe@email.com
+Password: 1
 
 The shop-default folder is not existing.
