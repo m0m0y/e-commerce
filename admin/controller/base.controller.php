@@ -1798,7 +1798,7 @@ class Base_controller extends database_connection{
 						<td>'.$order_id.'</td>
 						<td>'.$firstname.' '.$lastname.'</td>
 						<td>'.$status_name.'</td>
-						<td>'.$total.'</td>
+						<td>₱ '.number_format($total, 2).'</td>
 						<td>'.$date_added.'</td>
 						<td class="text-center">
 							<a class="btn btn-md btn-info" href="order_summary?order_id='.$order_id.'"><i class="fas fa-eye"></i></a>
@@ -1928,7 +1928,7 @@ class Base_controller extends database_connection{
 
 	function get_customer_history($column, $order_id) {
 		$conn = $this->db_conn();
-        $sql = "SELECT $column FROM orders_history WHERE order_id='$order_id'";
+        $sql = "SELECT $column FROM orders_history WHERE order_id='$order_id' ORDER BY order_history_id DESC";
         $result = mysqli_fetch_assoc($conn->query($sql));
 
         return $result[$column];

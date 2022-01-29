@@ -18,14 +18,12 @@ if (isset($_SESSION["customer_id"])) {
                 <h5>Customer Service</h5>
                 <a href="about" class="text-decoration-none text-white">Contact Us</a>
                 <br/>
-                <a href="#" class="text-decoration-none text-white">Returns</a>
-                <br/>
                 <a href="site_map" class="text-decoration-none text-white">Site Map</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>Extras</h5>
-                <a href="#" class="text-decoration-none text-white">Brands</a>
+                <a href="manufacturer" class="text-decoration-none text-white">Manufacturer</a>
                 <br/>
                 <a href="#" class="text-decoration-none text-white">Special Offers</a>
             </div>
@@ -66,14 +64,12 @@ if (isset($_SESSION["customer_id"])) {
                 <h5>Customer Service</h5>
                 <a href="about" class="text-decoration-none text-white">Contact Us</a>
                 <br/>
-                <a href="#" class="text-decoration-none text-white">Returns</a>
-                <br/>
                 <a href="site_map" class="text-decoration-none text-white">Site Map</a>
             </div>
 
             <div class="col-sm-12 col-md-3">
                 <h5>Extras</h5>
-                <a href="#" class="text-decoration-none text-white">Brands</a>
+                <a href="manufacturer" class="text-decoration-none text-white">Manufacturer</a>
                 <br/>
                 <a href="#" class="text-decoration-none text-white">Special Offers</a>
             </div>

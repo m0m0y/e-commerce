@@ -20,6 +20,7 @@ if (isset($_SESSION["customer_id"])) {
     <div class="container">
         <div class="d-flex flex-row bd-highlight mb-3">
             <div class="p-2 bd-highlight"><a class="navbar-brand" href="home">Logo</a></div>
+            <!-- <img src="assets/images/shop_logo/logo.jpg" alt="Shop Logo" withd="50"> -->
         </div>
 
         <div class="d-flex flex-row-reverse bd-highlight">

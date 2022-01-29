@@ -873,6 +873,18 @@ class BaseController extends database_connection {
 		echo $table;
 	}
 
+    function manufacturer() {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM manufacturer";
+        $result = mysqli_query($conn, $sql);
+
+        foreach ($result as $key => $value) {
+            $name = $value["name"];
+
+            echo '<li>'.$name.'</li>';
+		}
+    }
+
 }
 
 $class = new BaseController();

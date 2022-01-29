@@ -91,4 +91,9 @@ switch ($host) {
         break;
     case "/test/admin/404";
         break;
+    case "/test/admin/cancel_orders";
+        echo '
+            <h1 class="h3 mb-0 text-gray-800">Cancel Orders</h1>
+        ';
+        break;
 }
