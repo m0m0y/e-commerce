@@ -25,17 +25,10 @@ CREATE TABLE IF NOT EXISTS `admin_logs` (
   `activity` text NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`activity_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.admin_logs: ~6 rows (approximately)
+-- Dumping data for table testdb.admin_logs: ~0 rows (approximately)
 /*!40000 ALTER TABLE `admin_logs` DISABLE KEYS */;
-INSERT INTO `admin_logs` (`activity_id`, `user_group_id`, `email`, `activity`, `date_added`) VALUES
-	(1, 1, 'admin', 'Login on dashboard', '2022-01-23 01:59:51'),
-	(2, 1, 'admin', 'Add new manufacturer', '2022-01-23 02:00:55'),
-	(3, 1, 'admin', 'Update the order status of customer John Doe', '2022-01-23 02:01:39'),
-	(4, 1, 'admin', 'Update the order status of customer John Doe', '2022-01-23 02:04:23'),
-	(5, 1, 'admin', 'Update the order status of customer John Doe', '2022-01-23 02:06:00'),
-	(6, 1, 'admin', 'Update the order details of customer John Doe', '2022-01-23 02:06:11');
 /*!40000 ALTER TABLE `admin_logs` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.admin_user
@@ -67,18 +60,11 @@ CREATE TABLE IF NOT EXISTS `admin_user_group` (
   PRIMARY KEY (`user_group_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.admin_user_group: ~9 rows (approximately)
+-- Dumping data for table testdb.admin_user_group: ~2 rows (approximately)
 /*!40000 ALTER TABLE `admin_user_group` DISABLE KEYS */;
 INSERT INTO `admin_user_group` (`user_group_id`, `user_group_name`, `user_group_status`) VALUES
 	(1, 'Administrator', 1),
-	(2, 'Modifier', 1),
-	(3, '.Test.', 0),
-	(4, '.Test 1.', 0),
-	(5, 'ew', 0),
-	(6, 'Test', 0),
-	(7, 'sd', 0),
-	(8, 'sdasdsd', 0),
-	(9, 'resdas', 0);
+	(2, 'Modifier', 1);
 /*!40000 ALTER TABLE `admin_user_group` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.banks
@@ -107,10 +93,13 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`cart_id`),
   KEY `Index` (`api_id`,`customer_id`,`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.cart: ~0 rows (approximately)
+-- Dumping data for table testdb.cart: ~2 rows (approximately)
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` (`cart_id`, `api_id`, `customer_id`, `product_id`, `quantity`, `date_added`) VALUES
+	(6, 0, 1, 3, 4, '2022-01-29 04:56:11'),
+	(7, 0, 1, 1, 1, '2022-01-30 08:55:07');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.categories
@@ -223,21 +212,6 @@ INSERT INTO `customer_ip` (`customer_ip_id`, `customer_id`, `email`, `ip`, `date
 	(1, 1, 'cpascual107@gmail.com', '::1', '2022-01-13 05:31:00');
 /*!40000 ALTER TABLE `customer_ip` ENABLE KEYS */;
 
--- Dumping structure for table testdb.customer_transaction
-CREATE TABLE IF NOT EXISTS `customer_transaction` (
-  `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `amout` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_transaction_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Dumping data for table testdb.customer_transaction: ~0 rows (approximately)
-/*!40000 ALTER TABLE `customer_transaction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customer_transaction` ENABLE KEYS */;
-
 -- Dumping structure for table testdb.customer_wishlist
 CREATE TABLE IF NOT EXISTS `customer_wishlist` (
   `customer_id` int(11) NOT NULL,
@@ -246,10 +220,8 @@ CREATE TABLE IF NOT EXISTS `customer_wishlist` (
   PRIMARY KEY (`customer_id`,`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.customer_wishlist: ~1 rows (approximately)
+-- Dumping data for table testdb.customer_wishlist: ~0 rows (approximately)
 /*!40000 ALTER TABLE `customer_wishlist` DISABLE KEYS */;
-INSERT INTO `customer_wishlist` (`customer_id`, `product_id`, `date_added`) VALUES
-	(1, 3, '2022-01-23 06:00:29');
 /*!40000 ALTER TABLE `customer_wishlist` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.information_description
@@ -298,13 +270,10 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `note` text NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.notes: ~2 rows (approximately)
+-- Dumping data for table testdb.notes: ~0 rows (approximately)
 /*!40000 ALTER TABLE `notes` DISABLE KEYS */;
-INSERT INTO `notes` (`note_id`, `title`, `note`, `date_added`) VALUES
-	(2, 'Test notes only', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim, dui et rutrum tristique, sapien neque pulvinar leo, eget dapibus est ipsum sed justo. Pellentesque tincidunt quis ligula non tincidunt. Nunc facilisis dignissim sodales. Aliquam vitae nulla malesuada, efficitur ex sed, convallis elit. Pellentesque habitant morbi tristique senectus et ', '2022-01-12 11:21:57'),
-	(4, 'Lorem Lorem', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim, dui et rutrum tristique, sapien neque pulvinar leo, eget dapibus est ipsum sed justo. Pellentesque tincidunt quis', '2022-01-13 06:00:38');
 /*!40000 ALTER TABLE `notes` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.orders
@@ -331,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- Dumping data for table testdb.orders: ~0 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`order_id`, `invoice_no`, `customer_id`, `firstname`, `lastname`, `email`, `telephone`, `comment`, `payment_method`, `payment_code`, `total`, `order_status_id`, `ip`, `pick_up_date`, `date_added`, `date_modified`) VALUES
-	(1, 'INV-2022-16000', 1, 'John', 'Doe', 'johndoe@email.com', '09123456789', '', 'Gcash', 'gcash', 750.0000, 2, '::1', '2022-01-24', '2022-01-23 03:45:17', '2022-01-23 15:45:17');
+	(1, 'INV-2022-16000', 1, 'John', 'Doe', 'johndoe@email.com', '09123456789', '', 'Gcash', 'gcash', 750.0000, 2, '::1', '2022-01-24', '2022-01-23 03:45:17', '2022-01-29 18:10:23');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.orders_history
@@ -343,12 +312,15 @@ CREATE TABLE IF NOT EXISTS `orders_history` (
   `comment` text NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`order_history_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table testdb.orders_history: ~0 rows (approximately)
+-- Dumping data for table testdb.orders_history: ~3 rows (approximately)
 /*!40000 ALTER TABLE `orders_history` DISABLE KEYS */;
 INSERT INTO `orders_history` (`order_history_id`, `invoice_no`, `order_id`, `order_status_id`, `comment`, `date_added`) VALUES
-	(1, 'INV-2022-16000', 1, 2, '', '2022-01-23 03:45:17');
+	(1, 'INV-2022-16000', 1, 2, '', '2022-01-23 03:45:17'),
+	(2, 'INV-2022-16000', 1, 8, 'test', '2022-01-29 05:05:08'),
+	(3, 'INV-2022-16000', 1, 3, 'test', '2022-01-29 05:39:08'),
+	(4, 'INV-2022-16000', 1, 2, '', '2022-01-29 06:10:23');
 /*!40000 ALTER TABLE `orders_history` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.order_product
@@ -438,7 +410,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `quantity`, `stock_status_i
 	(6, 'Ham', 20, 5, '', 4, 150.0000, 1.00000000, 1, 1, '2022-01-13 06:32:56', '2022-01-13 18:32:56'),
 	(7, '555 Tuna', 100, 4, '', 2, 90.0000, 0.00000000, 1, 1, '2022-01-13 06:34:45', '2022-01-13 18:34:45'),
 	(8, 'Corn Beef', 100, 4, '', 3, 90.0000, 0.00000000, 1, 1, '2022-01-13 06:35:12', '2022-01-13 18:35:12'),
-	(9, 'Test', 1, 4, '', 0, 1.0000, 0.00000000, 1, 1, '2022-01-15 10:55:01', '2022-01-15 10:55:01');
+	(9, 'Test', 1, 4, '', 0, 1.0000, 0.00000000, 1, 0, '2022-01-15 10:55:01', '2022-01-29 17:29:47');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.product_description
@@ -487,25 +459,6 @@ INSERT INTO `product_to_category` (`product_id`, `category_id`) VALUES
 	(1, 8),
 	(3, 8);
 /*!40000 ALTER TABLE `product_to_category` ENABLE KEYS */;
-
--- Dumping structure for table testdb.review
-CREATE TABLE IF NOT EXISTS `review` (
-  `review_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `author` varchar(50) NOT NULL,
-  `text` text NOT NULL,
-  `rating` int(1) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`review_id`),
-  KEY `Index 2` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Dumping data for table testdb.review: ~0 rows (approximately)
-/*!40000 ALTER TABLE `review` DISABLE KEYS */;
-/*!40000 ALTER TABLE `review` ENABLE KEYS */;
 
 -- Dumping structure for table testdb.stock_status
 CREATE TABLE IF NOT EXISTS `stock_status` (

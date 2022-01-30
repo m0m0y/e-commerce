@@ -8,9 +8,9 @@ if (isset($_SESSION["customer_id"])) {
         <div class="d-flex flex-row bd-highlight mb-3"></div>
 
         <div class="d-flex flex-row-reverse bd-highlight">
-            <div class="p-2 bd-highlight"><i class="fa fa-check-circle"></i><a class="top-header-link" href="checkout"> Checkout</a></div>
+            <div class="p-2 bd-highlight"><i class="fa fas-check-circle"></i><a class="top-header-link" href="checkout"> Checkout</a></div>
             <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="wishlist"> Wish list (<?= $class->get_wishlist_rows($customer_id); ?>)</a></div>
-            <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> 091234567789</div>           
+            <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> <span class="top-header-link">091234567789</span></div>           
         </div>
     </div>
 </nav>
@@ -20,7 +20,6 @@ if (isset($_SESSION["customer_id"])) {
     <div class="container">
         <div class="d-flex flex-row bd-highlight mb-3">
             <div class="p-2 bd-highlight"><a class="navbar-brand" href="home">Logo</a></div>
-            <!-- <img src="assets/images/shop_logo/logo.jpg" alt="Shop Logo" withd="50"> -->
         </div>
 
         <div class="d-flex flex-row-reverse bd-highlight">
@@ -35,7 +34,7 @@ if (isset($_SESSION["customer_id"])) {
 <nav class="navbar sticky-top navbar-expand-lg">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon menu"><i class="fa fa-list"></i></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -87,7 +86,7 @@ if (isset($_SESSION["customer_id"])) {
         <div class="d-flex flex-row-reverse bd-highlight">                 
             <div class="p-2 bd-highlight"><i class="fa fa-check-circle"></i><a class="top-header-link" href="checkout"> Checkout</a></div>
             <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="login"> Wish list (0)</a></div>
-            <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> 091234567789</div>
+            <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> <span class="top-header-link">091234567789</span></div>
         </div>
     </div>
 </nav>
@@ -111,7 +110,7 @@ if (isset($_SESSION["customer_id"])) {
 <nav class="navbar sticky-top navbar-expand-lg">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon menu"><i class="fa fa-list"></i></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

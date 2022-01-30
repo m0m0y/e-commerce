@@ -156,8 +156,10 @@ require "assets/common/header.php";
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                                         <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="add_notes"><i class="fas fa-plus-square fa-sm"></i> Add new</button>
                                     </div>
-
-                                    <?php $class->get_notes(); ?>
+                                    
+                                    <div class="table-responsive">
+                                        <?php $class->get_notes(); ?>
+                                    </div>
 
                                     <!-- Modal -->
                                     <div class="modal fade Mymodal" id="staticBackdrop" data-bs-backdrop="static">
@@ -198,7 +200,9 @@ require "assets/common/header.php";
                                     <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user"></i> New Customer Account</h6>
                                 </div>
                                 <div class="card-body">
-                                    <?php $class->get_latest_customers_account(); ?>
+                                    <div class="table-responsive">
+                                        <?php $class->get_latest_customers_account(); ?>
+                                    </div>
                                 </div>
                             </div>
 

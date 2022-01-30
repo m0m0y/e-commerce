@@ -29,7 +29,7 @@ if ($category_status == 0) {
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-8">
+            <div class="col-sm-12 col-md-8 category-products">
                 <h4 class="title"><?= $class->get_category_description("category_name", $category_id); ?></h4>
                 <h5 class="mb-4"><?= $class->get_category_description("description", $category_id); ?></h5>
                 <div class="row">

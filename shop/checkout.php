@@ -59,7 +59,7 @@ if ($check_cart == 0) {
                                     <div class="accordion-body row">
 
                                         <div class="col-sm-12 col-md-6"> 
-                                            <div class="form container"> 
+                                            <div class="form-container"> 
                                                 <h4 class="title">Your Personal Details</h4>
                                                 <hr></hr>
                                                 
@@ -97,7 +97,7 @@ if ($check_cart == 0) {
                                         </div>
 
                                         <div class="col-sm-12 col-md-6">
-                                            <div class="form container">
+                                            <div class="form-container">
                                                 <h4 class="title">Your Address</h4>
                                                 <hr></hr>
 
@@ -139,7 +139,7 @@ if ($check_cart == 0) {
                                         </div>
 
                                         <div class="col-sm-12 col-md-12">
-                                            <div class="form container">
+                                            <div class="form-container">
                                                 <h4 class="title">Payment Details</h4>
                                                 <hr></hr>
 
@@ -289,7 +289,7 @@ if ($check_cart == 0) {
                             <div class="accordion-collapse collapse show">
                                 <div class="accordion-body row">
                                     <div class="col-sm-12 col-md-6"> 
-                                        <div class="form container"> 
+                                        <div class="form-container"> 
                                             <h4 class="title">New Customer</h4>
 
                                             </br>
@@ -301,7 +301,7 @@ if ($check_cart == 0) {
                                     </div>
 
                                     <div class="col-sm-12 col-md-6"> 
-                                        <div class="form container"> 
+                                        <div class="form-container"> 
                                             <h3 class="title">Login your account</h3>
                                             <div id="alert" role="alert"></div>
 

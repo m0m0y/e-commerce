@@ -68,53 +68,55 @@ if($get_order_id != $order_id) {
                                     <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-shopping-cart"></i> Order Details</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered"> 
-                                        <tbody> 
-                                            <tr>
-                                                <td>
-                                                    <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-calendar-alt"></i> 
-                                                    Date Added
-                                                    </div> 
-                                                </td>
-                                                <td> 
-                                                    <?= $date_added ?>
-                                                </td>
-                                            </tr>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered"> 
+                                            <tbody> 
+                                                <tr>
+                                                    <td>
+                                                        <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-calendar-alt"></i> 
+                                                        Date Added
+                                                        </div> 
+                                                    </td>
+                                                    <td> 
+                                                        <?= $date_added ?>
+                                                    </td>
+                                                </tr>
 
-                                            <tr>
-                                                <td>
-                                                    <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-credit-card"></i>
-                                                        Payment Method
-                                                    </div> 
-                                                </td>
-                                                <td> 
-                                                    <?= $payment_method ?>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-credit-card"></i>
+                                                            Payment Method
+                                                        </div> 
+                                                    </td>
+                                                    <td> 
+                                                        <?= $payment_method ?>
+                                                    </td>
+                                                </tr>
 
-                                            <tr>
-                                                <td>
-                                                    <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-credit-card"></i>
-                                                    Shipping Method
-                                                    </div> 
-                                                </td>
-                                                <td> 
-                                                    Pick up from Store
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-credit-card"></i>
+                                                        Shipping Method
+                                                        </div> 
+                                                    </td>
+                                                    <td> 
+                                                        Pick up from Store
+                                                    </td>
+                                                </tr>
 
-                                            <tr>
-                                                <td>
-                                                    <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-calendar-alt"></i> 
-                                                    Pick up Date
-                                                    </div> 
-                                                </td>
-                                                <td> 
-                                                    <?= $pick_up_date ?>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                <tr>
+                                                    <td>
+                                                        <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-calendar-alt"></i> 
+                                                        Pick up Date
+                                                        </div> 
+                                                    </td>
+                                                    <td> 
+                                                        <?= $pick_up_date ?>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -125,42 +127,44 @@ if($get_order_id != $order_id) {
                                     <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-user"></i> Customer Details</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-bordered"> 
-                                        <tbody> 
-                                            <tr>
-                                                <td>
-                                                    <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-users"></i> 
-                                                    Customer
-                                                    </div> 
-                                                </td>
-                                                <td> 
-                                                    <?= $customer_firstname.' '.$customer_lastname ?>
-                                                </td>
-                                            </tr>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered"> 
+                                            <tbody> 
+                                                <tr>
+                                                    <td>
+                                                        <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-users"></i> 
+                                                        Customer
+                                                        </div> 
+                                                    </td>
+                                                    <td> 
+                                                        <?= $customer_firstname.' '.$customer_lastname ?>
+                                                    </td>
+                                                </tr>
 
-                                            <tr>
-                                                <td>
-                                                    <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-envelope"></i>
-                                                        Email
-                                                    </div> 
-                                                </td>
-                                                <td> 
-                                                    <?= $customer_email ?>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-envelope"></i>
+                                                            Email
+                                                        </div> 
+                                                    </td>
+                                                    <td> 
+                                                        <?= $customer_email ?>
+                                                    </td>
+                                                </tr>
 
-                                            <tr>
-                                                <td>
-                                                    <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-phone-alt"></i>
-                                                    Telephone
-                                                    </div> 
-                                                </td>
-                                                <td> 
-                                                    <?= $customer_telephone ?>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                <tr>
+                                                    <td>
+                                                        <div class="badge bg-info fs-6 fw-normal"><i class="fa fa-phone-alt"></i>
+                                                        Telephone
+                                                        </div> 
+                                                    </td>
+                                                    <td> 
+                                                        <?= $customer_telephone ?>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +198,9 @@ if($get_order_id != $order_id) {
                                 </tbody>
                             </table>
 
-                            <?php $class->get_orders_product($get_order_id); ?>
+                            <div class="table-responsive">
+                                <?php $class->get_orders_product($get_order_id); ?>
+                            </div>
                         </div>
                     </div>
 
@@ -212,23 +218,25 @@ if($get_order_id != $order_id) {
 
                             <!-- Contents -->
                             <div id="General" class="tabcontent" style="display: flex; flex-direction: column;">
-                                <table class="table table-bordered">
-                                    <thead> 
-                                        <tr>
-                                            <th>Date Added</th>
-                                            <th>Comment</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead> 
+                                            <tr>
+                                                <th>Date Added</th>
+                                                <th>Comment</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
 
-                                    <tbody> 
-                                        <tr>
-                                            <td><?= $date_added ?></td>
-                                            <td><?= $history_comment ?></td>
-                                            <td><?= $status_name ?> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        <tbody> 
+                                            <tr>
+                                                <td><?= $date_added ?></td>
+                                                <td><?= $history_comment ?></td>
+                                                <td><?= $status_name ?> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
                                 <h5 class="mt-5 fw-normal">Add Order History</h5>
                                 <hr></hr>

@@ -76,7 +76,7 @@ class Base_controller extends database_connection{
 		// Check session user group
 		if ($_SESSION["user_group"] == 2) {
 			$table .= '
-				<div align="right" style="margin-bottom:5px;">
+				<div align="right" class="btn-container" style="margin-bottom:5px;">
 					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" disabled><i class="fas fa-user-plus"></i> Add New</button>
 				</div>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -91,7 +91,7 @@ class Base_controller extends database_connection{
 			';
 		} else {
 			$table .= '
-				<div align="right" style="margin-bottom:5px;">
+				<div align="right" class="btn-container" style="margin-bottom:5px;">
 					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_group()"><i class="fas fa-user-plus"></i> Add New</button>
 				</div>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -226,9 +226,6 @@ class Base_controller extends database_connection{
 		// Check session user group
 		if ($_SESSION["user_group"] == 2) {
 			$table .= '
-				<div align="right" style="margin-bottom:5px;">
-					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" disabled><i class="fas fa-user-plus"></i> Add New</button>
-				</div>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
@@ -245,7 +242,7 @@ class Base_controller extends database_connection{
 			';
 		} else {
 			$table .= '
-				<div align="right" style="margin-bottom:5px;">
+				<div align="right" class="btn-container" style="margin-bottom:5px;">
 					<button type="button" id="add_user_button" class="btn btn-sm btn-primary" onclick="add_user_admin()"><i class="fas fa-user-plus"></i> Add New</button>
 				</div>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -422,7 +419,7 @@ class Base_controller extends database_connection{
 
 		// Product table
 		$table .= '
-			<div align="right" style="margin-bottom:5px;">
+			<div align="right" class="btn-container" style="margin-bottom:5px;">
 				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_product()"><i class="fas fa-plus-square"></i> Add New</button>
 			</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -627,7 +624,7 @@ class Base_controller extends database_connection{
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
-			<div align="right" style="margin-bottom:5px;">
+			<div align="right" class="btn-container" style="margin-bottom:5px;">
 				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_category()"><i class="fas fa-plus-square"></i> Add New</button>
 			</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -772,9 +769,6 @@ class Base_controller extends database_connection{
 		// Check session user group
 		if ($_SESSION["user_group"] == 2) {
 			$table .= '
-				<div align="right" style="margin-bottom:5px;">
-					<button type="button" id="add_product_button" class="btn btn-sm btn-primary" disabled><i class="fas fa-plus-square"></i> Add New</button>
-				</div>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
@@ -789,7 +783,7 @@ class Base_controller extends database_connection{
 			';
 		} else {
 			$table .= '
-				<div align="right" style="margin-bottom:5px;">
+				<div align="right" class="btn-container" style="margin-bottom:5px;">
 					<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_info()"><i class="fas fa-plus-square"></i> Add New</button>
 				</div>
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -983,6 +977,65 @@ class Base_controller extends database_connection{
 		echo $table;
 	}
 
+
+
+	function get_latest_customers_account() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM customer ORDER BY date_added DESC";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Customer Name</th>
+						<th>Email</th>
+						<th>Status</th>
+						<th>Date Added</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$firstname = $row["firstname"];
+				$lastname = $row["lastname"];
+				$email = $row["email"];
+				$date_added = $row["date_added"];
+
+				if ($row["status"] == 1) {
+					$status = "Enable";
+				} else {
+					$status = "Disabled";
+				}
+				
+				$table .= '
+					<tr>
+						<td>'.$firstname.' '.$lastname.'</td>
+						<td>'.$email.'</td>
+						<td>'.$status.'</td>
+						<td>'.$date_added.'</td>
+					</tr>
+				';
+			}
+		}else {
+			$table .='
+			<tr>
+				<td class="text-center text-md-start" colspan="4">No Data..</td>
+			</tr>
+			';
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
 	function update_customer_info() {
 		$customer_id = $_POST["customer_id"];
 		$firstname = $_POST["firstname"];
@@ -1054,7 +1107,7 @@ class Base_controller extends database_connection{
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
-			<div align="right" style="margin-bottom:5px;">
+			<div align="right" class="btn-container" style="margin-bottom:5px;">
 				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_stockStatus()"><i class="fas fa-plus-square"></i> Add New</button>
 			</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -1161,7 +1214,7 @@ class Base_controller extends database_connection{
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
-			<div align="right" style="margin-bottom:5px;">
+			<div align="right" class="btn-container" style="margin-bottom:5px;">
 				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_orderStatus()"><i class="fas fa-plus-square"></i> Add New</button>
 			</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -1268,7 +1321,7 @@ class Base_controller extends database_connection{
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
-			<div align="right" style="margin-bottom:5px;">
+			<div align="right" class="btn-container" style="margin-bottom:5px;">
 				<button type="button" id="add_product_button" class="btn btn-sm btn-primary" onclick="add_manufacturers()"><i class="fas fa-plus-square"></i> Add New</button>
 			</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -1378,63 +1431,6 @@ class Base_controller extends database_connection{
 				<option value="'.$value["manufacturer_id"].'">'.$value["name"].'</option>
 			';
 		}
-	}
-
-	function get_latest_customers_account() {
-		$table = "";
-		$conn = $this->db_conn();
-		$sql = "SELECT * FROM customer ORDER BY date_added ASC LIMIT 5";
-		$result = mysqli_query($conn, $sql);
-
-		$table .= '
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-				<thead>
-					<tr>
-						<th>Customer Name</th>
-						<th>Email</th>
-						<th>Status</th>
-						<th>Date Added</th>
-					</tr>
-				</thead>
-
-				<tbody>
-		';
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-				$firstname = $row["firstname"];
-				$lastname = $row["lastname"];
-				$email = $row["email"];
-				$date_added = $row["date_added"];
-
-				if ($row["status"] == 1) {
-					$status = "Enable";
-				} else {
-					$status = "Disabled";
-				}
-				
-				$table .= '
-					<tr>
-						<td>'.$firstname.' '.$lastname.'</td>
-						<td>'.$email.'</td>
-						<td>'.$status.'</td>
-						<td>'.$date_added.'</td>
-					</tr>
-				';
-			}
-		}else {
-			$table .='
-			<tr>
-				<td class="text-center text-md-start" colspan="4">No Data..</td>
-			</tr>
-			';
-		}
-
-		$table .='
-				</tbody>
-			</table>
-		';
-
-		echo $table;
 	}
 
 	function add_notes() {

@@ -13,11 +13,11 @@ require "assets/common/header.php";
             <div class="medium-12 columns">
             <div class="owl-carousel owl-theme">
                 <div class="item">
-                    <img src="http://localhost/test/shop/assets/images/banners/banner-1.jpg" class="w-100" height="500">
+                    <img src="assets/images/banners/banner-1.jpg" class="w-100" height="500">
                 </div>
 
                 <div class="item">
-                    <img src="http://localhost/test/shop/assets/images/banners/banner-2.jpg" class="w-100" height="500">
+                    <img src="assets/images/banners/banner-2.jpg" class="w-100" height="500">
                 </div>
             </div>
         </div>

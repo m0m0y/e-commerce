@@ -20,9 +20,11 @@ require "assets/common/header.php";
         
         <div class="mb-5"> 
             <div class="row">
-                <div class="col-sm-12 col-md-8">
+                <div class="col-sm-12 col-md-8 wishlist">
                     <h4>My Wishlist</h4>
-                    <?php $class->get_customer_wishlist($customer_id); ?>
+                    <div class="table-responsive">
+                        <?php $class->get_customer_wishlist($customer_id); ?>
+                    </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 side-menu">

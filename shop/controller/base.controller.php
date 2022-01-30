@@ -160,7 +160,7 @@ class BaseController extends database_connection {
                     $quantity = 1;
 
                     echo '
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-3 product-container">
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
@@ -180,7 +180,7 @@ class BaseController extends database_connection {
                     $quantity = 1;
 
                     echo '
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-3 product-container">
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
@@ -244,7 +244,7 @@ class BaseController extends database_connection {
                     $quantity = 1;
 
                     echo '
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-3 product-container">
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
@@ -264,7 +264,7 @@ class BaseController extends database_connection {
                     $quantity = 1;
 
                     echo '
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-3 product-container">
                         <div class="card">
                             <div class="card-body">
                                 <img src="assets/images/products/shopping-bag-icon4.png" class="card-img-top product-icon" alt="'.$product_name.'_img">
@@ -469,8 +469,7 @@ class BaseController extends database_connection {
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
-
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
 						<th>Product Name</th>
@@ -521,7 +520,7 @@ class BaseController extends database_connection {
                             <td>₱ '.number_format($price, 2).'</td>
                             <td data-id="'.$cart_id.'">₱ <span>'.number_format($total_price, 2).'</span></td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-outline-danger" onclick="remove_product(\'' . $cart_id . '\')" alt="Remove"><i class="fas fa-ban"></i></button>
+                                <button type="button" class="btn btn-outline-danger" onclick="remove_product(\'' . $cart_id . '\')"><i class="fa fa-ban"></i></button>
                             </td>
                         </tr>
                     ';
@@ -785,7 +784,7 @@ class BaseController extends database_connection {
                         <td>₱ '.number_format($total, 2).'</td>
                         <td>'.$date_added.'</td>
                         <td class="text-center">
-                            <a href="order_information?order_id='.$order_id.'" class="btn btn-outline-primary" alt="Remove"><i class="fas fa-eye"></i></a>
+                            <a href="order_information?order_id='.$order_id.'" class="btn btn-outline-primary" alt="Remove"><i class="fa fa-eye"></i></a>
                         </td>
                     </tr>
                 ';
