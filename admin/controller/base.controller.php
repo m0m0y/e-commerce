@@ -837,9 +837,9 @@ class Base_controller extends database_connection{
 							<td>'.$info_status.'</td>
 							<td>'.$date_added.'</td>
 							<td>
-								<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\',\'' . $info_title . '\',\'' . $info_description . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keyword . '\',\'' . $info_status . '\')"><i class="fas fa-pencil-alt"></i></button>
+								<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\', \'' . $info_title . '\', \'' . $info_description . '\',  \'' . $meta_title . '\', \'' . $meta_description . '\', \'' . $meta_keyword . '\', \'' . $info_status . '\')"><i class="fas fa-pencil-alt"></i></button>
 
-								<button type="button" class="btn btn-sm btn-danger" onclick="delete_info(\'' . $information_id . '\',)"><i class="fas fa-trash-alt"></i></button>
+								<button type="button" class="btn btn-sm btn-danger" onclick="delete_info(\'' . $information_id . '\')"><i class="fas fa-trash-alt"></i></button>
 							</td>
 						</tr>
 					';

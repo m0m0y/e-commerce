@@ -121,7 +121,7 @@ class OrderController extends database_connection {
 
                 $sql = "INSERT INTO order_product (invoice_no, order_id, product_id, product_name, quantity, price, total) VALUES ('$invoice_no', '$last_id', '$product_id', '$product_name', '$quantity', '$price', '$total_price')";
 
-                // $this->delete_cart($cart_id);
+                $this->delete_cart($cart_id);
 
                 if ($conn->query($sql) === TRUE) {
                 	echo "";
