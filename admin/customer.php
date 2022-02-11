@@ -189,9 +189,5 @@ require "assets/common/header.php";
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
-
     <script src="script/customer.js"></script>
 </body>

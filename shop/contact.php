@@ -1,6 +1,10 @@
 <?php
 require "controller/header.controller.php";
 require "assets/common/header.php";
+
+$firstname = $_SESSION["firstname"];
+$lastname = $_SESSION["lastname"];
+$full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
 ?>
 
 <body>
@@ -47,19 +51,21 @@ require "assets/common/header.php";
 
                     <div class="alert alert-danger" role="alert"></div>
 
+             
+
                     <div class="mb-3">
                         <label for="customer_name" class="form-label">Full Name: *</label>
-                        <input type="text" class="form-control" id="customer_name" placeholder="Please type your full name">
+                        <input type="text" class="form-control" id="customer_name" value="<?= isset($full_name) ? $full_name : ""?>" placeholder="Please type your full name">
                     </div>
 
                     <div class="mb-3">
                         <label for="customer_number" class="form-label">Contact Number: *</label>
-                        <input type="number" class="form-control" id="customer_number" placeholder="Contact number">
+                        <input type="number" class="form-control" id="customer_number" value="<?= isset($_SESSION["telephone"]) ? $_SESSION["telephone"] : ""?>" placeholder="Contact number">
                     </div>
 
                     <div class="mb-3">
                         <label for="customer_email" class="form-label">Email address: *</label>
-                        <input type="email" class="form-control" id="customer_email" placeholder="your@email.com">
+                        <input type="email" class="form-control" id="customer_email" value="<?= isset($_SESSION["email"]) ? $_SESSION["email"] : ""?>" placeholder="your@email.com">
                     </div>
 
                     <div class="mb-3">
@@ -72,7 +78,7 @@ require "assets/common/header.php";
                         <textarea class="form-control" id="customer_message" rows="3" placeholder="Type Here..."></textarea>
                         <div class="form-text">Input your Inqury here.</div>
                     </div>
-
+                
                     <button type="submit" class="btn btn-md btn-primary" id="submit">Submit</button>
                 </div>
             </div>
@@ -113,7 +119,7 @@ require "assets/common/header.php";
                             customer_message:customer_message
                         },
                         success: function() {
-                            window.location.replace("thankyou");
+                            // window.location.replace("thankyou");
                         }
                     });
                 }

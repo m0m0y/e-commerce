@@ -9,7 +9,6 @@ $customer_firstname = $class->get_order_details("firstname", $get_order_id);
 $customer_lastname = $class->get_order_details("lastname", $get_order_id);
 $customer_email = $class->get_order_details("email", $get_order_id);
 $customer_telephone = $class->get_order_details("telephone", $get_order_id);
-$comment = $class->get_order_details("comment", $get_order_id);
 $payment_method = $class->get_order_details("payment_method", $get_order_id);
 $payment_code = $class->get_order_details("payment_code", $get_order_id);
 $total = $class->get_order_details("total", $get_order_id);
@@ -22,9 +21,10 @@ $address_2 = $class->get_customer_address("address_2", $customer_id);
 $city = $class->get_customer_address("city", $customer_id);
 $region = $class->get_customer_address("region", $customer_id);
 
-$order_status_id = $class->get_order_details("order_status_id", $get_order_id);
+$history_comment = $class->get_customer_history("comment", $get_order_id);
+$history_order_status = $class->get_customer_history("order_status_id", $get_order_id);
 
-$status_name = $class->get_order_status_id("name", $order_status_id);
+$status_name = $class->get_order_status_id("name", $history_order_status);
 if($get_order_id != $order_id) {
 ?>
     <script>window.location.replace("404.php");</script>
@@ -224,7 +224,7 @@ if($get_order_id != $order_id) {
                                     <tbody> 
                                         <tr>
                                             <td><?= $date_added ?></td>
-                                            <td><?= $comment ?></td>
+                                            <td><?= $history_comment  ?></td>
                                             <td><?= $status_name ?> </td>
                                         </tr>
                                     </tbody>
@@ -233,7 +233,7 @@ if($get_order_id != $order_id) {
                                 <h5 class="mt-5 fw-normal">Add Order History</h5>
                                 <hr></hr>
                                 
-                                <input type="text" id="ses_email" class="form-control" value="<?= $email ?>" readonly/>
+                                <input type="hidden" id="ses_email" class="form-control" value="<?= $email ?>" readonly/>
                                 <input type="hidden" id="ses_group_id" class="form-control" value="<?= $user_group ?>" readonly/>
 
                                 <input type="hidden" id="order_id" class="form-control" value="<?= $order_id ?>" readonly/>
@@ -245,7 +245,7 @@ if($get_order_id != $order_id) {
                                     <div class="col-sm-9">
                                         <select class="form-select" id="order_status" required>
                                             <option value="" selected disabled>Choose status</option>
-                                            <?php $class->get_order_status_value(); ?>
+                                            <?php $class->get_order_status_value($history_order_status); ?>
                                         </select>
                                     </div>
                                 </div>
@@ -253,7 +253,7 @@ if($get_order_id != $order_id) {
                                 <div class="row mb-4">
                                     <label for="comment" class="col-sm-3 col-form-label text-right"> Comment:</label>
                                     <div class="col-sm-9">
-                                        <textarea id="comment" rows="4" cols="50" class="form-control" placeholder="Comment"><?= $comment; ?></textarea>
+                                        <textarea id="comment" rows="4" cols="50" class="form-control" placeholder="Comment"><?= $history_comment ; ?></textarea>
                                     </div>
                                 </div>
 

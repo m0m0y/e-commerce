@@ -145,7 +145,7 @@ $status_name = $class->get_orders_tables("name", "order_status", "order_status_i
                     quantity:quantity
                 },
                 success:function(){
-                    // window.location.reload();
+                    window.location.href = 'cart'; 
                 }
             });
         }

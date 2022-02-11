@@ -1,32 +1,13 @@
-function add_info() {
-    $('#preloader').show();
-    window.location.href="add_information";
-}
-
-function update_info(information_id, info_title, info_description, meta_title, meta_description, meta_keyword, info_status) {
-    $('#close').click(function(){
-        window.location.reload();
+$(document).ready(function() {
+    $('#info_description').summernote({
+        tabsize: 2,
+        height: 250,
     });
-
-    $('.Mymodal').modal('show');
-    $('.title-container').html('<i class="fas fa-pencil-alt"></i> Update Information');
-    $('.save-btn').attr("id", "update");
-
-    $('#info_title').val(info_title);
-    $('#info_description').val(info_description);
-    $('#meta_title').val(meta_title);
-    $('#meta_description').val(meta_description);
-    $('#meta_keyword').val(meta_keyword);
-
-    if (info_status == "Enable") {
-        $('#info_status').val(1);
-    } else if (info_status == "Disabled") {
-        $('#info_status').val(0);
-    }
 
     $('#update').on('click', function(){
         var alert_message = $('#alertMessage').val();
 
+        var information_id = $('#information_id').val();
         var info_title = $('#info_title').val();
         var info_description = $('#info_description').val();
         var meta_title = $('#meta_title').val();
@@ -39,7 +20,7 @@ function update_info(information_id, info_title, info_description, meta_title, m
             $('#alertMessage').text(alert_message).addClass("alert alert-danger");
         } else {
             $.ajax({
-                url: 'controller/base.controller.php?update_products',
+                url: 'controller/base.controller.php?update_info',
                 method: 'POST',
                 data: {
                     information_id:information_id,
@@ -57,7 +38,15 @@ function update_info(information_id, info_title, info_description, meta_title, m
             });
         }
     });
+});
 
+function add_info() {
+    $('#preloader').show();
+    window.location.href="add_information";
+}
+
+function update_info(information_id) {
+    window.location.href = 'update_information.php?information_id='+information_id; 
 }
 
 function delete_info(information_id) {

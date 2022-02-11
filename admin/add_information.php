@@ -29,64 +29,53 @@ require "assets/common/header.php";
                         <div class="card-body">
                             <div id="alertMessage"></div>
 
-                            <div align="right" style="margin-bottom:5px;">
+                            <div align="right" class="mb-5">
                                 <button type="button" id="save" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Save</button>
                                 <a href="information" class="btn btn-sm btn-secondary btn-user"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
                             </div>
 
-                            <!-- Tabs -->
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                <button class="nav-link tab_button active" onclick="openTabs(event, 'General')">General</button>
-                                </li>
-                            </ul>
-
-                            <!-- Contents -->
-                            <div id="General" class="tabcontent" style="display: flex; flex-direction: column;">
-
-                                <div class="row mb-4">
-                                    <label for="info_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Title:</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="info_title" class="form-control" placeholder="Title">
-                                    </div>
+                            <div class="row mb-4">
+                                <label for="info_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Title:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="info_title" class="form-control" placeholder="Title">
                                 </div>
+                            </div>
 
-                                <div class="row mb-4">
-                                    <label for="info_description" class="col-sm-3 col-form-label text-right">Description:</label>
-                                    <div class="col-sm-9">
-                                        <textarea id="info_description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea>
-                                    </div>
+                            <div class="row mb-4">
+                                <label for="info_description" class="col-sm-3 col-form-label text-right">Description:</label>
+                                <div class="col-sm-9">
+                                    <textarea id="info_description" rows="4" cols="50" class="form-control"></textarea>
                                 </div>
+                            </div>
 
-                                <div class="row mb-4">
-                                    <label for="meta_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="meta_title" class="form-control" placeholder="Meta Tag Title">
-                                    </div>
+                            <div class="row mb-4">
+                                <label for="meta_title" class="col-sm-3 col-form-label text-right"><span class="required">*</span> Meta Tag Title:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="meta_title" class="form-control" placeholder="Meta Tag Title">
                                 </div>
+                            </div>
 
-                                <div class="row mb-4">
-                                    <label for="meta_description" class="col-sm-3 col-form-label text-right">Meta Tag Description:</label>
-                                    <div class="col-sm-9">
-                                        <textarea id="meta_description" rows="4" cols="50" class="form-control" placeholder="Meta Tag Description"></textarea>
-                                    </div>
+                            <div class="row mb-4">
+                                <label for="meta_description" class="col-sm-3 col-form-label text-right">Meta Tag Description:</label>
+                                <div class="col-sm-9">
+                                    <textarea id="meta_description" rows="4" cols="50" class="form-control" placeholder="Meta Tag Description"></textarea>
                                 </div>
+                            </div>
 
-                                <div class="row mb-4">
-                                    <label for="meta_keyword" class="col-sm-3 col-form-label text-right">Meta Tag Keywords:</label>
-                                    <div class="col-sm-9">
-                                        <textarea id="meta_keyword" rows="3" cols="50" class="form-control" placeholder="Meta Tag Keywords"></textarea>
-                                    </div>
+                            <div class="row mb-4">
+                                <label for="meta_keyword" class="col-sm-3 col-form-label text-right">Meta Tag Keywords:</label>
+                                <div class="col-sm-9">
+                                    <textarea id="meta_keyword" rows="3" cols="50" class="form-control" placeholder="Meta Tag Keywords"></textarea>
                                 </div>
+                            </div>
 
-                                <div class="row mb-4">
-                                    <label for="info_status" class="col-sm-3 col-form-label text-right">Status:</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" id="info_status">
-                                        <option value="1">Enable</option>
-                                        <option value="0">Disabled</option>
-                                        </select>
-                                    </div>
+                            <div class="row mb-4">
+                                <label for="info_status" class="col-sm-3 col-form-label text-right">Status:</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="info_status">
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disabled</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -124,9 +113,8 @@ require "assets/common/header.php";
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
+    <!-- Summernote -->
+    <script src="vendor/summernote/summernote-lite.min.js"></script>
 
     <script src="script/information.js"></script>
 </body>

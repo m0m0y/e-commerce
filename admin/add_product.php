@@ -1,5 +1,9 @@
 <?php 
 require "assets/common/header.php";
+$manufacturer_id = "";
+$category_id = "";
+$stock_status_id = "";
+$weight_id = "";
 ?>
 
 <body id="page-top">
@@ -58,7 +62,8 @@ require "assets/common/header.php";
                 <div class="row mb-4">
                   <label for="description" class="col-sm-3 col-form-label text-right">Description:</label>
                   <div class="col-sm-9">
-                    <textarea id="description" name="description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea>
+                    <!-- <textarea id="description" name="description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea> -->
+                    <textarea name="description" id="description" class="form-control" rows="5"></textarea>
                   </div>
                 </div>
 
@@ -91,7 +96,7 @@ require "assets/common/header.php";
                     <div class="col-sm-9">
                       <select class="form-control" id="manufacturer_id">
                       <option value="" selected disabled>Select Manufacturer</option>
-                      <?php $class->get_manufacturer_value(); ?>
+                      <?php $class->get_manufacturer_value($manufacturer_id); ?>
                       </select>
                     </div>
                 </div>
@@ -101,7 +106,7 @@ require "assets/common/header.php";
                     <div class="col-sm-9">
                       <select class="form-control" id="product_category">
                         <option value="" selected disabled>Select Categories</option>
-                        <?php $class->get_category_description(); ?>
+                        <?php $class->get_category_description($category_id); ?>
                       </select>
                     </div>
                 </div>
@@ -124,7 +129,7 @@ require "assets/common/header.php";
                   <label for="stock_status" class="col-sm-3 col-form-label text-right">Stock Status:</label>
                   <div class="col-sm-9">
                     <select name="stock_status" class="form-control" id="stock_status">
-                      <?php $class->get_stock_status_id(); ?>
+                      <?php $class->get_stock_status_id($stock_status_id); ?>
                     </select>
                   </div>
                 </div>
@@ -140,7 +145,7 @@ require "assets/common/header.php";
                   <label for="weight_class" class="col-sm-3 col-form-label text-right">Weight Class:</label>
                   <div class="col-sm-9">
                     <select name="weight_class" class="form-control" id="weight_class">
-                      <?php $class->get_weight_description(); ?>
+                      <?php $class->get_weight_description($weight_id); ?>
                     </select>
                   </div>
                 </div>
@@ -188,9 +193,8 @@ require "assets/common/header.php";
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
+    <!-- Summernote -->
+    <script src="vendor/summernote/summernote-lite.min.js"></script>
 
     <script src="script/product.js"></script>
 </body>

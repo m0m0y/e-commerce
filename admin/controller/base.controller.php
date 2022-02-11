@@ -413,7 +413,6 @@ class Base_controller extends database_connection{
 			echo "Error deleting record: " . $conn->error;
 		}
 	}
-
 	function get_product() {
 		$table = "";
 		$conn = $this->db_conn();
@@ -461,6 +460,8 @@ class Base_controller extends database_connection{
 
 				$product_category = $this->get_product_to_category($product_id);
 
+				$product_price = number_format($price, 2);
+
 				$table .= '
 					<tr>
 						<td>'.$name.'</td>
@@ -468,7 +469,7 @@ class Base_controller extends database_connection{
 						<td>'.$quantity.'</td>
 						<td>'.$product_status.'</td>
 						<td>
-							<button type="button" class="btn btn-sm btn-info" onclick="update_products(\'' . $product_id . '\',\'' . $name . '\',\'' . $quantity . '\',\'' . $manufacturer_id . '\',\'' . $price . '\',\'' . $product_status . '\',\'' . $product_desc . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keywords . '\',\'' . $stock_status_id . '\',\'' . $product_weight . '\',\'' . $weight_id . '\',\'' . $product_category . '\')"><i class="fas fa-pencil-alt"></i></button>
+							<button type="button" class="btn btn-sm btn-info" onclick="update_products(\'' . $product_id . '\')"><i class="fas fa-pencil-alt"></i></button>
 
 							<button type="button" class="btn btn-sm btn-danger" onclick="delete_products(\'' . $product_id . '\',)"><i class="fas fa-trash-alt"></i></button>
 						</td>
@@ -485,38 +486,46 @@ class Base_controller extends database_connection{
 		echo $table;
 	}
 
-	function get_stock_status_id() {
+	function get_product_info($column, $table, $product_id) {
+		$conn = $this->db_conn();
+        $sql = "SELECT $column FROM $table WHERE product_id='$product_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
+	}
+
+	function get_stock_status_id($stock_status_id) {
 		$conn = $this->db_conn();
 		$sql = "SELECT * FROM stock_status";
 		$result = mysqli_query($conn, $sql);
 
 		foreach ($result as $key => $value) {
 			echo '
-				<option value="'.$value["stock_status_id"].'">'.$value["name"].'</option>
+				<option '.($stock_status_id == $value["stock_status_id"] ? "seleceted" : "").' value="'.$value["stock_status_id"].'">'.$value["name"].'</option>
 			';
 		}
 	}
 
-	function get_weight_description() {
+	function get_weight_description($weight_id) {
 		$conn = $this->db_conn();
 		$sql = "SELECT * FROM weight_class_description";
 		$result = mysqli_query($conn, $sql);
 
 		foreach ($result as $key => $value) {
 			echo '
-				<option value="'.$value["id"].'">'.$value["title"].'</option>
+				<option '.($weight_id == $value["id"] ? "selected" : "").' value="'.$value["id"].'">'.$value["title"].'</option>
 			';
 		}
 	}
 
-	function get_category_description() {
+	function get_category_description($category_id) {
 		$conn = $this->db_conn();
 		$sql = "SELECT * FROM category_description";
 		$result = mysqli_query($conn, $sql);
 
 		foreach ($result as $key => $value) {
 			echo '
-				<option value="'.$value["category_id"].'">'.$value["category_name"].'</option>
+				<option '.($category_id == $value["category_id"] ? "selected" : "").' value="'.$value["category_id"].'">'.$value["category_name"].'</option>
 			';
 		}
 	}
@@ -843,7 +852,7 @@ class Base_controller extends database_connection{
 							<td>'.$info_status.'</td>
 							<td>'.$date_added.'</td>
 							<td>
-								<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\',\'' . $info_title . '\',\'' . $info_description . '\',\'' . $meta_title . '\',\'' . $meta_description . '\',\'' . $meta_keyword . '\',\'' . $info_status . '\')"><i class="fas fa-pencil-alt"></i></button>
+								<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\',)"><i class="fas fa-pencil-alt"></i></button>
 
 								<button type="button" class="btn btn-sm btn-danger" onclick="delete_info(\'' . $information_id . '\',)"><i class="fas fa-trash-alt"></i></button>
 							</td>
@@ -860,6 +869,14 @@ class Base_controller extends database_connection{
 		';
 
 		echo $table;
+	}
+
+	function get_info_details($column, $table, $information_id) {
+		$conn = $this->db_conn();
+        $sql = "SELECT $column FROM $table WHERE information_id='$information_id'";
+        $result = mysqli_fetch_assoc($conn->query($sql));
+
+        return $result[$column];
 	}
 
 	function add_information() {
@@ -882,7 +899,7 @@ class Base_controller extends database_connection{
 		}
 	}
 
-	function update_products() {
+	function update_info() {
 		$information_id = $_POST["information_id"];
 		$info_title = $_POST["info_title"];
 		$info_description = $_POST["info_description"];
@@ -1368,14 +1385,14 @@ class Base_controller extends database_connection{
 		}
 	}
 
-	function get_manufacturer_value() {
+	function get_manufacturer_value($manufacturer_id) {
 		$conn = $this->db_conn();
 		$sql = "SELECT * FROM manufacturer";
 		$result = mysqli_query($conn, $sql);
 
 		foreach ($result as $key => $value) {
 			echo '
-				<option value="'.$value["manufacturer_id"].'">'.$value["name"].'</option>
+				<option '.($manufacturer_id == $value["manufacturer_id"] ? "selected" : "").' value="'.$value["manufacturer_id"].'">'.$value["name"].'</option>
 			';
 		}
 	}
@@ -1928,20 +1945,20 @@ class Base_controller extends database_connection{
 
 	function get_customer_history($column, $order_id) {
 		$conn = $this->db_conn();
-        $sql = "SELECT $column FROM orders_history WHERE order_id='$order_id'";
+        $sql = "SELECT $column FROM orders_history WHERE order_id='$order_id' ORDER BY order_history_id DESC";
         $result = mysqli_fetch_assoc($conn->query($sql));
 
         return $result[$column];
 	}
 
-	function get_order_status_value() {
+	function get_order_status_value($history_order_status) {
 		$conn = $this->db_conn();
 		$sql = "SELECT * FROM order_status";
 		$result = mysqli_query($conn, $sql);
 
 		foreach ($result as $key => $value) {
 			echo '
-				<option value="'.$value["order_status_id"].'">'.$value["name"].'</option>
+				<option '.($order_status_id == $value["order_status_id"] ? "selected" : "").' value="'.$value["order_status_id"].'">'.$value["name"].'</option>
 			';
 		}
 	}
@@ -2076,8 +2093,8 @@ if(isset($_GET["add_information"])){
 	$class->add_information();
 }
 
-if(isset($_GET["update_products"])){
-	$class->update_products();
+if(isset($_GET["update_info"])){
+	$class->update_info();
 }
 
 if(isset($_GET["delete_informations"])){

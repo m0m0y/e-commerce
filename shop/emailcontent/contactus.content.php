@@ -165,7 +165,7 @@ class mailTemplate {
                      <table width="100%" cellpadding="0" cellspacing="0" style="min-width:100%;">
                      <tr> 
                          <td width="100%" style="color:#000;padding:2px;">
-                             <p style="font-size:12px;line-height:20px;font-family: Arial,sans-serif;text-align:center;">© Progressive Medical Corporation 2021</p>
+                             <p style="font-size:12px;line-height:20px;font-family: Arial,sans-serif;text-align:center;">© Your Shop 2021</p>
                          </td>
                      </tr>
                      </table>
