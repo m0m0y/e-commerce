@@ -60,7 +60,9 @@ $comment = $_POST["comment"];
             <input type="hidden" id="tax" class="form-control" readonly>
             <input type="hidden" id="total" class="form-control" readonly>
 
-            <?php $class->get_cart_to_confirm($customer_id) ?>
+            <div class="table-responsive">
+                <?php $class->get_cart_to_confirm($customer_id) ?>
+            </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="submit" class="btn btn-md btn-secondary" id="back">Back</button>
@@ -136,7 +138,7 @@ $comment = $_POST["comment"];
                     },
                     success:function() {
                         // redirect to original receipt
-                        // window.location.replace("cart");
+                        window.location.replace("order_history");
                     }
                 });
             });

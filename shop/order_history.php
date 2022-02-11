@@ -19,10 +19,14 @@ require "assets/common/header.php";
                 </nav>
             </div>
 
-            <div class="col-sm-12 col-md-8"> 
+            <div class="col-sm-12 col-md-8 order-history"> 
                 <h3 class="mt-3">Order History</h3>
                 <hr> </hr>
-                <?php $class->get_order_history($customer_id); ?>
+
+                <div class="table-responsive">
+                    <?php $class->get_order_history($customer_id); ?>
+                </div>
+                
             </div>
 
 

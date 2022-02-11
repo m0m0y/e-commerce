@@ -30,7 +30,7 @@ require "assets/common/header.php";
                         <div class="card-body">
 
                         <!-- Form -->
-                        <div class="p-4">
+                        <div class="p-4 form">
                             <div id="alertMessage"></div>
                             
                             <div class="row mb-3">

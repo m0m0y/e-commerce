@@ -73,3 +73,37 @@ a.my-account-button:hover {
 img.product-icon {
     opacity: 80%;
 }
+
+@media only screen and (max-width: 992px) {
+    .menu {
+        color:whitesmoke;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .top-header-link {
+        font-size: 11px;
+    }
+    .location-info {
+        padding: 2%;
+        margin-bottom: 3rem;
+    }
+    .login-form, .register-form  {
+        padding-top: 3%;
+        padding-bottom: 3%;
+        margin-bottom: 3rem;
+    }
+    .my-account, .order-info, .order-history, .wishlist {
+        margin-bottom: 3rem;
+    }
+    .category-products {
+        margin-top: 3rem !important;
+    }
+    .owl-carousel .owl-item img {
+        display: block;
+        height: auto;
+    }
+    .product-container {
+        margin-bottom: 0.5rem;
+    }
+}

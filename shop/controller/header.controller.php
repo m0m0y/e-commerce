@@ -61,6 +61,9 @@ function page_title() {
         case "/test/shop/order_history":
             $page_title = "Order History";
             break;
+        case "/test/shop/manufacturer":
+            $page_title = "List of Manufacturer";
+            break;
     }
 
     echo $page_title;

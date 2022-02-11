@@ -2,7 +2,7 @@
 <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home">
             <div class="sidebar-brand-text mx-3"> Admin Dashboard </div>
         </a>
 
@@ -18,7 +18,7 @@
     
         <li class="nav-item <?= ($host == "/test/admin/customer" ? "active" : "") ?>">
             <a class="nav-link" href="customer">
-                <i class="fas fa-fw fa-tachometer-alt"></i><span>Customers</span>
+                <i class="fas fa-fw fa-users"></i><span>Customers</span>
             </a>
         </li>
 
@@ -32,7 +32,6 @@
             <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item <?= ($host == "/test/admin/orders" ? "active" : "") ?>" href="orders">Orders</a>
-                    <a class="collapse-item" href="">Cancel Orders</a>
                 </div>
             </div>
         </li>

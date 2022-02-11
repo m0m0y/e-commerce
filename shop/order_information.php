@@ -47,7 +47,7 @@ $status_name = $class->get_orders_tables("name", "order_status", "order_status_i
             </div>
         
 
-            <div class="col-sm-12 col-md-8">
+            <div class="col-sm-12 col-md-8 order-info">
                 <h3 class="mt-3">Order Information</h3>
                 <table class="table table-bordered">
                     <thead> 
@@ -101,7 +101,9 @@ $status_name = $class->get_orders_tables("name", "order_status", "order_status_i
                     </tbody>
                 </table>
 
-                <?php $class->get_orders_product($order_id); ?>
+                <div class="table-responsive">
+                    <?php $class->get_orders_product($order_id); ?> 
+                </div>
 
                 <h4 class="mt-3">Order History</h4>
                 <table class="table table-bordered">
@@ -145,7 +147,11 @@ $status_name = $class->get_orders_tables("name", "order_status", "order_status_i
                     quantity:quantity
                 },
                 success:function(){
+<<<<<<< HEAD
                     window.location.href = 'cart'; 
+=======
+                    window.location.href="cart";
+>>>>>>> e9687b951bb12d6a70f790f21a7896a294e742b0
                 }
             });
         }

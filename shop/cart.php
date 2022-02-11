@@ -28,7 +28,10 @@ $cart_numrows = $class->get_cart_rows($customer_id);
         <div class="mb-5 container"> 
             <h3>Shopping Cart</h3>
             <hr></hr>
-            <?php $class->get_customer_cart($customer_id); ?>
+            
+            <div class="table-responsive">
+                <?php $class->get_customer_cart($customer_id); ?>
+            </div>
 
             <div class="row mt-5">
                 <div class="col-sm-12 col-md-8">

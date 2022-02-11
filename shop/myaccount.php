@@ -20,14 +20,13 @@ if(isset($_SESSION["customer_id"])){
                 </nav>
             </div>
 
-            <div class="col-sm-12 col-md-8"> 
+            <div class="col-sm-12 col-md-8 my-account"> 
                 <h3 class="title mt-3">My Account</h3>
                 <a href="update_account" class="text-decoration-none">Edit my account Information</a></br>
                 <a href="update_password" class="text-decoration-none">Change your password</a></br>
                 <a href="wishlist" class="text-decoration-none">Modify your wish list</a></br>
                 <h3 class="title mt-3">My Orders</h3>
                 <a href="#" class="text-decoration-none">View your order history</a></br>
-                <a href="#" class="text-decoration-none">Your Transactions</a></br>
             </div>
 
             <div class="col-sm-12 col-md-4 side-menu">
