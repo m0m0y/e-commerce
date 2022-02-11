@@ -29,11 +29,7 @@ require "assets/common/header.php";
                         <div class="card-body">
                             <div id="alertMessage"></div>
 
-<<<<<<< HEAD
                             <div align="right" class="mb-5">
-=======
-                            <div align="right" class="btn-container" style="margin-bottom:5px;">
->>>>>>> e9687b951bb12d6a70f790f21a7896a294e742b0
                                 <button type="button" id="save" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Save</button>
                                 <a href="information" class="btn btn-sm btn-secondary btn-user"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
                             </div>

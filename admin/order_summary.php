@@ -218,7 +218,6 @@ if($get_order_id != $order_id) {
 
                             <!-- Contents -->
                             <div id="General" class="tabcontent" style="display: flex; flex-direction: column;">
-<<<<<<< HEAD
                                 <table class="table table-bordered">
                                     <thead> 
                                         <tr>
@@ -236,27 +235,6 @@ if($get_order_id != $order_id) {
                                         </tr>
                                     </tbody>
                                 </table>
-=======
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead> 
-                                            <tr>
-                                                <th>Date Added</th>
-                                                <th>Comment</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody> 
-                                            <tr>
-                                                <td><?= $date_added ?></td>
-                                                <td><?= $history_comment ?></td>
-                                                <td><?= $status_name ?> </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
->>>>>>> e9687b951bb12d6a70f790f21a7896a294e742b0
 
                                 <h5 class="mt-5 fw-normal">Add Order History</h5>
                                 <hr></hr>
@@ -281,11 +259,7 @@ if($get_order_id != $order_id) {
                                 <div class="row mb-4">
                                     <label for="comment" class="col-sm-3 col-form-label text-right"> Comment:</label>
                                     <div class="col-sm-9">
-<<<<<<< HEAD
                                         <textarea id="comment" rows="4" cols="50" class="form-control" placeholder="Comment"><?= $history_comment ; ?></textarea>
-=======
-                                        <textarea id="comment" rows="4" cols="50" class="form-control" placeholder="Comment"><?= $history_comment; ?></textarea>
->>>>>>> e9687b951bb12d6a70f790f21a7896a294e742b0
                                     </div>
                                 </div>
 
