@@ -65,11 +65,8 @@ if (isset($_SESSION["customer_id"])) {
             <div class="col-sm-12 col-md-3 pb-4">
                 <h5>Customer Service</h5>
                 <a href="contact" class="text-decoration-none text-white">Contact Us</a>
-<<<<<<< HEAD
                 <br/>
                 <a href="#" class="text-decoration-none text-white">Returns</a>
-=======
->>>>>>> e9687b951bb12d6a70f790f21a7896a294e742b0
                 <br/>
                 <a href="site_map" class="text-decoration-none text-white">Site Map</a>
             </div>

@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION["customer_id"])) { 
+if (isset($_SESSION["customer_id"])) {
     $customer_id = $_SESSION["customer_id"];
 ?>
 <!-- Session Top Navbar -->
@@ -10,7 +10,9 @@ if (isset($_SESSION["customer_id"])) {
         <div class="d-flex flex-row-reverse bd-highlight">
             <div class="p-2 bd-highlight"><i class="fa fas-check-circle"></i><a class="top-header-link" href="checkout"> Checkout</a></div>
             <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="wishlist"> Wish list (<?= $class->get_wishlist_rows($customer_id); ?>)</a></div>
-            <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> <span class="top-header-link">091234567789</span></div>           
+            <div class="p-2 bd-highlight">
+                <?= $class->get_info("info_description", "information_id='12' AND info_status='1'"); ?>
+            </div>        
         </div>
     </div>
 </nav>
@@ -83,11 +85,19 @@ if (isset($_SESSION["customer_id"])) {
     <div class="container">
         <div class="d-flex flex-row bd-highlight mb-3"></div>
 
-        <div class="d-flex flex-row-reverse bd-highlight">                 
-            <div class="p-2 bd-highlight"><i class="fa fa-check-circle"></i><a class="top-header-link" href="checkout"> Checkout</a></div>
-            <div class="p-2 bd-highlight"><i class="fa fa-heart"></i><a class="top-header-link" href="login"> Wish list (0)</a></div>
-            <div class="p-2 bd-highlight"><i class="fa fa-phone"></i> <span class="top-header-link">091234567789</span></div>
-        </div>
+        <div class="d-flex flex-row-reverse bd-highlight">              
+            <div class="p-2 bd-highlight">
+                <i class="fa fa-check-circle"></i>
+                <a class="top-header-link" href="checkout"> Checkout</a>
+            </div>
+            <div class="p-2 bd-highlight">
+                <i class="fa fa-heart"></i>
+                <a class="top-header-link" href="login"> Wish list (0)</a>
+            </div>
+            <div class="p-2 bd-highlight">
+                <?= $class->get_info("info_description", "information_id='12' AND info_status='1'"); ?>
+            </div> 
+        </div>       
     </div>
 </nav>
 

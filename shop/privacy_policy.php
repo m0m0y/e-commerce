@@ -1,6 +1,7 @@
 <?php 
 require "controller/header.controller.php";
-require "assets/common/header.php"; 
+require "assets/common/header.php";
+$info_title = "Privacy Policy";
 ?>
 
 <body> 
@@ -17,7 +18,11 @@ require "assets/common/header.php";
             </nav>
         </div>
 
-        <?php $class->get_privacy_policy() ?>
+        <div class="mb-5">
+            <h4><?= $class->get_info("info_title", "information_id='8' AND info_status='1'"); ?></h4>
+            </br>
+            <?= $class->get_info("info_description", "information_id='8' AND info_status='1'"); ?>
+        </div>
         
     </section>
 

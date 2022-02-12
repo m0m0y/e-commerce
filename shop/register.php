@@ -23,8 +23,6 @@ require "assets/common/header.php";
                     <h3 class="title mb-3">Register Account</h3>
                     <p>If you already have an account with us, please login at the login page.</p>
 
-                    <div id="alert" role="alert"></div>
-
                     <h5>Your Personal Details</h5>
                     <hr>
                     <div class="row mb-4">
@@ -110,6 +108,26 @@ require "assets/common/header.php";
 
                     <button type="submit" class="btn btn-md btn-primary" id="submit">Submit</button>
                 </div>
+
+                <!-- Alert modal -->
+                <div class="modal fade modal-alert" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Alert message</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="alert" role="alert"></div>
+                            <div id="successAlert" role="alert"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="proceed" class="btn btn-primary">Proceed</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-sm-12 col-md-4 side-menu">
@@ -124,8 +142,6 @@ require "assets/common/header.php";
 
     <script>
         $(document).ready(function(){
-            $('#alert').hide();
-
             $('#submit').on("click", function(){
                 var customer_firstname = $('#customer_firstname').val();
                 var customer_lastname = $('#customer_lastname').val();
@@ -141,15 +157,22 @@ require "assets/common/header.php";
                 var region = $('#region').val();
 
                 if (customer_password != confirm_password){
-                    $('#alert').show();
-                    alert_message = "Your Password did not match!";
-                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
-                } else if(customer_firstname == "" || customer_lastname == "" || customer_email == "" || customer_telophone == "" || customer_password == "" || confirm_password == "" || address_1 == "" || city == "" || postcode == "" || region == "") {
-                    $('#alert').show().addClass("alert-danger mb-3");
-                    alert_message = "Please double check the fields";
-                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
-                } else {
-                    $('#alert').hide();
+                    $('.modal-alert').modal('show');
+                    $('#proceed').hide();
+
+                    alert_message = "<b>Your Password did not match!</b>";
+                    $('#alert').html(alert_message).addClass("alert alert-danger mb-3");
+                } 
+                
+                else if(customer_firstname == "" || customer_lastname == "" || customer_email == "" || customer_telophone == "" || customer_password == "" || confirm_password == "" || address_1 == "" || city == "" || postcode == "" || region == "") {
+                    $('.modal-alert').modal('show');
+                    $('#proceed').hide();
+
+                    alert_message = "<b>Please double check the fields</b>";
+                    $('#alert').html(alert_message).addClass("alert alert-danger mb-3");
+                }
+                
+                else {
                     $.ajax({
                         url: 'controller/register.controller.php?registration',
                         method: 'POST',
@@ -165,9 +188,25 @@ require "assets/common/header.php";
                             postcode:postcode,
                             region:region
                         },
-                        success: function() {
-                            alert("You are now registered, you may login now!");
-                            window.location.reload();
+                        success: function(response) {
+                            if (response == "existing email"){
+                                $('.modal-alert').modal('show');
+                                $('#proceed').hide();
+
+                                alert_message = "Your <b>email is already registered!</b>";
+                                $('#alert').html(alert_message).addClass("alert alert-danger mb-3");
+                            } else if (response == "success") {
+                                $('.modal-alert').modal('show');
+                                $('#alert').hide();
+                                $('#close').hide();
+
+                                $('#proceed').show().click(function(){
+                                    window.location.replace("myaccount");
+                                });
+
+                                alert_message = "<b>You are now registered!</b> Please click confirm to log-in.";
+                                $('#successAlert').html(alert_message).addClass("alert alert-success mb-3");
+                            }
                         }
                     });
                 }

@@ -26,7 +26,7 @@ if(isset($_SESSION["customer_id"])){
                 <a href="update_password" class="text-decoration-none">Change your password</a></br>
                 <a href="wishlist" class="text-decoration-none">Modify your wish list</a></br>
                 <h3 class="title mt-3">My Orders</h3>
-                <a href="#" class="text-decoration-none">View your order history</a></br>
+                <a href="order_history" class="text-decoration-none">View your order history</a></br>
             </div>
 
             <div class="col-sm-12 col-md-4 side-menu">

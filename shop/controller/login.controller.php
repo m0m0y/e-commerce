@@ -27,7 +27,7 @@ class Login extends database_connection {
 			}
 		} else {
 			echo "invalid";
-		} 
+		}
     }
 
 	// Get the function get_cart_customer_id to where the cart_id thats equal to 0

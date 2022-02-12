@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#info_description').summernote({
         tabsize: 2,
-        height: 250,
+        height: 250
     });
 
     $('#update').on('click', function(){

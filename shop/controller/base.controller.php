@@ -649,96 +649,13 @@ class BaseController extends database_connection {
 		}
     }
 
-    function get_about_us() {
-        $info_title = "About Us";
+    function get_info($column, $wherevalues) {
         $conn = $this->db_conn();
-        $sql = "SELECT * FROM information_description WHERE info_title='$info_title'";
-        $result = mysqli_query($conn, $sql);
+        $sql = "SELECT $column FROM information_description WHERE $wherevalues";
+        $result = mysqli_fetch_assoc($conn->query($sql));
 
-        if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) { 
-                $information_id = $row["information_id"];
-                $info_title = $row["info_title"];
-                $info_description = $row["info_description"];
-                $info_status = $row["info_status"];
-
-                if ($info_status == 1) {
-                    echo '
-                        <h3>'.$info_title.'</h3>
-
-                        <p class="mt-5 text-lg-start">'.$info_description.'</p>
-                    ';
-                } else {
-                    echo '
-                        <h3>'.$info_title.'</h3>
-
-                        <h4 class="mt-5 text-lg-start fw-normal">No Content.</h4>
-                    ';
-                }
-            }
-        }
+        return $result[$column];
     }
-
-    function get_privacy_policy() {
-        $info_title = "Privacy Policy";
-        $conn = $this->db_conn();
-        $sql = "SELECT * FROM information_description WHERE info_title='$info_title'";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) { 
-                $information_id = $row["information_id"];
-                $info_title = $row["info_title"];
-                $info_description = $row["info_description"];
-                $info_status = $row["info_status"];
-
-                if ($info_status == 1) {
-                    echo '
-                        <h3>'.$info_title.'</h3>
-
-                        <p class="mt-5 text-lg-start">'.$info_description.'</p>
-                    ';
-                } else {
-                    echo '
-                        <h3>'.$info_title.'</h3>
-
-                        <h4 class="mt-5 text-lg-start fw-normal">No Content.</h4>
-                    ';
-                }
-            }
-        }
-    }
-
-    function get_terms_and_condition() {
-        $info_title = "Terms & Condition";
-        $conn = $this->db_conn();
-        $sql = "SELECT * FROM information_description WHERE info_title='$info_title'";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) { 
-                $information_id = $row["information_id"];
-                $info_title = $row["info_title"];
-                $info_description = $row["info_description"];
-                $info_status = $row["info_status"];
-
-                if ($info_status == 1) {
-                    echo '
-                        <h3>'.$info_title.'</h3>
-
-                        <p class="mt-5 text-lg-start">'.$info_description.'</p>
-                    ';
-                } else {
-                    echo '
-                        <h3>'.$info_title.'</h3>
-
-                        <h4 class="mt-5 text-lg-start fw-normal">No Content.</h4>
-                    ';
-                }
-            }
-        }
-    }
-
 
     function get_order_history($customer_id) {
         $table = "";
@@ -752,7 +669,6 @@ class BaseController extends database_connection {
 					<tr>
 						<th>Order ID</th>
                         <th>Customer</th>
-                        <th>No. of Products</th>
                         <th>Status</th>
                         <th>Total</th>
                         <th>Date Added</th>
@@ -774,17 +690,23 @@ class BaseController extends database_connection {
 
                 $order_product_num = $this->get_order_product_rows($order_id);
                 $order_status = $this-> get_orders_tables("name", "order_status", "order_status_id='$order_status_id'");
-
+                
                 $table .= '
                     <tr>
-                        <td>'.$order_id.'</td>
                         <td>'.$firstname.' '.$lastname.'</td>
                         <td class="text-end">'.$order_product_num.'</td>
                         <td>'.$order_status.'</td>
                         <td>₱ '.number_format($total, 2).'</td>
                         <td>'.$date_added.'</td>
                         <td class="text-center">
-                            <a href="order_information?order_id='.$order_id.'" class="btn btn-outline-primary" alt="Remove"><i class="fa fa-eye"></i></a>
+                            <a href="order_information?order_id='.$order_id.'" class="btn btn-outline-primary" alt="view"><i class="fa fa-eye"></i></a>
+                ';
+                        if($order_status_id == 2) {
+                            $table .= '<button type="button" onclick="cancel(\'' . $order_id . '\')" class="btn btn-outline-danger" alt="cancel"><i class="fa fa-ban"></i></button>';
+                        } else {
+                            $table .= '<button type="button" class="btn btn-outline-danger" alt="cancel" disabled><i class="fa fa-ban"></i></button>';
+                        }
+                $table .= '
                         </td>
                     </tr>
                 ';
@@ -798,6 +720,21 @@ class BaseController extends database_connection {
 
 
 		echo $table;
+    }
+
+    function cancel_order() {
+        $order_id = $_POST["order_id"];
+
+        $conn = $this->db_conn();
+        $sql = "UPDATE orders SET order_status_id=3 WHERE order_id='$order_id'";
+
+        $sql1 = "UPDATE orders_history SET order_status_id=3 WHERE order_id='$order_id'";
+
+        if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
     }
 
     function get_orders_product($order_id) {
@@ -887,3 +824,7 @@ class BaseController extends database_connection {
 }
 
 $class = new BaseController();
+
+if(isset($_GET["cancel_order"])){
+    $class->cancel_order();
+}

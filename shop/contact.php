@@ -2,9 +2,11 @@
 require "controller/header.controller.php";
 require "assets/common/header.php";
 
+if(isset($_SESSION["customer_id"])){
 $firstname = $_SESSION["firstname"];
 $lastname = $_SESSION["lastname"];
 $full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
+}
 ?>
 
 <body>
@@ -29,18 +31,18 @@ $full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
                     <h4 class="title mb-5">Our Location</h4>
 
                     <div class="address">
-                        <h5>Location:</h5>
-                        <p>Shop Complete Address.</p>
+                        <h5><?= $class->get_info("info_title", "information_id='10' AND info_status='1'"); ?></h5>
+                        <?= $class->get_info("info_description", "information_id='10' AND info_status='1'"); ?>
                     </div>
 
                     <div class="email">
-                        <h5>Email:</h5>
-                        <p>shop@email.com</p>
+                        <h5><?= $class->get_info("info_title", "information_id='11' AND info_status='1'"); ?></h5>
+                        <?= $class->get_info("info_description", "information_id='11' AND info_status='1'"); ?>
                     </div>
 
                     <div class="telephone">
-                        <h5>Phone:</h5>
-                        <p>09123456789</p>
+                        <h5><?= $class->get_info("info_title", "information_id='12' AND info_status='1'"); ?></h5>
+                        <?= $class->get_info("info_description", "information_id='12' AND info_status='1'"); ?>
                     </div>
                 </div>
             </div>
@@ -49,9 +51,7 @@ $full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
                 <div class="form container"> 
                     <h4 class="title">Contact Form</h4>
 
-                    <div class="alert alert-danger" role="alert"></div>
-
-             
+                    <div id="alert" role="alert"></div>
 
                     <div class="mb-3">
                         <label for="customer_name" class="form-label">Full Name: *</label>
@@ -90,8 +90,6 @@ $full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
 
     <script>
         $(document).ready(function(){
-            $('.alert').hide();
-
             $('#submit').on("click", function(){
                 var customer_name = $('#customer_name').val();
                 var customer_number = $('#customer_number').val();
@@ -100,15 +98,12 @@ $full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
                 var customer_message = $('#customer_message').val();
 
                 if (customer_email != confirm_email) {
-                    $('.alert').show();
                     alert_message = "Your email not match, please try again.";
-                    $('.alert').text(alert_message);
+                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
                 } else if (customer_name == "" || customer_number == "" || customer_email == "" || confirm_email == "" || customer_message =="") {
-                    $('.alert').show();
                     alert_message = "Please double check your input field";
-                    $('.alert').text(alert_message);
+                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
                 } else {
-                    $('.alert').hide();
                     $.ajax({
                         url: 'controller/contact.controller.php',
                         method: 'POST',
@@ -119,7 +114,7 @@ $full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
                             customer_message:customer_message
                         },
                         success: function() {
-                            // window.location.replace("thankyou");
+                            window.location.replace("thankyou");
                         }
                     });
                 }

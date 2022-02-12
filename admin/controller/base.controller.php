@@ -832,10 +832,8 @@ class Base_controller extends database_connection{
 							<td>'.$info_title.'</td>
 							<td>'.$info_status.'</td>
 							<td>'.$date_added.'</td>
-							<td>
+							<td class="text-center">
 								<button type="button" class="btn btn-sm btn-info" disabled><i class="fas fa-pencil-alt"></i></button>
-
-								<button type="button" class="btn btn-sm btn-danger" disabled></i></button>
 							</td>
 						</tr>
 					';
@@ -845,10 +843,8 @@ class Base_controller extends database_connection{
 							<td>'.$info_title.'</td>
 							<td>'.$info_status.'</td>
 							<td>'.$date_added.'</td>
-							<td>
-								<button type="button" class="btn btn-sm btn-info" onclick="update_info(\'' . $information_id . '\',)"><i class="fas fa-pencil-alt"></i></button>
-
-								<button type="button" class="btn btn-sm btn-danger" onclick="delete_info(\'' . $information_id . '\')"><i class="fas fa-trash-alt"></i></button>
+							<td class="text-center">
+								<button type="button" class="btn btn-info" onclick="update_info(\'' . $information_id . '\',)"><i class="fas fa-pencil-alt"></i></button>
 							</td>
 						</tr>
 					';
@@ -909,18 +905,6 @@ class Base_controller extends database_connection{
 			echo "Record updated successfully";
 		} else {
 			echo "Error updating record: " . $conn->error;
-		}
-	}
-
-	function delete_informations() {
-		$information_id = $_POST["information_id"];
-
-		$conn = $this->db_conn();
-		$sql = "DELETE FROM information_description WHERE information_id='$information_id'";
-		if ($conn->query($sql) === TRUE) {
-			echo "Record delete successfully";
-		} else {
-			echo "Error deleting record: " . $conn->error;
 		}
 	}
 
@@ -1602,7 +1586,12 @@ class Base_controller extends database_connection{
 		$total_val = 0;
         if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$total_val += $row["val"];
+				$order_id = $row["order_id"];
+				$order_status_id = $this->get_orders_table("order_status_id", "orders", "order_id='$order_id'");
+
+				if($order_status_id == 8) {
+					$total_val += $row["val"];
+				}
 			}
 		}
 		echo "₱ ".$total_val.".00";
@@ -1770,7 +1759,7 @@ class Base_controller extends database_connection{
 	function get_orders() {
 		$table = "";
 		$conn = $this->db_conn();
-		$sql = "SELECT * FROM orders";
+		$sql = "SELECT * FROM orders WHERE order_status_id != 3";
 		$result = mysqli_query($conn, $sql);
 
 		$table .= '
@@ -1816,6 +1805,69 @@ class Base_controller extends database_connection{
 						<td class="text-center">
 							<a class="btn btn-md btn-info" href="order_summary?order_id='.$order_id.'"><i class="fas fa-eye"></i></a>
 							<button type="button" class="btn btn-md btn-danger"  onclick="delete_orders(\'' . $order_id . '\')"><i class="fas fa-trash-alt"></i></button>
+						</td>
+					</tr>
+				';
+			}
+		}
+
+		$table .='
+				</tbody>
+			</table>
+		';
+
+		echo $table;
+	}
+
+	function get_cancel_orders() {
+		$table = "";
+		$conn = $this->db_conn();
+		$sql = "SELECT * FROM orders WHERE order_status_id=3";
+		$result = mysqli_query($conn, $sql);
+
+		$table .= '
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Order ID</th>
+						<th>Customer Name</th>
+						<th>Status</th>
+						<th>Total</th>
+						<th>Date Added</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody>
+		';
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$order_id = $row["order_id"];
+				$customer_id = $row["customer_id"];
+				$firstname = $row["firstname"];
+				$lastname = $row["lastname"];
+				$email = $row["email"];
+				$telephone = $row["telephone"];
+				$payment_method = $row["payment_method"];
+				$payment_code = $row["payment_code"];
+				$total = $row["total"];
+				$order_status_id = $row["order_status_id"];
+				$ip = $row["ip"];
+				$pick_up_date = $row["pick_up_date"];
+				$date_added = $row["date_added"];
+
+				$status_name = $this->get_order_status_id("name", $order_status_id);
+			
+				$table .= '
+					<tr>
+						<td>'.$order_id.'</td>
+						<td>'.$firstname.' '.$lastname.'</td>
+						<td>'.$status_name.'</td>
+						<td>₱ '.number_format($total, 2).'</td>
+						<td>'.$date_added.'</td>
+						<td class="text-center">
+							<a class="btn btn-md btn-info" href="order_summary?order_id='.$order_id.'"><i class="fas fa-eye"></i></a>
+							<button type="button" class="btn btn-md btn-danger" onclick="delete_orders(\'' . $order_id . '\')"><i class="fas fa-trash-alt"></i></button>
 						</td>
 					</tr>
 				';
@@ -1954,7 +2006,7 @@ class Base_controller extends database_connection{
 
 		foreach ($result as $key => $value) {
 			echo '
-				<option '.($order_status_id == $value["order_status_id"] ? "selected" : "").' value="'.$value["order_status_id"].'">'.$value["name"].'</option>
+				<option '.($history_order_status == $value["order_status_id"] ? "selected" : "").' value="'.$value["order_status_id"].'">'.$value["name"].'</option>
 			';
 		}
 	}

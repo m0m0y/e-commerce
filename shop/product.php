@@ -119,9 +119,9 @@ if ($product_status == 0) {
                 <li class="nav-item">
                     <button class="nav-link tab_button active" onclick="openTabs(event, 'Description')">Description</button>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <button class="nav-link tab_button" onclick="openTabs(event, 'Review')">Review</button>
-                </li>
+                </li> -->
             </ul>
 
             <!-- Contents -->
@@ -131,7 +131,7 @@ if ($product_status == 0) {
                 </div>
             </div>
 
-            <div id="Review" class="tabcontent" style="display: flex; flex-direction: column;">
+            <!-- <div id="Review" class="tabcontent" style="display: flex; flex-direction: column;"> -->
         
             </div>
         </div>

@@ -27,6 +27,24 @@ require "assets/common/header.php";
                     <?php $class->get_order_history($customer_id); ?>
                 </div>
                 
+                <!-- Alert modal -->
+                <div class="modal fade modal-alert" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Alert message</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="alert" role="alert"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="proceed" class="btn btn-primary">Confirm</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -44,5 +62,25 @@ require "assets/common/header.php";
         $(document).ready(function(){
             $('#dataTable').DataTable();
         });
+
+        function cancel(order_id) {
+            $('.modal-alert').modal('show');
+
+            alert_message = "<b>Cancel Order!</b> Are you sure to cancel your order/s?";
+            $('#alert').html(alert_message).addClass("alert alert-warning mb-3");
+
+            $('#proceed').show().click(function(){
+                 $.ajax({
+                    url: 'controller/base.controller.php?cancel_order',
+                    method: 'POST',
+                    data: {
+                        order_id:order_id
+                    },
+                    success: function(){
+                        window.location.href = 'order_history';
+                    }
+                });
+            });
+        }
     </script>
 </body>

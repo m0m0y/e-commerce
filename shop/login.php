@@ -42,6 +42,26 @@ require "assets/common/header.php";
                 <!-- Side Menu -->
                 <?php require "assets/common/sidemenu.php"; ?>
             </div>
+
+            <!-- Alert modal -->
+            <div class="modal fade modal-alert" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Alert message</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="alert" role="alert"></div>
+                        <div id="successAlert" role="alert"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="proceed" class="btn btn-primary">Proceed</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -67,7 +87,15 @@ require "assets/common/header.php";
                         },
                         success: function(response) {
                             if (response == "success") {
-                                window.location.replace("myaccount");
+                                $('.modal-alert').modal('show');
+                                $('#close').hide();
+
+                                $('#proceed').show().click(function(){
+                                    window.location.replace("myaccount");
+                                });
+
+                                alert_message = "<b>Successfully logged-in!</b> Please click proceed";
+                                $('#successAlert').html(alert_message).addClass("alert alert-success mb-3");
                             } else if (response == "invalid") {
                                 alert_message = "No match for Email Address and Password";
                                 $('#alert').text(alert_message).addClass("alert alert-danger mb-3");

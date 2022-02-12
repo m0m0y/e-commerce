@@ -111,7 +111,7 @@ if ($check_cart == 0) {
                                                 <div class="row mb-4">
                                                     <label for="address_2" class="col-sm-3 col-form-label text-right"> Address 2:</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" name="address_2" class="form-control" value="<?= $address_2 ?>" placeholder="Address 2" required>
+                                                        <input type="text" name="address_2" class="form-control" value="<?= $address_2 ?>" placeholder="Address 2">
                                                     </div>
                                                 </div>
 
@@ -176,9 +176,13 @@ if ($check_cart == 0) {
                                                 </div>
 
                                                 <div class="row mb-4 d-grid gap-3">
+                                                    <div class="cash box p-4 bg-light border" style="display: none;">
+                                                        <?= $class->get_info("info_description", "information_id='13' AND info_status='1'"); ?>
+                                                    </div>
+
                                                     <div class="gcash box p-4 bg-light border" style="display: none;">
                                                         <h3 class="fw-normal">Gcash Details:</h3>
-                                                        <p><small>Please transfer the total amount to the following bank account.</small></p>
+                                                        <p><small>Please transfer the total amount to the following bank account. </br> <b>Your order will Proccess upon receiving the payment.</b></small></p>
                                                         <p>
                                                             Account Name: <span class="fw-bold"><?= $class->get_banks("account_name", "Gcash") ?> </span> </br>
                                                             Account Number: <span class="fw-bold"><?= $class->get_banks("account_number", "Gcash") ?> </span> </br>
@@ -186,9 +190,8 @@ if ($check_cart == 0) {
                                                     </div>
 
                                                     <div class="bank_transfer box p-4 bg-light border" style="display: none;">
-                                                        <h3>Bank Transfer Instructions:</h3>
-                                                        <p><small>Please transfer the total amount to the following bank account.</small></p>
-                                                        <h5 class="fw-normal">Bank Details:</h5>
+                                                        <h3 class="fw-normal">Bank Transfer Instructions:</h3>
+                                                        <p><small>Please transfer the total amount to the following bank account. </br> <b>Your order will Proccess upon receiving the payment.</b></small></p>
                                                         <p>
                                                             Bank Name: <span class="fw-bold"><?= $class->get_banks("bank_name", "BDO") ?> </span> </br>
                                                             Account Name: <span class="fw-bold"><?= $class->get_banks("account_name", "BDO") ?> </span> </br>

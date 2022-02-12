@@ -32,6 +32,7 @@
             <div id="collapseSale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item <?= ($host == "/test/admin/orders" ? "active" : "") ?>" href="orders">Orders</a>
+                    <a class="collapse-item <?= ($host == "/test/admin/cancel_orders" ? "active" : "") ?>" href="cancel_orders">Cancel Orders</a>
                 </div>
             </div>
         </li>
