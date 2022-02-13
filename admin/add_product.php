@@ -60,9 +60,15 @@ $weight_id = "";
                 </div>
 
                 <div class="row mb-4">
+                    <label for="store" class="col-sm-3 col-form-label text-right">Store:</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="store" class="form-control" placeholder="Store"/>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
                   <label for="description" class="col-sm-3 col-form-label text-right">Description:</label>
                   <div class="col-sm-9">
-                    <!-- <textarea id="description" name="description" rows="4" cols="50" class="form-control" placeholder="Description"></textarea> -->
                     <textarea name="description" id="description" class="form-control" rows="5"></textarea>
                   </div>
                 </div>
@@ -184,8 +190,6 @@ $weight_id = "";
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/js/demo/datatables-demo.js"></script>
-
-    <!-- Summernote -->
     <script src="vendor/summernote/summernote-lite.min.js"></script>
 
     <script src="script/product.js"></script>

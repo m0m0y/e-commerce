@@ -102,8 +102,7 @@ require "assets/common/header.php";
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
+ 
 
     <script src="script/profile.js"></script>
 </body>

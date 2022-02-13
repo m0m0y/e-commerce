@@ -111,8 +111,6 @@ $status = $class->get_info_details("info_status", "information_description", $in
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/js/demo/datatables-demo.js"></script>
-
-    <!-- Summernote -->
     <script src="vendor/summernote/summernote-lite.min.js"></script>
 
     <script src="script/information.js"></script>

@@ -530,6 +530,7 @@ class Base_controller extends database_connection{
 	function update_product() {
 		$product_id = $_POST["product_id"];
 		$product_name = $_POST["product_name"];
+		$store = $_POST["store"];
 		$product_desc = $_POST["product_desc"];
 		$meta_tag_title = $_POST["meta_tag_title"];
 		$meta_tag_description = $_POST["meta_tag_description"];
@@ -552,7 +553,7 @@ class Base_controller extends database_connection{
 		$sql = "UPDATE product SET product_name='$product_name', quantity='$quantity', stock_status_id='$stock_status', manufacturer_id='$manufacturer_id', price='$price', product_weight='$product_weight', weight_id='$weight_class', product_status='$product_status' WHERE product_id='$product_id'";
 
 		// Update for Product Description table
-		$sql1 = "UPDATE product_description SET product_name='$product_name', product_desc='$product_desc', meta_title='$meta_tag_title', meta_description='$meta_tag_description', meta_keywords='$meta_tag_keywords' WHERE product_id='$product_id'";
+		$sql1 = "UPDATE product_description SET product_name='$product_name', store='$store', product_desc='$product_desc', meta_title='$meta_tag_title', meta_description='$meta_tag_description', meta_keywords='$meta_tag_keywords' WHERE product_id='$product_id'";
 
 		// Update for product_to_category table
 		$sql2 = "UPDATE product_to_category SET category_id='$product_category' WHERE product_id='$product_id'";
@@ -591,6 +592,7 @@ class Base_controller extends database_connection{
 
 	function add_product() {
 		$product_name = $_POST["product_name"];
+		$store = $_POST["store"];
 		$description = $_POST["description"];
 		$meta_tag_title = $_POST["meta_tag_title"];
 		$meta_tag_description = $_POST["meta_tag_description"];
@@ -612,7 +614,7 @@ class Base_controller extends database_connection{
 		$conn = $this->db_conn();
 		$sql = "INSERT INTO product (product_name, quantity, stock_status_id, manufacturer_id, price, product_weight, weight_id, product_status, date_added) VALUES ('$product_name', '$quantity', '$stock_status', '$manufacturer_id', '$price', '$product_weight', '$weight_class', '$product_status', '$date_added');";
 
-		$sql .= "INSERT INTO product_description (product_name, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$description', '$meta_tag_title', '$meta_tag_description', '$meta_tag_keywords');";
+		$sql .= "INSERT INTO product_description (product_name, store, product_desc, meta_title, meta_description, meta_keywords) VALUES ('$product_name', '$store', '$description', '$meta_tag_title', '$meta_tag_description', '$meta_tag_keywords');";
 
 		$sql .= "INSERT INTO product_to_category (product_id, category_id) VALUES ((SELECT product_id FROM product WHERE product_name='$product_name'), '$product_category');";
 
@@ -1562,7 +1564,7 @@ class Base_controller extends database_connection{
 
 	function get_order_rows() {
         $conn = $this->db_conn();
-        $sql = "SELECT * FROM orders";
+        $sql = "SELECT * FROM orders WHERE order_status_id!=3";
         $result = $conn->query($sql);
         $numrow = mysqli_num_rows($result);
 

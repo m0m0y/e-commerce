@@ -12,6 +12,7 @@ $(document).ready(function() {
         var email = $('#email').val();
         var ses_group_id = $('#ses_group_id').val();
         var product_id = $('#product_id').val();
+        var store = $('#store').val();
         var product_name = $('#product_name').val();
         var product_desc = $('#description').val();
         var meta_tag_title = $('#meta_tag_title').val();
@@ -38,6 +39,7 @@ $(document).ready(function() {
                     ses_group_id:ses_group_id,
                     product_id:product_id,
                     product_name:product_name,
+                    store:store,
                     product_desc:product_desc,
                     meta_tag_title:meta_tag_title,
                     meta_tag_description:meta_tag_description,
@@ -90,6 +92,7 @@ $(document).ready(function(){
       var email = $('#email').val();
       var ses_group_id = $('#ses_group_id').val();
       var product_name = $('#product_name').val();
+      var store = $('#store').val();
       var description = $('#description').val();
       var meta_tag_title = $('#meta_tag_title').val();
       var meta_tag_description = $('#meta_tag_description').val();
@@ -115,6 +118,7 @@ $(document).ready(function(){
                 email:email,
                 ses_group_id:ses_group_id,
                 product_name:product_name,
+                store:store,
                 description:description,
                 meta_tag_title:meta_tag_title,
                 meta_tag_description:meta_tag_description,

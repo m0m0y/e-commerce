@@ -11,6 +11,7 @@ $category_id = $class->get_product_category("category_id", $product_id);
 $category_name = $class->get_category_description("category_name", $category_id);
 
 $product_name = $class->get_product_description("product_name", $product_id);
+$store = $class->get_product_description("store", $product_id);
 $product_desc = $class->get_product_description("product_desc", $product_id);
 $price = $class->get_product("price", $product_id);
 $product_status = $class->get_product("product_status", $product_id);
@@ -60,9 +61,10 @@ if ($product_status == 0) {
                 <div class="container">
                     <ul class="list-unstyled">
                         <li><h3><?= $product_name ?></h3></li>
-                        <li><small>Manufacturer/Brand: <?= $manufacturer ?></small></li>
-                        <li><small>Product ID: <?= $product_id ?></small></li>
-                        <li><small>Availability: <?= $stock_status ?></small></li>
+                        <li><small>Store: <?= $store == "" ? "N/A" : "$store" ?></small></li>
+                        <li><small>Manufacturer/Brand: <?= $manufacturer == "" ? "N/A" : "$manufacturer" ?></small></li>
+                        <li><small>Product ID: <?= $product_id == "" ? "N/A" : "$product_id" ?></small></li>
+                        <li><small>Availability: <?= $stock_status == "" ? "N/A" : "$stock_status" ?></small></li>
                         </br>
                         <li><h4>₱ <?= number_format($price, 2) ?></h4></li>
                         <hr></hr>

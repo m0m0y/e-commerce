@@ -70,7 +70,6 @@ if ($category_status == 0) {
         }
 
         function add_to_cart(customer_id, product_id, quantity) {
-            // alert(customer_id);
             $.ajax({
                 url: 'controller/cart.controller.php?add_cart',
                 method: 'POST',

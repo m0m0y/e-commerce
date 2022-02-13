@@ -101,9 +101,5 @@ require "assets/common/header.php";
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
-
     <script src="script/categories.js"></script>
 </body>

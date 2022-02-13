@@ -31,7 +31,9 @@ class BaseController extends database_connection {
             $category_id = $value["category_id"];
             $category_name = $this->get_category_description("category_name", $category_id);
 
-            echo '<li class="list-group-item"><a class="text-decoration-none" href="category?category_id='.$category_id.'">'.$category_name.'</a></li>';
+            $products_in_category = $this->get_product_to_category_rows($category_id);
+
+            echo '<li class="list-group-item"><a class="text-decoration-none" href="category?category_id='.$category_id.'">'.$category_name.' <small>('.$products_in_category.')</small></a></li>';
 		}
     }
 
@@ -292,6 +294,18 @@ class BaseController extends database_connection {
                 </div>
             ';
         }
+    }
+
+    
+    // Get the numbers of product in categories
+    function get_product_to_category_rows($category_id) {
+        $conn = $this->db_conn();
+        $sql = "SELECT * FROM product_to_category WHERE category_id='$category_id'";
+        $result = $conn->query($sql);
+
+        $numrow = mysqli_num_rows($result);
+
+        return $numrow;
     }
 
     // Get the numbers of rows in wishlist
@@ -722,21 +736,6 @@ class BaseController extends database_connection {
 		echo $table;
     }
 
-    function cancel_order() {
-        $order_id = $_POST["order_id"];
-
-        $conn = $this->db_conn();
-        $sql = "UPDATE orders SET order_status_id=3 WHERE order_id='$order_id'";
-
-        $sql1 = "UPDATE orders_history SET order_status_id=3 WHERE order_id='$order_id'";
-
-        if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
-			echo "Record updated successfully";
-		} else {
-			echo "Error updating record: " . $conn->error;
-		}
-    }
-
     function get_orders_product($order_id) {
 		$table = "";
 		$conn = $this->db_conn();
@@ -824,7 +823,3 @@ class BaseController extends database_connection {
 }
 
 $class = new BaseController();
-
-if(isset($_GET["cancel_order"])){
-    $class->cancel_order();
-}

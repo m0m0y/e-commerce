@@ -142,10 +142,31 @@ class OrderController extends database_connection {
 		}
     }
 
+
+    function cancel_order() {
+        $order_id = $_POST["order_id"];
+
+        $conn = $this->db_conn();
+        $sql = "UPDATE orders SET order_status_id=3 WHERE order_id='$order_id'";
+
+        $sql1 = "UPDATE orders_history SET order_status_id=3 WHERE order_id='$order_id'";
+
+        if ($conn->query($sql) === TRUE && $conn->query($sql1) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+    }
+
 }
 
 $class = new OrderController();
 
 if(isset($_GET["add_order"])){
 	$class->add_order();
+}
+
+
+if(isset($_GET["cancel_order"])){
+    $class->cancel_order();
 }

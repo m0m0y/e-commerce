@@ -71,7 +71,7 @@ require "assets/common/header.php";
 
             $('#proceed').show().click(function(){
                  $.ajax({
-                    url: 'controller/base.controller.php?cancel_order',
+                    url: 'controller/order.controller.php?cancel_order',
                     method: 'POST',
                     data: {
                         order_id:order_id

@@ -1,5 +1,6 @@
 <?php 
 require "assets/common/header.php";
+require "controller/chart.controller.php";
 ?>
 
 <body id="page-top">
@@ -172,9 +173,7 @@ require "assets/common/header.php";
                                     <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user"></i> New Customer Account</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <?php $class->get_latest_customers_account(); ?>
-                                    </div>
+                                    <div class="table-responsive"><?php $class->get_latest_customers_account(); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -193,9 +192,7 @@ require "assets/common/header.php";
         </div>
         <!-- End of Content Wrapper -->
 
-    </div>
-    
-
+    </div>    
     
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -206,40 +203,7 @@ require "assets/common/header.php";
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="assets/js/admin.js"></script>
     <script src="vendor/chart.js/Chart.min.js"></script>
-    <!-- <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script> -->
 
     <script src="script/home.js"></script>
-
-    <script>
-        const labels = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-        ];
-
-        const data = {
-            labels: labels,
-            datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-            }]
-        };
-
-        const config = {
-            type: 'line',
-            data: data,
-            options: {}
-        };
-
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
-    </script>
+    <?php require "script/chart.php"; ?>
 </body>

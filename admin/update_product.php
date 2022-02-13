@@ -3,6 +3,7 @@ require "assets/common/header.php";
 
 $get_product_id = $_GET["product_id"];
 $product_name = $class->get_product_info("product_name", "product_description", $get_product_id);
+$store = $class->get_product_info("store", "product_description", $get_product_id);
 $product_desc = $class->get_product_info("product_desc", "product_description", $get_product_id);
 $meta_title = $class->get_product_info("meta_title", "product_description", $get_product_id);
 $meta_descriptiom = $class->get_product_info("meta_description", "product_description", $get_product_id);
@@ -73,9 +74,16 @@ $category_id = $class->get_product_info("category_id", "product_to_category", $g
                                 </div>
 
                                 <div class="row mb-4">
+                                    <label for="store" class="col-sm-3 col-form-label text-right">Store:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="store" class="form-control" value="<?= $store ?>" placeholder="Store"/>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
                                     <label for="description" class="col-sm-3 col-form-label text-right">Description:</label>
                                     <div class="col-sm-9">
-                                        <textarea name="description" id="description" class="form-control" rows="5"><?= $product_desc ?></textarea>
+                                        <textarea name="description" id="description" class="form-control"><?= $product_desc ?></textarea>
                                     </div>
                                 </div>
 
@@ -198,8 +206,6 @@ $category_id = $class->get_product_info("category_id", "product_to_category", $g
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/js/demo/datatables-demo.js"></script>
-
-    <!-- Summernote -->
     <script src="vendor/summernote/summernote-lite.min.js"></script>
 
     <script src="script/product.js"></script>
