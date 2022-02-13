@@ -819,7 +819,6 @@ class BaseController extends database_connection {
             echo '<li>'.$name.'</li>';
 		}
     }
-
 }
 
 $class = new BaseController();

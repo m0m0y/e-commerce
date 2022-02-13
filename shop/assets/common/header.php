@@ -40,5 +40,5 @@ session_start();
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
     <!-- Icon -->
-    <link rel="icon" href="assets/images/shop_logo/icon.jpg" type="image" sizes="20x20">
+    <link rel="icon" href="assets/images/shop_logo/logo.png" type="image" sizes="20x20">
 </head>

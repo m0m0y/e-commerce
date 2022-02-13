@@ -21,7 +21,7 @@ if (isset($_SESSION["customer_id"])) {
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <div class="d-flex flex-row bd-highlight mb-3">
-            <div class="p-2 bd-highlight"><a class="navbar-brand" href="home">Logo</a></div>
+            <div class="p-2 bd-highlight"><a class="navbar-brand" href="home"><img src="assets/images/shop_logo/logo.png" alt="Logo" height="130px"></a></div>
         </div>
 
         <div class="d-flex flex-row-reverse bd-highlight">
@@ -104,8 +104,8 @@ if (isset($_SESSION["customer_id"])) {
 <!-- No Session Logo -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <div class="d-flex flex-row bd-highlight mb-3">
-            <div class="p-2 bd-highlight"><a class="navbar-brand" href="home">Logo</a></div>
+        <div class="d-flex flex-row bd-highlight">
+            <div class="p-2 bd-highlight"><a class="navbar-brand" href="home"><img src="assets/images/shop_logo/logo.png" alt="Logo" height="130px"></a></div>
         </div>
 
         <div class="d-flex flex-row-reverse bd-highlight">
