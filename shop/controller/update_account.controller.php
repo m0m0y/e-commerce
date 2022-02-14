@@ -66,6 +66,20 @@ class Update_Account extends database_connection {
 			echo "Error updating record: " . $conn->error;
 		}
 	}
+
+    function reset_password() {
+        $email = $_POST["customer_email"];
+        $password = $_POST["customer_password"];
+        
+        $conn = $this->db_conn();
+		$sql = "UPDATE customer SET password='$password' WHERE email='$email'";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "Record updated successfully";
+		} else {
+			echo "Error updating record: " . $conn->error;
+		}
+    }
 }
 
 $class = new Update_Account();
@@ -80,4 +94,8 @@ if(isset($_GET["update_customer_password"])){
 
 if(isset($_GET["update_customer_address"])){
     $class->update_customer_address();
+}
+
+if(isset($_GET["reset_password"])){
+    $class->reset_password();
 }

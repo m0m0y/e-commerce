@@ -42,7 +42,7 @@
                                         <hr>
                                         
                                         <div class="text-center">
-                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                            <small>Copyright &copy; Your Website 2021</small>
                                         </div>
                                     </div>
                                 </div>

@@ -81,7 +81,7 @@ class Register extends database_connection {
 		if ($conn->query($sql) === TRUE) {
 			echo "";
 		} else {
-			echo "error";
+			echo "cart update error";
 		}
 	}
 
@@ -91,7 +91,12 @@ class Register extends database_connection {
 		$sql = "SELECT $column FROM cart WHERE customer_id=0";
 		$result = mysqli_fetch_assoc($conn->query($sql));
 
-        return $result[$column];
+        if ($result == NULL) {
+			echo "success";
+		} else {
+			echo "success";
+			return $result[$column];
+		}
 	}
 }
 

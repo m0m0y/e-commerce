@@ -58,29 +58,5 @@ require "assets/common/header.php";
     <!-- Footer -->
     <?php require "assets/common/footer.php"; ?>
 
-    <script> 
-        $(document).ready(function(){
-            $('#dataTable').DataTable();
-        });
-
-        function cancel(order_id) {
-            $('.modal-alert').modal('show');
-
-            alert_message = "<b>Cancel Order!</b> Are you sure to cancel your order/s?";
-            $('#alert').html(alert_message).addClass("alert alert-warning mb-3");
-
-            $('#proceed').show().click(function(){
-                 $.ajax({
-                    url: 'controller/order.controller.php?cancel_order',
-                    method: 'POST',
-                    data: {
-                        order_id:order_id
-                    },
-                    success: function(){
-                        window.location.href = 'order_history';
-                    }
-                });
-            });
-        }
-    </script>
+    <script src="script/order.js"></script>
 </body>

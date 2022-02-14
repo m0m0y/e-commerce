@@ -25,8 +25,8 @@ $mail->Port = 465;
 $mail->SMTPAuth = true;
 $mail->Username = "cpascual107@gmail.com"; // Enter Email Address
 $mail->Password = "uopogosrviqdghju"; // Enter Email Password
-$mail->SetFrom("cpascual107@gmail"); // Sender
-$mail->addAddress('kahitano0017@gmail.com'); // Reciever
+$mail->SetFrom("cpascual107@gmail.com"); // Sender
+$mail->addAddress('itchaaanp@gmail.com'); // Reciever
 $mail->Subject = "Customer Inqury";
 $mail->Body = $emailBody;
 $mail->isHTML(true);

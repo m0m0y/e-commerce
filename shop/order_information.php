@@ -136,20 +136,5 @@ $status_name = $class->get_orders_tables("name", "order_status", "order_status_i
     <!-- Footer -->
     <?php require "assets/common/footer.php"; ?>
 
-    <script> 
-        function add_to_cart(customer_id, product_id, quantity) {
-            $.ajax({
-                url: 'controller/cart.controller.php?add_cart',
-                method: 'POST',
-                data: {
-                    customer_id:customer_id,
-                    product_id:product_id,
-                    quantity:quantity
-                },
-                success:function(){
-                    window.location.href = 'cart'; 
-                }
-            });
-        }
-    </script>
+    <script src="script/order.js"></script>
 </body>

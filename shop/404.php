@@ -1,3 +1,7 @@
+<?php
+require "controller/header.controller.php";
+require "assets/common/header.php";
+?>
 <body> 
     <!-- Navbar -->
     <?php require "assets/common/navbar.php"; ?>

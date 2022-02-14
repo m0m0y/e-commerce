@@ -117,9 +117,9 @@ class mailTemplate {
                     <td width="100%" style="text-align: left;">
                      <table width="100%" cellpadding="0" cellspacing="0" style="min-width:100%;">
                          <tr>
-                             <td style="background-color:#FFFFFF;color:#000000;padding:30px;">
-                                 <h1>Shop Logo</h1>
-                             </td>
+                            <td style="background-color:#FFFFFF;color:#000000;padding:30px;">
+                              <img src="assets/images/shop_logo/logo.png" alt="Logo" height="auto">
+                            </td>
                          </tr>
                      </table>
       

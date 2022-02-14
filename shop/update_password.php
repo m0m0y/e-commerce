@@ -62,41 +62,7 @@ $customer_id = $_SESSION["customer_id"];
     <!-- Footer -->
     <?php require "assets/common/footer.php"; ?>
 
-    <script>
-        $(document).ready(function(){
-            $('#back').on('click', function(){
-                window.location.href="myaccount";
-            });
-
-            $('#submit').on('click', function(){
-                var alert_message = $('#alert').val();
-                var customer_id = $('#customer_id').val();
-                var password = $('#customer_password').val();
-                var confirm_pass = $('#confirm_password').val();
-
-                if (customer_id == "" || password == "" || confirm_pass == "") {
-                    alert_message = "Please check the required fields!";
-                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
-                } else if (password != confirm_pass) {
-                    alert_message = "Your Password did not match!";
-                    $('#alert').text(alert_message).addClass("alert alert-danger mb-3");
-                } else {
-                    $.ajax({
-                        url: 'controller/update_account.controller.php?update_customer_password',
-                        method: 'POST',
-                        data: {
-                            customer_id:customer_id,
-                            password:password
-                        },
-                        success:function(){
-                            window.location.reload();
-                        }
-                    });
-                }
-            });
-        });
-
-    </script>
+    <script src="script/update_password.js"></script>
 </body>
 <?php
 } else { 

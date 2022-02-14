@@ -5,7 +5,11 @@ if (isset($_SESSION["customer_id"])) {
 <!-- Session Top Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <div class="d-flex flex-row bd-highlight mb-3"></div>
+        <div class="d-flex flex-row bd-highlight">
+            <div class="p-2 bd-highlight address">
+                <?= $class->get_info("info_description", "information_id='10' AND info_status='1'"); ?>
+            </div>
+        </div>
 
         <div class="d-flex flex-row-reverse bd-highlight">
             <div class="p-2 bd-highlight"><i class="fa fas-check-circle"></i><a class="top-header-link" href="checkout"> Checkout</a></div>
@@ -81,7 +85,11 @@ if (isset($_SESSION["customer_id"])) {
 <!-- No Session Top Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <div class="d-flex flex-row bd-highlight mb-3"></div>
+        <div class="d-flex flex-row bd-highlight">
+            <div class="p-2 bd-highlight address">
+                <?= $class->get_info("info_description", "information_id='10' AND info_status='1'"); ?>
+            </div>
+        </div>
 
         <div class="d-flex flex-row-reverse bd-highlight">              
             <div class="p-2 bd-highlight">
