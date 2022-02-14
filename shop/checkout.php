@@ -17,11 +17,9 @@ $region = $class->get_customer_address("region", $customer_id);
 
 $check_cart = $class->get_cart_rows($customer_id);
 
-if ($check_cart == 0) {
-?>
-<!-- Redirect to shopping cart if the cart is empty -->
-<script>window.location.replace("cart");</script>
-<?php
+if (empty($check_cart)) {
+    // Redirect to shopping cart if the cart is empty -->
+    echo '<script>window.location.replace("cart");</script>';
 }
 ?>
 
@@ -252,11 +250,9 @@ if ($check_cart == 0) {
 } else { 
 $customer_id = "";
 $check_cart = $class->get_cart_rows($customer_id);
-if ($check_cart == 0) {
-?>
-<!-- Redirect to shopping cart if the cart is empty -->
-<script>window.location.replace("cart");</script>
-<?php
+if (empty($check_cart)) {
+    // Redirect to shopping cart if the cart is empty -->
+    echo '<script>window.location.replace("cart");</script>';
 }
 ?>
 

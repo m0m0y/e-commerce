@@ -22,9 +22,7 @@ $address_2 = $class->get_customer_address("address_2", $customer_id);
 $city = $class->get_customer_address("city", $customer_id);
 $region = $class->get_customer_address("region", $customer_id);
 if($get_order_id != $order_id) {
-?>
-    <script>window.location.replace("404.php");</script>
-<?php
+    echo '<script>window.location.replace("404.php");</script>';
 }
 ?>
 
@@ -113,17 +111,5 @@ if($get_order_id != $order_id) {
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="assets/js/demo/datatables-demo.js"></script>
 
-    <script> 
-        $(document).ready(function(){
-            var over_all_total = 0;
-
-            $('td[data-id]').map(function() {
-                over_all_total += parseFloat($(this).find('span').text());
-            });
-
-            var sub_total = $('#sub-total').html('₱ '+over_all_total+'.00');
-            var vat = $('#vat').html('₱ 0.00');
-            var total_price = $('#total-price').html('₱ '+over_all_total+'.00');
-        });
-    </script>
+    <script src="script/print_invoice.js"></script>
 </body>

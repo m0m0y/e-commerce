@@ -21,9 +21,7 @@ class Login extends database_connection {
 				$_SESSION["password"] = $row["password"];
 
 				// Update cart customer id that get in the session 
-				if (isset($_POST)) {
-					$this->update_cart($_SESSION["customer_id"]);
-				}
+				$this->update_cart($_SESSION["customer_id"]);
 			}
 		} else {
 			echo "invalid";

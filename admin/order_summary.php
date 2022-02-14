@@ -26,9 +26,7 @@ $history_order_status = $class->get_customer_history("order_status_id", $get_ord
 
 $status_name = $class->get_order_status_id("name", $history_order_status);
 if($get_order_id != $order_id) {
-?>
-    <script>window.location.replace("404.php");</script>
-<?php
+    echo '<script>window.location.replace("404.php");</script>';
 }
 ?>
 

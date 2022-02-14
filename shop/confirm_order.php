@@ -137,7 +137,6 @@ $comment = $_POST["comment"];
                         total:total
                     },
                     success:function() {
-                        // redirect to original receipt
                         window.location.replace("order_history");
                     }
                 });

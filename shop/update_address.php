@@ -2,7 +2,6 @@
 require "controller/header.controller.php";
 require "assets/common/header.php";
 if(isset($_SESSION["customer_id"])){
-
 $customer_id = $_SESSION["customer_id"];
 
 $address_1 = $class->get_customer_address("address_1", $customer_id);
@@ -133,9 +132,7 @@ $region = $class->get_customer_address("region", $customer_id);
 
 <?php
 } else { 
-?>
-<!-- Redirect to login page if there's a no session -->
-<script>window.location.replace("login");</script>
-<?php 
+    // Redirect to login page if there's a no session
+    echo '<script>window.location.replace("login");</script>';
 } 
 ?>

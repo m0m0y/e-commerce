@@ -43,9 +43,7 @@ if(isset($_SESSION["customer_id"])){
 
 <?php
 } else { 
-?>
-<!-- Redirect to login page if there's a no session -->
-<script>window.location.replace("login");</script>
-<?php 
+    // Redirect to login page if there's a no session
+    echo '<script>window.location.replace("login");</script>';
 } 
 ?>

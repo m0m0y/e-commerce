@@ -17,7 +17,6 @@ if (isset($_SESSION["customer_id"])) {
     </div>
 </nav>
 
-<!-- Session Logo -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <div class="d-flex flex-row bd-highlight mb-3">
@@ -32,7 +31,6 @@ if (isset($_SESSION["customer_id"])) {
     </div>
 </nav>
 
-<!-- Session Menu -->
 <nav class="navbar sticky-top navbar-expand-lg">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +99,6 @@ if (isset($_SESSION["customer_id"])) {
     </div>
 </nav>
 
-<!-- No Session Logo -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <div class="d-flex flex-row bd-highlight">
@@ -116,7 +113,6 @@ if (isset($_SESSION["customer_id"])) {
     </div>
 </nav>
 
-<!-- No Session Menu -->
 <nav class="navbar sticky-top navbar-expand-lg">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,7 +128,6 @@ if (isset($_SESSION["customer_id"])) {
                     <a class="nav-link" href="about">About Us</a>
                 </li>
 
-                <!-- Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Product Categories

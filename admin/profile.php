@@ -3,16 +3,13 @@ require "assets/common/header.php";
 ?>
 
 <body id="page-top">
-
     <div id="wrapper">
         <?php require "assets/common/sidenav.php"; ?>
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+            
             <!-- Main Content -->
             <div id="content">
-
                 <?php require "assets/common/top-navbar.php"; ?>
 
                 <!-- Begin Page Content -->
@@ -76,33 +73,19 @@ require "assets/common/header.php";
                 <!-- Footer -->
                 <div id="preloader" style="display: none;"></div>
                 <?php require "assets/common/footer.php"; ?>
-
             </div>
-
         </div>
-
     </div>
 
     
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    
     <script src="assets/js/admin.min.js"></script>
-
-    
     <script src="vendor/chart.js/Chart.min.js"></script>
-
-    
- 
 
     <script src="script/profile.js"></script>
 </body>

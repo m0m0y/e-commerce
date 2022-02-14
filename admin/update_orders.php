@@ -27,9 +27,7 @@ $order_status_id = $class->get_order_details("order_status_id", $get_order_id);
 
 $status_name = $class->get_order_status_id("name", $order_status_id);
 if($get_order_id != $order_id) {
-?>
-    <script>window.location.replace("404.php");</script>
-<?php
+    echo '<script>window.location.replace("404.php");</script>';
 }
 ?>
 
@@ -140,14 +138,11 @@ if($get_order_id != $order_id) {
             </div>
         </div>
     </div>
-
-
     
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>

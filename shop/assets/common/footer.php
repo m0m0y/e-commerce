@@ -1,7 +1,6 @@
 <?php
 if (isset($_SESSION["customer_id"])) {
 ?>
-
 <section class="mt-5 container-fluid footer-section">
     <div class="container pt-5">
         <div class="row">
@@ -18,16 +17,12 @@ if (isset($_SESSION["customer_id"])) {
                 <h5>Customer Service</h5>
                 <a href="contact" class="text-decoration-none text-white">Contact Us</a>
                 <br/>
-                <a href="#" class="text-decoration-none text-white">Returns</a>
-                <br/>
                 <a href="site_map" class="text-decoration-none text-white">Site Map</a>
             </div>
 
             <div class="col-sm-12 col-md-3 pb-4">
                 <h5>Extras</h5>
                 <a href="manufacturer" class="text-decoration-none text-white">Manufacturer</a>
-                <br/>
-                <a href="#" class="text-decoration-none text-white">Special Offers</a>
             </div>
 
             <div class="col-sm-12 col-md-3 pb-4">
@@ -66,16 +61,12 @@ if (isset($_SESSION["customer_id"])) {
                 <h5>Customer Service</h5>
                 <a href="contact" class="text-decoration-none text-white">Contact Us</a>
                 <br/>
-                <a href="#" class="text-decoration-none text-white">Returns</a>
-                <br/>
                 <a href="site_map" class="text-decoration-none text-white">Site Map</a>
             </div>
 
             <div class="col-sm-12 col-md-3 pb-4">
                 <h5>Extras</h5>
                 <a href="manufacturer" class="text-decoration-none text-white">Manufacturer</a>
-                <br/>
-                <a href="#" class="text-decoration-none text-white">Special Offers</a>
             </div>
 
             <div class="col-sm-12 col-md-3 pb-4">

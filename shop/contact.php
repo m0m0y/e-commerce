@@ -3,9 +3,9 @@ require "controller/header.controller.php";
 require "assets/common/header.php";
 
 if(isset($_SESSION["customer_id"])){
-$firstname = $_SESSION["firstname"];
-$lastname = $_SESSION["lastname"];
-$full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
+    $firstname = $_SESSION["firstname"];
+    $lastname = $_SESSION["lastname"];
+    $full_name = $_SESSION["firstname"] ." ". $_SESSION["lastname"];
 }
 ?>
 

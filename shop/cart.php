@@ -8,7 +8,6 @@ if (isset($_SESSION["customer_id"])) {
 }
 
 $cart_numrows = $class->get_cart_rows($customer_id);
-
 ?>
 
 <body>
