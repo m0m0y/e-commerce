@@ -47,9 +47,9 @@ require "assets/common/header.php";
                     </div>
 
                     <div class="row mb-4">
-                        <label for="customer_telophone" class="col-sm-3 col-form-label text-right">* Telephone:</label>
+                        <label for="customer_telephone" class="col-sm-3 col-form-label text-right">* Telephone:</label>
                         <div class="col-sm-9">
-                            <input type="number" id="customer_telophone" class="form-control" placeholder="Telephone">
+                            <input type="number" id="customer_telephone" class="form-control" placeholder="Telephone">
                         </div>
                     </div>
 

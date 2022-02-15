@@ -7,7 +7,7 @@ class Register extends database_connection {
         $firstname = $_POST["customer_firstname"];
         $lastname = $_POST["customer_lastname"];
         $email = $_POST["customer_email"];
-        $telephone = $_POST["customer_telophone"];
+        $telephone = $_POST["customer_telephone"];
         $password = $_POST["customer_password"];
 
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -37,7 +37,7 @@ class Register extends database_connection {
             $sql .= "INSERT INTO customer_address (customer_id, firstname, lastname, address_1, address_2, city, postcode, region) VALUES ((SELECT customer_id FROM customer WHERE email='$email'), '$firstname', '$lastname', '$address_1', '$address_2', '$city', '$postcode', '$region');";
 
             if ($conn->multi_query($sql) === TRUE) {
-                echo "success";
+                echo "";
                 $this->get_customer();
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
@@ -91,12 +91,7 @@ class Register extends database_connection {
 		$sql = "SELECT $column FROM cart WHERE customer_id=0";
 		$result = mysqli_fetch_assoc($conn->query($sql));
 
-        // if ($result == NULL) {
-		// 	echo "success";
-		// } else {
-		// 	echo "success";
-			return $result[$column];
-		// }
+        return $result[$column];
 	}
 }
 

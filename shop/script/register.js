@@ -3,7 +3,7 @@ $(document).ready(function(){
         var customer_firstname = $('#customer_firstname').val();
         var customer_lastname = $('#customer_lastname').val();
         var customer_email = $('#customer_email').val();
-        var customer_telophone = $('#customer_telophone').val();
+        var customer_telephone = $('#customer_telephone').val();
         var customer_password = $('#customer_password').val();
         var confirm_password = $('#confirm_password').val();
 
@@ -21,7 +21,7 @@ $(document).ready(function(){
             $('#alert').html(alert_message).addClass("alert alert-danger mb-3");
         } 
         
-        else if(customer_firstname == "" || customer_lastname == "" || customer_email == "" || customer_telophone == "" || customer_password == "" || confirm_password == "" || address_1 == "" || city == "" || postcode == "" || region == "") {
+        else if(customer_firstname == "" || customer_lastname == "" || customer_email == "" || customer_telephone == "" || customer_password == "" || confirm_password == "" || address_1 == "" || city == "" || postcode == "" || region == "") {
             $('.modal-alert').modal('show');
             $('#proceed').hide();
 
@@ -37,7 +37,7 @@ $(document).ready(function(){
                     customer_firstname:customer_firstname,
                     customer_lastname:customer_lastname,
                     customer_email:customer_email,
-                    customer_telophone:customer_telophone,
+                    customer_telephone:customer_telephone,
                     customer_password:customer_password,
                     address_1:address_1,
                     address_2:address_2,
