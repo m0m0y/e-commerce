@@ -29,7 +29,7 @@ $(document).ready(function(){
                         $('#close').hide();
 
                         $('#proceed').show().click(function(){
-                            window.location.replace("myaccount");
+                            // window.location.replace("myaccount");
                         });
 
                         alert_message = "<b>Successfully logged-in!</b> Please click proceed";
