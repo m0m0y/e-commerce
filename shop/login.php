@@ -1,11 +1,10 @@
 <?php
 require "controller/header.controller.php";
 require "assets/common/header.php";
-if(isset($_SESSION["email"])){
+if(isset($_SESSION["customer_email"])){
     // Redirect to shopping cart if the cart is empty
     echo '<script>window.location.replace("myaccount");</script>';
 }
-
 ?>
 
 <body>

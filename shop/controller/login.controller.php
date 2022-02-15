@@ -18,11 +18,11 @@ class Login extends database_connection {
 			while($row = mysqli_fetch_assoc($result)) {
 				session_start();
 				$_SESSION["customer_id"] = $row["customer_id"];
-				$_SESSION["firstname"] = $row["firstname"];
-				$_SESSION["lastname"] = $row["lastname"];
-				$_SESSION["email"] = $row["email"];
-				$_SESSION["telephone"] = $row["telephone"];
-				$_SESSION["password"] = $row["password"];
+				$_SESSION["customer_firstname"] = $row["firstname"];
+				$_SESSION["customer_lastname"] = $row["lastname"];
+				$_SESSION["customer_email"] = $row["email"];
+				$_SESSION["customer_telephone"] = $row["telephone"];
+				$_SESSION["customer_password"] = $row["password"];
 
 				// Update cart customer id that get in the session 
 				$this->update_cart($_SESSION["customer_id"]);

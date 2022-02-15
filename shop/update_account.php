@@ -3,10 +3,10 @@ require "controller/header.controller.php";
 require "assets/common/header.php";
 if(isset($_SESSION["customer_id"])){
 $customer_id = $_SESSION["customer_id"];
-$firstname = $_SESSION["firstname"];
-$lastname = $_SESSION["lastname"];
-$email = $_SESSION["email"];
-$telephone = $_SESSION["telephone"];
+$firstname = $_SESSION["customer_firstname"];
+$lastname = $_SESSION["customer_lastname"];
+$email = $_SESSION["customer_email"];
+$telephone = $_SESSION["customer_telephone"];
 ?>
 
 <body> 

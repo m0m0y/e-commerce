@@ -4,10 +4,10 @@ require "assets/common/header.php";
 if(isset($_SESSION["customer_id"])){
 
 $customer_id = $_SESSION["customer_id"];
-$firstname = $_SESSION["firstname"];
-$lastname = $_SESSION["lastname"];
-$email = $_SESSION["email"];
-$telephone = $_SESSION["telephone"];
+$firstname = $_SESSION["customer_firstname"];
+$lastname = $_SESSION["customer_lastname"];
+$email = $_SESSION["customer_email"];
+$telephone = $_SESSION["customer_telephone"];
 
 $address_1 = $class->get_customer_address("address_1", $customer_id);
 $address_2 = $class->get_customer_address("address_2", $customer_id);

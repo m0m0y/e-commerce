@@ -5,15 +5,15 @@ class Update_Account extends database_connection {
     function update_customer() {
         session_start();
         $customer_id = $_POST["customer_id"];
-        $_SESSION["firstname"] = $_POST["firstname"];
-        $_SESSION["lastname"] = $_POST["lastname"];
-        $_SESSION["email"] = $_POST["email"];
-        $_SESSION["telephone"] = $_POST["telephone"];
+        $_SESSION["customer_firstname"] = $_POST["firstname"];
+        $_SESSION["customer_lastname"] = $_POST["lastname"];
+        $_SESSION["customer_email"] = $_POST["email"];
+        $_SESSION["customer_telephone"] = $_POST["telephone"];
 
         $conn = $this->db_conn();
-		$sql = "UPDATE customer SET firstname='".$_SESSION["firstname"]."', lastname='".$_SESSION["lastname"]."', email='".$_SESSION["email"]."', telephone='".$_SESSION["telephone"]."' WHERE customer_id='$customer_id'";
+		$sql = "UPDATE customer SET firstname='".$_SESSION["customer_firstname"]."', lastname='".$_SESSION["customer_lastname"]."', email='".$_SESSION["customer_email"]."', telephone='".$_SESSION["customer_telephone"]."' WHERE customer_id='$customer_id'";
 
-        $sql1 = $this->update_orders_tables("orders", "firstname='".$_SESSION["firstname"]."', lastname='".$_SESSION["lastname"]."', email='".$_SESSION["email"]."', telephone='".$_SESSION["telephone"]."'", "customer_id='$customer_id'");
+        $sql1 = $this->update_orders_tables("orders", "firstname='".$_SESSION["customer_firstname"]."', lastname='".$_SESSION["customer_lastname"]."', email='".$_SESSION["customer_email"]."', telephone='".$_SESSION["customer_telephone"]."'", "customer_id='$customer_id'");
 
 		if ($conn->query($sql) === TRUE || $conn->query($sql1) === TRUE) {
 			echo "Record updated successfully";
