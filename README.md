@@ -42,3 +42,5 @@ Email: johndoe@email.com
 Password: 1
 
 The shop-default folder is not existing.
+
+(THESIS PROJECT)
