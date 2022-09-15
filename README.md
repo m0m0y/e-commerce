@@ -43,4 +43,4 @@ Password: 1
 
 The shop-default folder is not existing.
 
-(THESIS PROJECT)
+# (THESIS PROJECT)
